@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Acceso al sistema Latido</title>
+    </h:head>
+    <h:body>
+        	<b:form>
+        		<b:panelGrid columns="3"  sytle=" align : center; halign: middle;">
+        			<b:panelGrid columns="1"></b:panelGrid>
+        			<b:panel title="Acceso" collapsible="false" look="primary">
+	        			<b:panelGrid columns="2"  sytle=" align : center; halign: middle;">
+	        				<b:image value="/images/LoginLogo.png" style=" width : 50px; heigth: 35px; align : center; halign : middle;"></b:image>
+	        				<b:panelGrid columns="1"  sytle=" align : left; halign: middle;">
+	        					<b:inputText label="Usuario:" value="#{login.usuario.clave}"></b:inputText>
+        						<b:inputSecret label="Contraseña:" value="#{login.usuario.password}"></b:inputSecret>
+	        				</b:panelGrid>
+	        			</b:panelGrid>
+        				<hr/>
+        				<b:panelGrid columns="2"  sytle=" align : left; halign: middle;">
+	        				<b:commandButton value="Entrar" icon-awesome="sign-in" look="primary" actionListener="#{login.entrar}"> </b:commandButton>
+	        				<b:navCommandLink value="Olvido su contraseña ?"></b:navCommandLink>
+	        			</b:panelGrid>
+	        		</b:panel>
+        		</b:panelGrid>
+        </b:form>
+    </h:body>
+</html>

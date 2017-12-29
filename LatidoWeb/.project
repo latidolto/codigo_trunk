@@ -3,6 +3,7 @@
 	<name>LatidoWeb</name>
 	<comment></comment>
 	<projects>
+		<project>LatidoModel</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

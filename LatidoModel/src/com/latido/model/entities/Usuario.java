@@ -3,20 +3,20 @@ package com.latido.model.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
-
 
 /**
  * The persistent class for the Usuario database table.
  * 
  */
 @Entity
-@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
+@NamedQueries ( {
+@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u") ,
+@NamedQuery(name="Usuario.findUser", query="SELECT u FROM Usuario u where u.clave = :p_clave and u.password = :p_pass") } )
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private UsuarioPK id;
+	@Id
+	private Long idUsuario;
 
 	private String apellidoMaterno;
 
@@ -38,35 +38,8 @@ public class Usuario implements Serializable {
 
 	private String usuCve;
 
-	//bi-directional many-to-many association to Rol
-	@ManyToMany
-	@JoinTable(
-		name="UsuRol"
-		, joinColumns={
-			@JoinColumn(name="idSistema", referencedColumnName="idSistema"),
-			@JoinColumn(name="idUsuario", referencedColumnName="idUsuario")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="idRol", referencedColumnName="idRol"),
-			@JoinColumn(name="idSistema", referencedColumnName="idSistema")
-			}
-		)
-	private List<Rol> rols;
-
-	//bi-directional many-to-one association to Sistema
-	@ManyToOne
-	@JoinColumn(name="idSistema")
-	private Sistema sistema;
 
 	public Usuario() {
-	}
-
-	public UsuarioPK getId() {
-		return this.id;
-	}
-
-	public void setId(UsuarioPK id) {
-		this.id = id;
 	}
 
 	public String getApellidoMaterno() {
@@ -141,20 +114,18 @@ public class Usuario implements Serializable {
 		this.usuCve = usuCve;
 	}
 
-	public List<Rol> getRols() {
-		return this.rols;
+	/**
+	 * @return the idUsuario
+	 */
+	public Long getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setRols(List<Rol> rols) {
-		this.rols = rols;
-	}
-
-	public Sistema getSistema() {
-		return this.sistema;
-	}
-
-	public void setSistema(Sistema sistema) {
-		this.sistema = sistema;
+	/**
+	 * @param idUsuario the idUsuario to set
+	 */
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 }
