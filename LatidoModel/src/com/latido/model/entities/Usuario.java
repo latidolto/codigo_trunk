@@ -3,6 +3,7 @@ package com.latido.model.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * The persistent class for the Usuario database table.
@@ -11,7 +12,9 @@ import java.util.Date;
 @Entity
 @NamedQueries ( {
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u") ,
-@NamedQuery(name="Usuario.findUser", query="SELECT u FROM Usuario u where u.clave = :p_clave and u.password = :p_pass") } )
+@NamedQuery(name="Usuario.findUser", query="SELECT u FROM Usuario u where u.clave = :p_clave and u.password = :p_pass"),
+@NamedQuery(name="Usuario.findUserByUsername", query="SELECT u FROM Usuario u where u.clave = :p_username ") 
+} )
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -37,6 +40,9 @@ public class Usuario implements Serializable {
 	private String password;
 
 	private String usuCve;
+	
+	@Transient
+	private List<UsuRol> usuRol;
 
 
 	public Usuario() {
@@ -126,6 +132,20 @@ public class Usuario implements Serializable {
 	 */
 	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
+	}
+
+	/**
+	 * @return the usuRol
+	 */
+	public List<UsuRol> getUsuRol() {
+		return usuRol;
+	}
+
+	/**
+	 * @param usuRol the usuRol to set
+	 */
+	public void setUsuRol(List<UsuRol> usuRol) {
+		this.usuRol = usuRol;
 	}
 
 }

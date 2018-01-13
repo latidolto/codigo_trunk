@@ -15,5 +15,10 @@
 		<managed-bean-class>com.latido.view.managedbean.Login</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>index</managed-bean-name>
+		<managed-bean-class>com.latido.view.managedbean.Index</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 
 </faces-config>

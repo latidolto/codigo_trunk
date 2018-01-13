@@ -1,19 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core">
-
-<f:loadBundle basename="resources.application" var="msg"/>
-
-<head>
-    <title><h:outputText value="#{msg.welcomeTitle}" /></title>
-</head>
-
-<body>
-<h3><h:outputText value="#{msg.welcomeHeading}" /></h3>
-<p><h:outputText value="#{msg.welcomeMessage}" /></p>
-</body>
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Sistema Latido</title>
+        <link rel="stylesheet" type="text/css" href="/css/latido.css"/>
+    </h:head>
+    <h:body>
+    		<b:form>
+    			<b:navBar>
+	    			<b:navbarLinks binding="#{index.navLinks}">
+	    				<b:dropMenu value="Menú">
+	    					<b:commandButton value="Home"></b:commandButton>
+	    				</b:dropMenu>
+	    			</b:navbarLinks>
+	    		</b:navBar>
+    		</b:form>
+    </h:body>
 </html>

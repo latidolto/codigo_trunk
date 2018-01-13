@@ -5,11 +5,19 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import com.latido.model.LatidoFacade;
 import com.latido.model.entities.Usuario;
+import com.latido.security.LatidoSecurityManager;
+import com.latido.view.managedbean.utils.CommonManagedBean;
+import com.latido.view.utils.UtilsWeb;
 
-public class Login {
+public class Login extends CommonManagedBean{
+	
+	public Login() {
+		super(CommonManagedBean.LOGIN_RESOURCE);
+	}
 	
 	public Usuario getUsuario() {
 		return (Usuario)LatidoFacade.getInstance().getEjb(Usuario.class.getName());
@@ -18,19 +26,21 @@ public class Login {
 	
 	public void entrar(ActionEvent ae) {
 		Usuario usu = this.getUsuario();
-		System.out.println(usu.getClave());
-		System.out.println(usu.getPassword());
 		Map params = new HashMap();
 		params.put("p_clave", usu.getClave());
-		params.put("p_pass", usu.getPassword());
+		String md5Pass = UtilsWeb.convertSimpleMD5(usu.getPassword());
+		params.put("p_pass", md5Pass);
 		List usuarios = LatidoFacade.getInstance().getListFromParameters(Usuario.class.getName(), "findUser", params);
-		Boolean isValid = Boolean.FALSE;
 		if( usuarios != null) {
 			if( usuarios.size() > 0) {
-				isValid = Boolean.TRUE;
+				try {
+					LatidoSecurityManager.registerUserInSession(usu.getClave());
+					redirectView(CommonManagedBean.INDEX);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		System.out.println("Resultado = " + isValid);
 	}
-
+	
 }

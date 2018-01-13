@@ -6,6 +6,7 @@
       xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
         <title>Acceso al sistema Latido</title>
+        <link rel="stylesheet" type="text/css" href="/css/latido.css"/>
     </h:head>
     <h:body>
         	<b:form>
@@ -13,7 +14,7 @@
         			<b:panelGrid columns="1"></b:panelGrid>
         			<b:panel title="Acceso" collapsible="false" look="primary">
 	        			<b:panelGrid columns="2"  sytle=" align : center; halign: middle;">
-	        				<b:image value="/images/LoginLogo.png" style=" width : 50px; heigth: 35px; align : center; halign : middle;"></b:image>
+	        				<b:image value="/images/lock.png" style=" width : 160px; heigth: 160px;"></b:image>
 	        				<b:panelGrid columns="1"  sytle=" align : left; halign: middle;">
 	        					<b:inputText label="Usuario:" value="#{login.usuario.clave}"></b:inputText>
         						<b:inputSecret label="Contraseña:" value="#{login.usuario.password}"></b:inputSecret>
