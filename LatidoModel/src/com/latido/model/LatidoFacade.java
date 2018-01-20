@@ -1,15 +1,20 @@
 package com.latido.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.latido.model.entities.Menu;
 import com.latido.model.entities.Rol;
+import com.latido.model.entities.Sistema;
+import com.latido.model.entities.Tarea;
 import com.latido.model.entities.UsuRol;
 import com.latido.model.entities.Usuario;
 
 public class LatidoFacade extends LatidoFacadeUtil {
 	private static LatidoFacade _demoPenolesFacade;
+	private List<Menu> menu;
 	
 	private LatidoFacade() {
 		super("LatidoModel");
@@ -28,7 +33,8 @@ public class LatidoFacade extends LatidoFacadeUtil {
 			_demoPenolesFacade.registerEJB(
 					new Object[] { new Usuario(),
 								   new UsuRol(),
-								   new Rol()
+								   new Rol(),
+								   new Sistema()
 									});
 		}
 		return _demoPenolesFacade;
@@ -67,6 +73,48 @@ public class LatidoFacade extends LatidoFacadeUtil {
 			}
 		}
 		return user;
+	}
+	/*******************************************************************************************************************************/
+	/***MENU SECTION****************************************************************************************************************/
+	public List<Menu> getMenu(Boolean refresh){
+		if(menu == null || refresh) {
+			menu = new ArrayList<Menu>();
+			// TODO Make menu
+			List<Tarea> lt = new ArrayList<Tarea>();
+			Tarea t = new Tarea();
+			t.setNombre("Tarea 1");
+			lt.add(t);
+			
+			Menu m = new Menu();
+			m.setEtiqueta("Menu 1");
+			
+			List<Menu> lm = new ArrayList<Menu>();
+			Menu sbm = new Menu();
+			sbm.setEtiqueta("SUB Menu 1");
+			sbm.setTareaChildren(lt);
+			
+			List<Menu> lm2 = new ArrayList<Menu>();
+			Menu sbm2 = new Menu();
+			sbm2.setEtiqueta("SUB Menu 2");
+			sbm2.setTareaChildren(lt);
+			lm2.add(sbm2);
+			
+			sbm.setMenuChildren(lm2);
+			
+			
+			lm.add(sbm);
+			m.setMenuChildren(lm);
+			
+			
+			m.setTareaChildren(lt);
+			
+			menu.add(m);
+			m = new Menu();
+			m.setEtiqueta("Menu 2");
+			m.setTareaChildren(lt);
+			menu.add(m);
+		}
+		return menu;
 	}
 	/*******************************************************************************************************************************/
 	

@@ -12,6 +12,7 @@
 		<class>com.latido.model.entities.UsuRol</class>
 		<class>com.latido.model.entities.UsuRolPK</class>
 		<class>com.latido.model.views.Vusuarioasignacion</class>
+		<class>com.latido.model.entities.Menu</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/latido_des"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>

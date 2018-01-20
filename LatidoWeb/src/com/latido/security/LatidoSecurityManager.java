@@ -4,6 +4,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import com.latido.model.LatidoFacade;
+import com.latido.model.entities.Sistema;
 import com.latido.model.entities.UsuRol;
 import com.latido.model.entities.Usuario;
 
@@ -11,6 +12,8 @@ public class LatidoSecurityManager {
 	public static final String USERNAME = "USERINLINE";
 	public static final String ROLES = "ASSIGNEDROLES";
 	public static final String USEROBJECT = "USEROBJECT";
+	public static final String SYSTEM_NAME = "SYSTEM_NAME";
+	public static final String SYSTEM_KEY = "SYSTEM_KEY";
 
 
 	/**
@@ -57,5 +60,20 @@ public class LatidoSecurityManager {
 	public static Usuario getUserObject() {
 		return (Usuario) getSession().getAttribute(USEROBJECT);
 	}
+	
+	public static String getSystemName() {
+		return (String) getSession().getAttribute(SYSTEM_NAME);
+	}
+	
+	public static Long getSystemKey() {
+		return (Long) getSession().getAttribute(SYSTEM_KEY);
+	}
 
+	public static void setSystemInSession(Sistema sis) {
+		if(sis != null) {
+			HttpSession session = getSession();
+			session.setAttribute(SYSTEM_NAME, sis.getNombre());
+			session.setAttribute(SYSTEM_KEY, sis.getIdSistema());
+		}
+	}
 }
