@@ -49,9 +49,9 @@
 	    		
 	    		<hr/>
 	    		<b:container id="systemChoose" rendered="#{index.systemName != 'Latido' ? false : true}">
-	    			<b:carousel id="systemsCarousel" style="width:100%" show-controls="false">
+	    			<b:panelGrid columns="3"  sytle=" align : left; halign: middle;">
 				  <c:forEach items="#{index.sistemas}" var="sis">
-				  	<b:carouselItem style="width:400px;">
+				  	
 				  		<b:well>
 					      <h3>
 					      	<h:outputText value="#{sis.nombre}"></h:outputText>
@@ -59,17 +59,19 @@
 					      <h:outputText value="#{sis.descripcion}" ></h:outputText>
 					      <br/>
 					      <hr/>
-					      <b:commandButton look="primary" 
-					      				   value="Ir al sistema" 
-					      				   icon-awesome="external-link"
-					      				   ajax="true"
-					      				   action-listener="#{index.selectSystem}">
-					      	<f:attribute name="sistema" value="#{sis}"></f:attribute>
-					      </b:commandButton>
+					      <b:buttonToolbar>
+						      <b:commandButton look="primary" 
+						      				   value="Ir al sistema" 
+						      				   icon-awesome="external-link"
+						      				   ajax="true"
+						      				   actionListener="#{index.selectSystem}">
+						      	<f:attribute name="sistema" value="#{sis}"></f:attribute>
+						      </b:commandButton>
+					      </b:buttonToolbar>
 					    </b:well>
-				  	</b:carouselItem>
+				  	
 				  </c:forEach>
-				</b:carousel>
+				</b:panelGrid>
 	    		</b:container>
 	    		<b:container id="systemResource" rendered="#{index.systemName != 'Latido' ? false : true}">
 	    			<ui:include src=""></ui:include>

@@ -21,7 +21,11 @@ public class Index extends CommonManagedBean{
 	}
 	
 	public List<Menu> getMenu(){
-		return LatidoFacade.getInstance().getMenu(false);
+		Integer sisId = 0;
+		if(LatidoSecurityManager.getSystemKey() != null) {
+			sisId = Integer.valueOf( LatidoSecurityManager.getSystemKey().toString() );
+		}
+		return LatidoFacade.getInstance().getMenu(false,sisId);
 	}
 	
 	public String getSystemName() {
@@ -51,6 +55,7 @@ public class Index extends CommonManagedBean{
 	}
 	
 	public void selectSystem(ActionEvent ae) {
+		System.out.println("Metodo de seleccion de sistema");
 		Sistema sis = (Sistema) ae.getComponent().getAttributes().get("sistema");
 		LatidoFacade.getInstance().setEjb(Sistema.class.getName(), sis);
 		LatidoSecurityManager.setSystemInSession(sis);
