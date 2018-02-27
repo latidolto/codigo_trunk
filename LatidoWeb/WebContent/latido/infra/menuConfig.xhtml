@@ -1,0 +1,278 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>Configuracion de Menu</title>
+    </h:head>
+    <h:body>
+        <b:form id="mainForm">
+        		<hr/>
+        		<b:tabView>
+        			<b:tab title="Configuracion de Menu">
+        				<b:panel id="formPanel" showCollapseLink="false" look="primary">
+		        			<b:panelGrid columns="3"  sytle=" align : left; halign: middle;">
+		        				<b:panel title="Seleccion de Sistema" look="secundary">
+		        					<b:dataTable value="#{menuConfig.sistemas}" var="row" select="true" selectionMode="single"
+		        								 ajax="true" searching="false" striped="true"
+		        								 onselect="ajax:menuConfig.onSelectSistema(row, typeOfSelection, indexes);">
+		        						<b:dataTableColumn value="#{row.nombre}" label=" " orderable="false" order="asc"> </b:dataTableColumn>
+		        					</b:dataTable>
+		        				</b:panel>
+		        				<b:panel title="Niveles del Menu" look="secundary" id="panelMenu">
+		        					<b:panelGrid columns="1">
+		        						<b:commandButton value="Agregar" icon-awesome="plus" size="sm" style="width:100%;" look="info"
+		        						                 oncomplete="$('.modalClass').modal('show')" ajax="true" update="amodal" 
+		        						                 actionListener="#{menuConfig.addMenuAction}">
+		        							<f:attribute name="level" value="1"></f:attribute>
+		        						</b:commandButton>
+		        						<br/>
+		        						<b:dataTable value="#{menuConfig.menu1}" var="row" select="true" selectionMode="single"
+		        						             onselect="ajax:menuConfig.onSelectMenu1(row, typeOfSelection, indexes);"
+		        						             paginated="false" striped="true"
+			        								 ajax="true" searching="false" id="dtMenu1">
+			        						<b:dataTableColumn label=" " orderable="false" order="asc">
+			        							<b:panelGrid columns="2" col-spans="8,4">
+			        								<h:outputText value="#{row.etiqueta}"></h:outputText> 
+			        								<b:buttonGroup>
+			        									<b:commandButton icon-awesome="pencil" size="sm" tooltip="Editar registro" look="primary"
+			        													 onclick="ajax:menuConfig.editMenu(row)"
+			        													 oncomplete="$('.modalEditClass').modal('show')" ajax="true" update="emodal" ></b:commandButton>
+			        									<b:commandButton icon-awesome="close" size="sm" tooltip="Borrar registro" look="primary"
+			        													 onclick="ajax:menuConfig.editMenu(row)"
+			        													 oncomplete="$('.modalDeleteClass').modal('show')" ajax="true" update="bmodal" ></b:commandButton>
+			        								</b:buttonGroup>
+			        							</b:panelGrid>
+			        						</b:dataTableColumn>
+			        					</b:dataTable>
+			        					<b:commandButton value="Agregar" icon-awesome="plus" size="sm" style="width:100%;" look="info"
+													 oncomplete="$('.modalClass').modal('show')" ajax="true" update="amodal" 
+		        						                 actionListener="#{menuConfig.addMenuAction}">
+		        							<f:attribute name="level" value="2"></f:attribute>
+		        						</b:commandButton>
+		        						<br/>
+			        					<b:dataTable value="#{menuConfig.menu2}" var="row" select="true" selectionMode="single"
+			        								 onselect="ajax:menuConfig.onSelectMenu2(row, typeOfSelection, indexes);"
+			        								 paginated="false" striped="true"
+			        								 ajax="true" searching="false" id="dtMenu2">
+			        						<b:dataTableColumn label=" " orderable="false" order="asc">
+			        							<b:panelGrid columns="2" col-spans="8,4">
+			        								<h:outputText value="#{row.etiqueta}"></h:outputText> 
+			        								<b:buttonGroup>
+			        									<b:commandButton icon-awesome="pencil" size="sm" tooltip="Editar registro" look="primary"
+			        													 onclick="ajax:menuConfig.editMenu(row)"
+			        													 oncomplete="$('.modalEditClass').modal('show')" ajax="true" update="emodal" ></b:commandButton>
+			        									<b:commandButton icon-awesome="close" size="sm" tooltip="Borrar registro" look="primary"
+			        													 onclick="ajax:menuConfig.editMenu(row)"
+			        													 oncomplete="$('.modalDeleteClass').modal('show')" ajax="true" update="bmodal" ></b:commandButton>
+			        								</b:buttonGroup>
+			        							</b:panelGrid>
+			        						</b:dataTableColumn>
+			        					</b:dataTable>
+			        					<b:commandButton value="Agregar" icon-awesome="plus" size="sm" style="width:100%;" look="info"
+													 oncomplete="$('.modalClass').modal('show')" ajax="true" update="amodal" 
+		        						                 actionListener="#{menuConfig.addMenuAction}">
+		        							<f:attribute name="level" value="3"></f:attribute>
+		        						</b:commandButton>
+		        						<br/>
+			        					<b:dataTable value="#{menuConfig.menu3}" var="row" select="true" selectionMode="single"
+			        								 onselect="ajax:menuConfig.onSelectMenu3(row, typeOfSelection, indexes);"
+			        								 paginated="false" striped="true"
+			        								 ajax="true" searching="false" id="dtMenu3">
+			        						<b:dataTableColumn label=" " orderable="false" order="asc">
+			        							<b:panelGrid columns="2" col-spans="8,4">
+			        								<h:outputText value="#{row.etiqueta}"></h:outputText> 
+			        								<b:buttonGroup>
+			        									<b:commandButton icon-awesome="pencil" size="sm" tooltip="Editar registro" look="primary"
+			        													 onclick="ajax:menuConfig.editMenu(row)"
+			        													 oncomplete="$('.modalEditClass').modal('show')" ajax="true" update="emodal" ></b:commandButton>
+			        									<b:commandButton icon-awesome="close" size="sm" tooltip="Borrar registro" look="primary"
+			        													 onclick="ajax:menuConfig.editMenu(row)"
+			        													 oncomplete="$('.modalDeleteClass').modal('show')" ajax="true" update="bmodal" ></b:commandButton>
+			        								</b:buttonGroup>
+			        							</b:panelGrid>
+			        						</b:dataTableColumn>
+			        					</b:dataTable>
+		        					</b:panelGrid>
+		        				</b:panel>
+		        				<b:panel title="Tareas en el menu" look="secundary" id="panelTareas">
+		        					<b:panelGrid columns="1">
+		        						<b:commandButton value="Agregar" icon-awesome="plus" size="sm" style="width:100%;" look="info"
+													 oncomplete="$('.modalNuevaTarClass').modal('show')" 
+													 ajax="true" update=":ntmodal :tareaForm" 
+													 actionListener="#{menuConfig.addTareaAction}">
+		        						</b:commandButton>
+		        						<br/>
+		        						<b:dataTable value="#{menuConfig.tareas}" var="row" select="true" selectionMode="single"
+			        								 onselect="ajax:menuConfig.onSelectTarea(row, typeOfSelection, indexes);"
+			        								 paginated="false" striped="true"
+			        								 ajax="true" searching="false" id="dtTareas">
+			        						<b:dataTableColumn label=" " orderable="false" order="asc">
+			        							<b:panelGrid columns="2" col-spans="8,4">
+			        								<h:outputText value="#{row.nombre}"></h:outputText> 
+			        								<b:buttonGroup>
+			        									<b:commandButton icon-awesome="pencil" size="sm" tooltip="Editar registro" look="primary"
+			        													 oncomplete="$('.modalNuevaTarClass').modal('show')" ajax="true" update=":ntmodal :tareaForm" ></b:commandButton>
+			        									<b:commandButton icon-awesome="close" size="sm" tooltip="Borrar registro" look="primary"
+			        													 oncomplete="$('.modalDeleteTarClass').modal('show')" ajax="true" update=":dtmodal :formDeleteTarea" ></b:commandButton>
+			        								</b:buttonGroup>
+			        							</b:panelGrid>
+			        						</b:dataTableColumn>
+			        					</b:dataTable>
+		        					</b:panelGrid>
+		        				</b:panel>
+		        			</b:panelGrid>
+		        		</b:panel>
+        			</b:tab>
+        			<b:tab title="Previsualización de Menu">
+        				<b:panel id="formPanelPrev" showCollapseLink="false" look="primary">
+        					<b:panelGrid columns="2" colSpans="4,8">
+        						<b:panel title="Seleccion de Sistema" look="secundary">
+		        					<b:dataTable value="#{menuConfig.sistemas}" var="row" select="true" selectionMode="single"
+		        								 ajax="true" searching="true" striped="true" 
+		        								 onselect="ajax:menuConfig.onSelectSistema(row, typeOfSelection, indexes);">
+		        						<b:dataTableColumn value="#{row.nombre}" label=" " orderable="true" order="asc"> </b:dataTableColumn>
+		        					</b:dataTable>
+		        				</b:panel>
+		        				<b:panel title="Previsualización del Menu" look="secundary" id="prevPanel">
+		        					<b:commandButton value="Visualizar" icon-awesome="desktop"></b:commandButton>
+		        					<b:navBar id="prevMenu">
+			        					<b:navbarLinks >
+						    				<c:forEach items="#{menuConfig.menuPrev}" var="menu">
+						    					<b:dropMenu value="#{menu.etiqueta}">
+						    						<c:forEach items="#{menu.menuChildren}" var="sbmen">
+						    							<b:dropMenu value="#{sbmen.etiqueta}">
+						    								<c:forEach items="#{sbmen.menuChildren}" var="sb2men">
+						    									<b:dropMenu value="#{sb2men.etiqueta}">
+							    									<c:forEach items="#{sb2men.tareaChildren}" var="tar">
+											    						<b:commandButton value="#{tar.nombre}" style="border : 0px;"></b:commandButton>
+											    					</c:forEach>	
+						    									</b:dropMenu>
+						    								</c:forEach>
+						    								<c:forEach items="#{sbmen.tareaChildren}" var="tar">
+									    						<b:commandButton value="#{tar.nombre}" style="border : 0px;"></b:commandButton>
+									    					</c:forEach>
+						    							</b:dropMenu>
+						    						</c:forEach>
+							    					<c:forEach items="#{menu.tareaChildren}" var="tar">
+							    						<b:commandButton value="#{tar.nombre}" style="border : 0px;"></b:commandButton>
+							    					</c:forEach>
+							    				</b:dropMenu>
+						    				</c:forEach>
+						    			</b:navbarLinks>
+			        				</b:navBar>
+		        				</b:panel>
+        					</b:panelGrid>
+        				</b:panel>
+        			</b:tab>
+        		</b:tabView>
+        		<b:growl id="growlMsg" globalOnly="true" placementFrom="bottom"
+			         show-detail="true" show-summary="false" allowDismiss="true"
+			         delay="4000" escape="true" />
+        </b:form>
+        <b:modal id="amodal" title="Nuevo Menu" class="modalClass" >
+			<b:form>
+				<b:panelGrid columns="2">
+					<b:panelGrid columns="1" >
+	     				<h:outputLabel>Etiqueta</h:outputLabel>
+	      				<b:inputText  value="#{menuConfig.menu.etiqueta}" required="true"></b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="1" >
+	     				<h:outputLabel>Descripcion</h:outputLabel>
+	      				<b:inputText  value="#{menuConfig.menu.descripcion}" required="true"></b:inputText>
+	     			</b:panelGrid>
+				</b:panelGrid>
+			   	<hr/>
+			   	<b:buttonGroup>
+			   		<b:commandButton value="Guardar"  look="primary" icon-awesome="save"
+			   					     ajax="true"
+			   		   				 onclick="ajax:menuConfig.saveMenuAction()"></b:commandButton>
+		    			<b:commandButton value="Cerrar" oncomplete="$('#amodal').modal('hide');" look="primary" icon-awesome="close"></b:commandButton>			
+			   	</b:buttonGroup>
+		    </b:form>
+		</b:modal>
+		<b:modal id="emodal" title="Editar Menu" class="modalEditClass" >
+			<b:form>
+				<b:panelGrid columns="2">
+					<b:panelGrid columns="1" >
+	     				<h:outputLabel>Etiqueta</h:outputLabel>
+	      				<b:inputText  value="#{menuConfig.menu.etiqueta}" required="true"></b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="1" >
+	     				<h:outputLabel>Descripcion</h:outputLabel>
+	      				<b:inputText value="#{menuConfig.menu.descripcion}" required="true"></b:inputText>
+	     			</b:panelGrid>
+				</b:panelGrid>
+			   	<hr/>
+			   	<b:buttonGroup>
+			   		<b:commandButton value="Guardar"  look="primary" icon-awesome="save"
+			   					     ajax="true"
+			   		   				 onclick="ajax:menuConfig.saveEditMenuAction()"></b:commandButton>
+		    			<b:commandButton value="Cerrar" oncomplete="$('#emodal').modal('hide');" look="primary" icon-awesome="close"></b:commandButton>			
+			   	</b:buttonGroup>
+		    </b:form>
+		</b:modal>
+		<b:modal id="bmodal" title="Borrar Menu" class="modalDeleteClass" >
+			<b:form>
+				<b:panelGrid columns="1">
+					<h:outputText value="Esta apunto de borrrar el siguente Menu:"/>
+					<h:outputText value="#{menuConfig.menu.etiqueta}" style="font-weight: bold;"/>
+					<h:outputText value="¿Esta seguro?"></h:outputText>
+				</b:panelGrid>
+			   	<hr/>
+			   	<b:buttonGroup>
+			   		<b:commandButton value="Borrar"  look="primary" icon-awesome="eraser"
+			   					     ajax="true"
+			   		   				 onclick="ajax:menuConfig.confirmDeleteMenuAction()"></b:commandButton>
+		    			<b:commandButton value="Cerrar" oncomplete="$('#bmodal').modal('hide');" look="primary" icon-awesome="close"></b:commandButton>			
+			   	</b:buttonGroup>
+		    </b:form>
+		</b:modal>
+		<b:modal id="ntmodal" title="Nueva Tarea" class="modalNuevaTarClass" size="modal-lg">
+			<b:form id="tareaForm">
+				<b:panelGrid columns="3">
+					<b:panelGrid columns="1" >
+	     				<h:outputLabel>Nombre</h:outputLabel>
+	      				<b:inputText  value="#{menuConfig.tarea.nombre}" required="true"></b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="1" >
+	     				<h:outputLabel>Url</h:outputLabel>
+	      				<b:inputText  value="#{menuConfig.tarea.url}" required="true"></b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="1" >
+	     				<h:outputLabel>Url Ayuda</h:outputLabel>
+	      				<b:inputText  value="#{menuConfig.tarea.urlAyuda}" required="true"></b:inputText>
+	     			</b:panelGrid>
+				</b:panelGrid>
+			   	<hr/>
+			   	<b:buttonGroup>
+			   		<b:commandButton value="Guardar"  look="primary" icon-awesome="eraser"
+			   					     ajax="true"
+			   		   				 onclick="ajax:menuConfig.saveTareaAction()"
+			   		   				 oncomplete="$('#ntmodal').modal('hide');"></b:commandButton>
+		    			<b:commandButton value="Cerrar" oncomplete="$('#ntmodal').modal('hide');" look="primary" icon-awesome="close"></b:commandButton>			
+			   	</b:buttonGroup>
+		    </b:form>
+		</b:modal>
+		<b:modal id="dtmodal" title="Nueva Tarea" class="modalDeleteTarClass" >
+			<b:form id="formDeleteTarea">
+				<b:panelGrid columns="1">
+					<h:outputText value="Esta apunto de borrrar la siguiente Tarea:"/>
+					<h:outputText value="#{menuConfig.tarea.nombre}" style="font-weight: bold;"/>
+					<h:outputText value="¿Esta seguro?"></h:outputText>
+				</b:panelGrid>
+			   	<hr/>
+			   	<b:buttonGroup>
+			   		<b:commandButton value="Borrar"  look="primary" icon-awesome="eraser"
+			   					     ajax="true"
+			   		   				 onclick="ajax:menuConfig.confirmDeleteTareaAction()"
+			   		   				 oncomplete="$('#dtmodal').modal('hide');"></b:commandButton>
+		    			<b:commandButton value="Cerrar" oncomplete="$('#dtmodal').modal('hide');" look="primary" icon-awesome="close"></b:commandButton>			
+			   	</b:buttonGroup>
+		    </b:form>
+		</b:modal>
+    </h:body>
+</html>

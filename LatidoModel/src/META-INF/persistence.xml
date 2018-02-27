@@ -3,12 +3,10 @@
 	<persistence-unit name="LatidoModel" transaction-type="RESOURCE_LOCAL">
 		<class>com.latido.model.entities.Usuario</class>
 		<class>com.latido.model.entities.Rol</class>
-		<class>com.latido.model.entities.RolPK</class>
 		<class>com.latido.model.entities.RolTarea</class>
 		<class>com.latido.model.entities.RolTareaPK</class>
 		<class>com.latido.model.entities.Sistema</class>
 		<class>com.latido.model.entities.Tarea</class>
-		<class>com.latido.model.entities.TareaPK</class>
 		<class>com.latido.model.entities.UsuRol</class>
 		<class>com.latido.model.entities.UsuRolPK</class>
 		<class>com.latido.model.views.Vusuarioasignacion</class>

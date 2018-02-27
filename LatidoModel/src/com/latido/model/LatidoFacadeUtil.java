@@ -27,9 +27,9 @@ public class LatidoFacadeUtil extends LatidoEMUtil{
 		Class<?> c = ejb.getClass();
 		Table table = c.getAnnotation(Table.class);
 		String tableName = table.name();
-		tableName = camelToUnderScore(tableName);
+		//tableName = camelToUnderScore(tableName);
 		String columnName = findIdField(ejb.getClass());
-		columnName = camelToUnderScore(columnName);
+		//columnName = camelToUnderScore(columnName);
 		
 		Integer nextId = 0;
 		StringBuilder stb = new StringBuilder();
@@ -144,16 +144,47 @@ public class LatidoFacadeUtil extends LatidoEMUtil{
 	public void deleteEjb(String className){
 		Object ejb = null;
 		if(mapEjb != null){
+			//EntityTransaction trx = this.getEM().getTransaction();
+	        //trx.begin();
+			/*ejb = mapEjb.get(className);
+			if(ejb != null){
+				this.getEM().remove(ejb);
+				this.getEM().flush();
+				trx.commit();
+			}else{
+				System.out.println("deleteEjb - EJB Not Registered...");
+			}*/
 			EntityTransaction trx = this.getEM().getTransaction();
 	        trx.begin();
 			ejb = mapEjb.get(className);
 			if(ejb != null){
-				this.getEM().remove(ejb);
-				trx.commit();
+				Class<?> c = ejb.getClass();
+				Table table = c.getAnnotation(Table.class);
+				String tableName = table.name();
+				Field idField = null;
+				try {
+					for(Field field : c.getDeclaredFields()){
+				        Annotation[] annotations = field.getDeclaredAnnotations();
+				        for (int i = 0; i < annotations.length; i++) {
+				            if (annotations[i].annotationType().equals(Id.class)) {
+				                idField = field;
+				                break;
+				            }
+				        }
+				    }
+					idField.setAccessible(true);
+					String deleteQuery = "Delete from "+tableName+" where "+idField.getName()+" = "+ idField.get(ejb);
+					Query delete = this.getEM().createNativeQuery(deleteQuery);
+					delete.executeUpdate();
+					trx.commit();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}else{
 				System.out.println("deleteEjb - EJB Not Registered...");
 			}
 		}
+			
 	}
 	
 	public void registerEjbList(String className,List list){

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.TypedQuery;
+
 import com.latido.model.entities.Menu;
 import com.latido.model.entities.Rol;
 import com.latido.model.entities.Sistema;
@@ -34,7 +36,9 @@ public class LatidoFacade extends LatidoFacadeUtil {
 					new Object[] { new Usuario(),
 								   new UsuRol(),
 								   new Rol(),
-								   new Sistema()
+								   new Sistema(),
+								   new Menu(),
+								   new Tarea()
 									});
 		}
 		return _demoPenolesFacade;
@@ -63,7 +67,8 @@ public class LatidoFacade extends LatidoFacadeUtil {
 						List lr = super.getListFromParameters(Rol.class.getName(), "findById", params);
 						if(lr != null) {
 							Rol r = new Rol();
-							r.setId( ((Rol)lr.get(0)).getId() );
+							r.setIdRol( ((Rol)lr.get(0)).getIdRol() );
+							r.setIdSistema( ((Rol)lr.get(0)).getIdSistema() );
 							r.setNombre( ((Rol)lr.get(0)).getNombre() );
 							ur.setRol(r);
 						}
@@ -76,11 +81,60 @@ public class LatidoFacade extends LatidoFacadeUtil {
 	}
 	/*******************************************************************************************************************************/
 	/***MENU SECTION****************************************************************************************************************/
-	public List<Menu> getMenu(Boolean refresh){
-		if(menu == null || refresh) {
+	public List<Menu> getMenu(Boolean refresh, int idSistema){
+		if( ( menu == null || refresh ) && idSistema != 0 ) {
 			menu = new ArrayList<Menu>();
+			TypedQuery query = this.getEM().createNamedQuery("Menu.findMenuBySistem", Menu.class);
+			query.setParameter("p_idSistema", idSistema);
+			menu = query.getResultList();
+			
+			///////LEVEL 1////////
+			for(Menu m1 : menu) {
+				// MENUS //
+				List<Menu> lm1 = new ArrayList<Menu>();
+				query = this.getEM().createNamedQuery("Menu.findMenuChildren", Menu.class);
+				query.setParameter("p_idSistema", idSistema);
+				query.setParameter("p_idMenuPadre", m1.getIdMenu());
+				lm1 = query.getResultList();
+				///////LEVEL 2////////
+				for(Menu m2 : lm1) {
+					// MENUS //
+					List<Menu> lm2 = new ArrayList<Menu>();
+					query = this.getEM().createNamedQuery("Menu.findMenuChildren", Menu.class);
+					query.setParameter("p_idSistema", idSistema);
+					query.setParameter("p_idMenuPadre", m2.getIdMenu());
+					lm2 = query.getResultList();
+					///////LEVEL 3////////
+					for(Menu m3 : lm2) {
+						// TAREAS //
+						List<Tarea> lt3 = new ArrayList<Tarea>();
+						query = this.getEM().createNamedQuery("Tarea.findTareaByMenu", Tarea.class);
+						query.setParameter("p_idSistema", idSistema);
+						query.setParameter("p_idMenu", m3.getIdMenu());
+						lt3 = query.getResultList();
+						m3.setTareaChildren(lt3);
+					}
+					m2.setMenuChildren(lm1);
+					// TAREAS //
+					List<Tarea> lt2 = new ArrayList<Tarea>();
+					query = this.getEM().createNamedQuery("Tarea.findTareaByMenu", Tarea.class);
+					query.setParameter("p_idSistema", idSistema);
+					query.setParameter("p_idMenu", m2.getIdMenu());
+					lt2 = query.getResultList();
+					m2.setTareaChildren(lt2);
+				}
+				m1.setMenuChildren(lm1);
+				// TAREAS //
+				List<Tarea> lt1 = new ArrayList<Tarea>();
+				query = this.getEM().createNamedQuery("Tarea.findTareaByMenu", Tarea.class);
+				query.setParameter("p_idSistema", idSistema);
+				query.setParameter("p_idMenu", m1.getIdMenu());
+				lt1 = query.getResultList();
+				m1.setTareaChildren(lt1);
+			}
+			
 			// TODO Make menu
-			List<Tarea> lt = new ArrayList<Tarea>();
+			/*List<Tarea> lt = new ArrayList<Tarea>();
 			Tarea t = new Tarea();
 			t.setNombre("Tarea 1");
 			lt.add(t);
@@ -112,7 +166,7 @@ public class LatidoFacade extends LatidoFacadeUtil {
 			m = new Menu();
 			m.setEtiqueta("Menu 2");
 			m.setTareaChildren(lt);
-			menu.add(m);
+			menu.add(m);*/
 		}
 		return menu;
 	}

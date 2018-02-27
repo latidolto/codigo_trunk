@@ -10,7 +10,11 @@ import java.util.Date;
  * 
  */
 @Entity
-@NamedQuery(name="Sistema.findAll", query="SELECT s FROM Sistema s")
+@Table(name="sistema")
+@NamedQueries({ 
+@NamedQuery(name="Sistema.findAll", query="SELECT s FROM Sistema s where s.estatus = 1"),
+@NamedQuery(name="Sistema.findAllSis", query="SELECT s FROM Sistema s ")
+})
 public class Sistema implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" version="2.0">
+    <h:head>
+        <title>Usuarios</title>
+    </h:head>
+    <h:body>
+        <b:form>
+        		<b:buttonGroup>
+	    			<b:commandButton value="Guardar" icon-awesome="save" 
+	    							 look="primary" 
+	    							 actionListener="#{user.saveAction}"
+	    							 ajax="true"/>
+	    			<b:commandButton value="Limpiar" icon-awesome="eraser" 
+	    							 look="primary" 
+	    							 actionListener="#{user.clearAction}"
+	    							 ajax="true"/>
+	    		</b:buttonGroup>
+	    		<hr/>
+	    		<b:panel id="formPanel" title="Usuarios" look="primary">
+	    			<b:panelGrid columns="4"  sytle=" align : left; halign: middle;">
+	    				<b:panelGrid columns="2" colSpans="4,8" >
+        					<h:outputLabel>Sistema</h:outputLabel>
+						<b:selectOneMenu id="somSistema" span="200" value="#{user.user.idSistema}">
+							<f:selectItems value="#{user.sistemas}" var="sis" itemLabel="#{sis.nombre}" itemValue="#{sis.idSistema}"></f:selectItems>
+						</b:selectOneMenu>
+        				</b:panelGrid>
+	    				<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel>Correo Electronico</h:outputLabel>
+	      				<b:inputText id="txtClave" value="#{user.user.clave}"></b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel>Nombre</h:outputLabel>
+	      				<b:inputText id="txtNombre" value="#{user.user.nombre}"></b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel>Apellido Paterno</h:outputLabel>
+	      				<b:inputText id="txtApePat" value="#{user.user.apellidoPaterno}"></b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel>Apellido Materno</h:outputLabel>
+	      				<b:inputText id="txtapeMat" value="#{user.user.apellidoMaterno}"></b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8" >
+        					<h:outputLabel>Estatus</h:outputLabel>
+						<b:selectOneMenu id="somEstCiv" span="200" value="#{user.user.estatus}">
+							<f:selectItem itemLabel="Activo" itemValue="1"></f:selectItem>
+							<f:selectItem itemLabel="Inactivo" itemValue="0"></f:selectItem>
+						</b:selectOneMenu>
+        				</b:panelGrid>
+	     			<b:commandButton value="Avatar" type="button" ajax="true" onclick="$('.modalClass').modal('show')"></b:commandButton>
+	     			<h:graphicImage id="avatarGrpForm" value="../../../imageServlet?IMG_PATH=#{user.user.srcTempImg}" style="height: 75px; width: 75px;" ></h:graphicImage>
+	    			</b:panelGrid>
+	    		</b:panel>
+	    		<hr/>
+	    		<b:dataTable value="#{user.users}" var="row" select="true" selectionMode="single" id="formDT"
+	    					 ajax="true" multiColumnSearch="true" onselect="ajax:user.onSelect(row, typeOfSelection, indexes)">
+	    			<b:dataTableColumn label="Correo Electronico" value="#{row.clave}"></b:dataTableColumn>
+	    			<b:dataTableColumn label="Nombre" value="#{row.nombre}"></b:dataTableColumn>
+	    			<b:dataTableColumn label="Apellido Paterno" value="#{row.apellidoPaterno}"></b:dataTableColumn>
+	    			<b:dataTableColumn label="Apellido Materno" value="#{row.apellidoMaterno}"></b:dataTableColumn>
+	    			<b:dataTableColumn label="Avatar"> <h:graphicImage value="../../../imageServlet?IMG_PATH=#{row.srcTempImg}" style="height: 25px; width: 25px;" ></h:graphicImage> </b:dataTableColumn>
+	    			<b:dataTableColumn value="#{row.estatus == 1 ? 'Activo' : 'Inactivo'}" label="Estatus"/>
+	    		</b:dataTable>
+        </b:form>
+        <b:modal id="amodal" title="Subir Archivo" class="modalClass" >
+			<b:form enctype="multipart/form-data">
+				<b:panelGrid columns="1">
+					<b:panelGrid columns="1" >
+	     				<h:outputLabel>Archivo:</h:outputLabel>
+	      				<h:inputFile value="#{user.part}" />
+	     			</b:panelGrid>
+				</b:panelGrid>
+			   	<hr/>
+			   	<b:buttonGroup>
+			   		<b:commandButton value="Aceptar"  look="primary" icon-awesome="save"
+			   						 oncomplete="$('#amodal').modal('hide');" actionListener="#{user.saveAvatarAction}"
+			   					     ajax="true"></b:commandButton>
+		    			<b:commandButton value="Cerrar" oncomplete="$('#amodal').modal('hide');" look="primary" icon-awesome="close"></b:commandButton>			
+			   	</b:buttonGroup>
+		    </b:form>
+		</b:modal>
+    </h:body>
+</html>

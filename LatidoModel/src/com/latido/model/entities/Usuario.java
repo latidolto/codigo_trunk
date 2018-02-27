@@ -1,5 +1,7 @@
 package com.latido.model.entities;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
@@ -10,6 +12,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="Usuario")
 @NamedQueries ( {
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u") ,
 @NamedQuery(name="Usuario.findUser", query="SELECT u FROM Usuario u where u.clave = :p_clave and u.password = :p_pass"),
@@ -19,7 +22,7 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private Long idUsuario;
+	private Integer idUsuario;
 
 	private String apellidoMaterno;
 
@@ -41,8 +44,13 @@ public class Usuario implements Serializable {
 
 	private String usuCve;
 	
+	private int idSistema;
+	
 	@Transient
 	private List<UsuRol> usuRol;
+	
+	@Transient
+	private String srcTempImg;
 
 
 	public Usuario() {
@@ -123,14 +131,14 @@ public class Usuario implements Serializable {
 	/**
 	 * @return the idUsuario
 	 */
-	public Long getIdUsuario() {
+	public Integer getIdUsuario() {
 		return idUsuario;
 	}
 
 	/**
 	 * @param idUsuario the idUsuario to set
 	 */
-	public void setIdUsuario(Long idUsuario) {
+	public void setIdUsuario(Integer idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 
@@ -146,6 +154,48 @@ public class Usuario implements Serializable {
 	 */
 	public void setUsuRol(List<UsuRol> usuRol) {
 		this.usuRol = usuRol;
+	}
+
+	/**
+	 * @return the idSistema
+	 */
+	public int getIdSistema() {
+		return idSistema;
+	}
+
+	/**
+	 * @param idSistema the idSistema to set
+	 */
+	public void setIdSistema(int idSistema) {
+		this.idSistema = idSistema;
+	}
+
+	/**
+	 * @return the srcTempImg
+	 */
+	public String getSrcTempImg() {
+		if(this.avatar != null && this.srcTempImg == null) {
+			try  {
+				File f = File.createTempFile("avatar",".jpg");
+				String filePath = f.getAbsolutePath();
+				FileOutputStream fos = new FileOutputStream(filePath);
+			    fos.write(this.avatar);
+			    fos.close();
+			    srcTempImg = filePath;
+			   
+			    //System.out.println(srcTempImg);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		return srcTempImg;
+	}
+
+	/**
+	 * @param srcTempImg the srcTempImg to set
+	 */
+	public void setSrcTempImg(String srcTempImg) {
+		//this.srcTempImg = srcTempImg;
 	}
 
 }

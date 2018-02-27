@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Roles</title>
+    </h:head>
+    <h:body>
+   		<b:form>
+   			<b:buttonGroup>
+	    			<b:commandButton value="Guardar" icon-awesome="save" 
+	    							 look="primary" 
+	    							 actionListener="#{role.saveAction}"
+	    							 ajax="true"/>
+	    			<b:commandButton value="Limpiar" icon-awesome="eraser" 
+	    							 look="primary" 
+	    							 actionListener="#{role.clearAction}"
+	    							 ajax="true"/>
+	    		</b:buttonGroup>
+	    		<hr/>
+	    		<b:panel id="formPanel" title="Roles" look="primary">
+	    			<b:panelGrid columns="3"  sytle=" align : left; halign: middle;">
+	        			<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel>Nombre</h:outputLabel>
+	      				<b:inputText id="txtNombre" value="#{role.role.nombre}"></b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8" >
+	       				<h:outputLabel>Sistema</h:outputLabel>
+						<b:selectOneMenu id="somSistema" span="200" value="#{role.role.idSistema}">
+							<f:selectItems value="#{role.sistemas}" var="sis" itemLabel="#{sis.nombre}" itemValue="#{sis.idSistema}"></f:selectItems>
+						</b:selectOneMenu>
+	       			</b:panelGrid>
+		     	</b:panelGrid>
+	    		</b:panel>
+	    		<hr/>
+			<b:dataTable value="#{role.roles}"
+		                 var="row"
+		                 select="true"
+		                 multiColumnSearch="true"
+		                 selectionMode="single"
+		                 onselect="ajax:role.onSelect(row, typeOfSelection, indexes);">
+		        <b:dataTableColumn value="#{row.nombre}" label="Nombre"/>
+		        <b:dataTableColumn label="Sistema">
+		        		<b:selectOneMenu id="somSistemaDt" span="200" value="#{row.idSistema}" readonly="true" >
+						<f:selectItems value="#{role.sistemas}" var="sis" itemLabel="#{sis.nombre}" itemValue="#{sis.idSistema}"></f:selectItems>
+					</b:selectOneMenu>
+		        </b:dataTableColumn>
+		    </b:dataTable>
+		    <b:growl id="growlMsg" globalOnly="true" placementFrom="bottom"
+			         show-detail="true" show-summary="false" allowDismiss="true"
+			         delay="4000" escape="true" />
+   		</b:form>
+    </h:body>
+</html>

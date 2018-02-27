@@ -10,12 +10,18 @@ import java.util.Date;
  * 
  */
 @Entity
-@NamedQuery(name="Tarea.findAll", query="SELECT t FROM Tarea t")
+@Table(name="tarea")
+@NamedQueries( {
+@NamedQuery(name="Tarea.findAll", query="SELECT t FROM Tarea t"),
+@NamedQuery(name="Tarea.findTareaByMenu", query="SELECT t FROM Tarea t where t.idMenu = :p_idMenu and t.idSistema = :p_idSistema ") 
+} )
 public class Tarea implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private TareaPK id;
+	@Id
+	private int idTarea;
+	private int idMenu;
+	private int idSistema;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fecMod;
@@ -29,14 +35,6 @@ public class Tarea implements Serializable {
 	private String usuCve;
 
 	public Tarea() {
-	}
-
-	public TareaPK getId() {
-		return this.id;
-	}
-
-	public void setId(TareaPK id) {
-		this.id = id;
 	}
 
 	public Date getFecMod() {
@@ -77,6 +75,48 @@ public class Tarea implements Serializable {
 
 	public void setUsuCve(String usuCve) {
 		this.usuCve = usuCve;
+	}
+
+	/**
+	 * @return the idTarea
+	 */
+	public int getIdTarea() {
+		return idTarea;
+	}
+
+	/**
+	 * @param idTarea the idTarea to set
+	 */
+	public void setIdTarea(int idTarea) {
+		this.idTarea = idTarea;
+	}
+
+	/**
+	 * @return the idMenu
+	 */
+	public int getIdMenu() {
+		return idMenu;
+	}
+
+	/**
+	 * @param idMenu the idMenu to set
+	 */
+	public void setIdMenu(int idMenu) {
+		this.idMenu = idMenu;
+	}
+
+	/**
+	 * @return the idSistema
+	 */
+	public int getIdSistema() {
+		return idSistema;
+	}
+
+	/**
+	 * @param idSistema the idSistema to set
+	 */
+	public void setIdSistema(int idSistema) {
+		this.idSistema = idSistema;
 	}
 
 }

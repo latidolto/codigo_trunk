@@ -1,7 +1,6 @@
 package com.latido.model.entities;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -9,24 +8,28 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
+@Table(name="menu")
 @NamedQueries({ 
 	@NamedQuery(name="Menu.findAll", query="SELECT m FROM Menu m"),
+	@NamedQuery(name="Menu.findMenuBySistem", query="SELECT m FROM Menu m where m.idSistema = :p_idSistema and m.idMenuPadre is null"),
+	@NamedQuery(name="Menu.findMenuChildren", query="SELECT m FROM Menu m where m.idSistema = :p_idSistema and m.idMenuPadre = :p_idMenuPadre")
 } )
 public class Menu implements Serializable{
 	@Id
-	private Long idMenu;
+	private Integer idMenu;
 	private String etiqueta;
 	private String descripcion;
-	private Long idMenuPadre;
+	private Integer idMenuPadre;
 	private String usuCve;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fecMod;
-	private Long idSistema;
+	private int idSistema;
 	@Transient
 	private List<Menu> menuChildren;
 	@Transient
@@ -35,13 +38,13 @@ public class Menu implements Serializable{
 	/**
 	 * @return the idMenu
 	 */
-	public Long getIdMenu() {
+	public Integer getIdMenu() {
 		return idMenu;
 	}
 	/**
 	 * @param idMenu the idMenu to set
 	 */
-	public void setIdMenu(Long idMenu) {
+	public void setIdMenu(Integer idMenu) {
 		this.idMenu = idMenu;
 	}
 	/**
@@ -71,13 +74,13 @@ public class Menu implements Serializable{
 	/**
 	 * @return the idMenuPadre
 	 */
-	public Long getIdMenuPadre() {
+	public Integer getIdMenuPadre() {
 		return idMenuPadre;
 	}
 	/**
 	 * @param idMenuPadre the idMenuPadre to set
 	 */
-	public void setIdMenuPadre(Long idMenuPadre) {
+	public void setIdMenuPadre(Integer idMenuPadre) {
 		this.idMenuPadre = idMenuPadre;
 	}
 	/**
@@ -107,13 +110,13 @@ public class Menu implements Serializable{
 	/**
 	 * @return the idSistema
 	 */
-	public Long getIdSistema() {
+	public int getIdSistema() {
 		return idSistema;
 	}
 	/**
 	 * @param idSistema the idSistema to set
 	 */
-	public void setIdSistema(Long idSistema) {
+	public void setIdSistema(int idSistema) {
 		this.idSistema = idSistema;
 	}
 	/**
