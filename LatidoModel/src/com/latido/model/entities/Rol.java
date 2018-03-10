@@ -12,7 +12,9 @@ import javax.persistence.*;
 @Table(name="rol")
 @NamedQueries({
 @NamedQuery(name="Rol.findAll", query="SELECT r FROM Rol r"),
-@NamedQuery(name="Rol.findById", query="SELECT r FROM Rol r where r.idRol = :p_idRol and r.idSistema = :p_idSistema")
+@NamedQuery(name="Rol.findById", query="SELECT r FROM Rol r where r.idRol = :p_idRol and r.idSistema = :p_idSistema"),
+@NamedQuery(name="Rol.findBySys", query="SELECT r FROM Rol r where r.idSistema = :p_idSistema")
+
 })
 public class Rol implements Serializable {
 	private static final long serialVersionUID = 1L;

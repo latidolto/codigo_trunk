@@ -9,6 +9,7 @@ import javax.faces.event.ActionEvent;
 import com.latido.model.LatidoFacade;
 import com.latido.model.entities.Menu;
 import com.latido.model.entities.Sistema;
+import com.latido.model.entities.Tarea;
 import com.latido.model.entities.Usuario;
 import com.latido.security.LatidoSecurityManager;
 import com.latido.view.managedbean.utils.CommonManagedBean;
@@ -37,7 +38,7 @@ public class Index extends CommonManagedBean{
 	}
 	
 	public String getCurrentDate() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		return sdf.format(new Date(System.currentTimeMillis()));
 	}
 	
@@ -61,6 +62,20 @@ public class Index extends CommonManagedBean{
 		LatidoSecurityManager.setSystemInSession(sis);
 		System.out.println("Sistema seleccionado:"+sis.getNombre());
 		JsfUtils.resfreshComponentById("mainForm");
+	}
+	
+	public void selectResource(ActionEvent ae) {
+		Tarea tar = (Tarea)ae.getComponent().getAttributes().get("tarea");
+		LatidoFacade.getInstance().setEjb(Tarea.class.getName() , tar);
+		JsfUtils.resfreshComponentById("systemResource");
+	}
+	
+	public Tarea getTarea() {
+		return (Tarea)LatidoFacade.getInstance().getEjb(Tarea.class.getName());
+	}
+	
+	public void exit(ActionEvent ae) {
+		
 	}
 
 }

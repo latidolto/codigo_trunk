@@ -125,6 +125,31 @@ public class LatidoFacadeUtil extends LatidoEMUtil{
 		}
 	}
 	
+	public void persistEjb(String className,boolean withoutId){
+		Object ejb = null;
+		if(mapEjb != null){
+			EntityTransaction trx = this.getEM().getTransaction();
+	        trx.begin();
+			ejb = mapEjb.get(className);
+			if(ejb != null){
+				try {
+					System.out.println("persistEjb - [className]:"+className);
+					if(!withoutId)
+						this.settingNextId(ejb);
+					
+					this.getEM().persist(ejb);
+					trx.commit();
+				} catch (Exception e) {
+					e.printStackTrace();
+					if(trx.isActive())
+		                trx.rollback();
+				} 
+			} else {
+				System.out.println("persistEjb - EJB Not Registered...");
+			}
+		}
+	}
+	
 	public void mergeEjb(String className){
 		Object ejb = null;
 		if(mapEjb != null){
@@ -217,6 +242,7 @@ public class LatidoFacadeUtil extends LatidoEMUtil{
 		List lo = null;
 		if(mapEjb != null){
 			Object ejb = mapEjb.get(className);
+			System.out.println(ejb);
 			EntityManager em = this.getEM();
 			TypedQuery query = em.createNamedQuery(ejb.getClass().getSimpleName()+"."+queryName, ejb.getClass());
 			if(params != null){

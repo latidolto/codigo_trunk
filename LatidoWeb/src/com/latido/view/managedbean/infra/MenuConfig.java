@@ -13,10 +13,15 @@ import com.latido.model.entities.Sistema;
 import com.latido.model.entities.Tarea;
 import com.latido.security.LatidoSecurityManager;
 import com.latido.view.dao.infra.MenuConfigDAO;
+import com.latido.view.managedbean.utils.CommonManagedBean;
 import com.latido.view.managedbean.utils.JsfUtils;
 
-public class MenuConfig {
+public class MenuConfig extends CommonManagedBean{
 	
+	public MenuConfig() {
+		super("Configuración de Menu");
+	}
+
 	public List<Sistema> getSistemas(){
 		return LatidoFacade.getInstance().getFindAllList(Sistema.class.getName());
 	}

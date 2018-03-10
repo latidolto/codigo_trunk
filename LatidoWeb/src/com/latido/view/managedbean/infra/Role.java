@@ -7,9 +7,14 @@ import javax.faces.event.ActionEvent;
 import com.latido.model.LatidoFacade;
 import com.latido.model.entities.Rol;
 import com.latido.model.entities.Sistema;
+import com.latido.view.managedbean.utils.CommonManagedBean;
 import com.latido.view.managedbean.utils.JsfUtils;
 
-public class Role {
+public class Role extends CommonManagedBean{
+	
+	public Role() {
+		super("Catalogo de Roles");
+	}
 
 	public List<Rol> getRoles(){
 		return LatidoFacade.getInstance().getFindAllList(Rol.class.getName());

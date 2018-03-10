@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Roles y tareas</title>
+    </h:head>
+    <h:body>
+        <b:form>
+        		<b:panel id="formPanel" look="primary" title="Asignacion de Tareas a Roles">
+        			<b:panelGrid columns="2">
+        				<b:panelGrid columns="1">
+        					<b:panelGrid columns="2" colSpans="4,8" >
+	        					<h:outputLabel>Sistema</h:outputLabel>
+							<b:selectOneMenu id="somSistema" span="200" value="#{rolResource.rolResourceDAO.idSistema}" update="somRoles" >
+								<f:selectItem itemValue="0" itemLabel="Seleccione..."></f:selectItem>
+								<f:selectItems value="#{rolResource.sistemas}" var="sis" itemLabel="#{sis.nombre}" itemValue="#{sis.idSistema}"></f:selectItems>
+							</b:selectOneMenu>
+	        				</b:panelGrid>
+	        				<b:panelGrid columns="2" colSpans="4,8" >
+	        					<h:outputLabel>Roles</h:outputLabel>
+							<b:selectOneMenu id="somRoles" span="200" value="#{rolResource.rolResourceDAO.idRol}" update="dtTareas">
+								<f:selectItem itemValue="0" itemLabel="Seleccione..."></f:selectItem>
+								<f:selectItems value="#{rolResource.roles}" var="rol" itemLabel="#{rol.nombre}" itemValue="#{rol.idRol}"></f:selectItems>
+							</b:selectOneMenu>
+	        				</b:panelGrid>
+        				</b:panelGrid>
+        				<b:panel title="Tareas Asignadas" look="secundary">
+        					<b:commandButton value="Agregar" size="sm" look="info" style="width: 100%;" icon-awesome="plus"
+        					                 onclick="$('.modalClass').modal('show')" type="button"></b:commandButton>
+        					<br/>
+        					<br/>
+        					<b:dataTable value="#{rolResource.rolTareas}" var="row" selectionMode="single" select="true"
+        						       	 ajax="true" id="dtTareas" striped="true" onselect="ajax:rolResource.onSelect( row, typeOfSelection, indexes);">
+        						<b:dataTableColumn label="Tareas">
+        							<b:panelGrid columns="1">
+									<h:outputText value="#{row.tarea.nombre}" style="font-weight: bold;"/>
+									<h:outputText value="#{row.tarea.url}"></h:outputText>
+								</b:panelGrid>
+        						</b:dataTableColumn>
+        						<b:dataTableColumn label="Eliminar">
+        							<b:commandButton icon-awesome="close" actionListener="#{rolResource.deleteAction}" size="sm" look="primary">
+        							</b:commandButton>
+        						</b:dataTableColumn>
+        					</b:dataTable>
+        				</b:panel>
+        			</b:panelGrid>
+        		</b:panel>
+        </b:form>
+        <b:modal id="amodal" title="Agregar Tarea" class="modalClass" >
+        		<b:form>
+        			<b:dataTable value="#{rolResource.rolTareasDisp}" var="row" selectionMode="single" select="true"
+        						 ajax="true" id="dtTareasDisp" striped="true" onselect="ajax:rolResource.onSelectTarea(row, typeOfSelection, indexes);">
+        				<b:dataTableColumn label="Tareas">
+        					<b:panelGrid columns="1">
+							<h:outputText value="#{row.nombre}" style="font-weight: bold;"/>
+							<h:outputText value="#{row.url}"></h:outputText>
+						</b:panelGrid>
+        				</b:dataTableColumn>
+        			</b:dataTable>
+	        		<hr/>
+			   	<b:buttonGroup>
+			   		<b:commandButton value="Aceptar"  look="primary" icon-awesome="save"
+			   						 oncomplete="$('#amodal').modal('hide');" actionListener="#{rolResource.saveAction}"
+			   					     ajax="true"></b:commandButton>
+		    			<b:commandButton value="Cancelar" oncomplete="$('#amodal').modal('hide');" look="primary" icon-awesome="close"></b:commandButton>			
+			   	</b:buttonGroup>
+		   	</b:form>
+        </b:modal>
+    </h:body>
+</html>

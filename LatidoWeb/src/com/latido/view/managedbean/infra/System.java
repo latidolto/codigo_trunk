@@ -8,9 +8,14 @@ import javax.faces.event.ActionEvent;
 import com.latido.model.LatidoFacade;
 import com.latido.model.entities.Sistema;
 import com.latido.security.LatidoSecurityManager;
+import com.latido.view.managedbean.utils.CommonManagedBean;
 import com.latido.view.managedbean.utils.JsfUtils;
 
-public class System {
+public class System extends CommonManagedBean{
+	
+	public System() {
+		super("Catalogo de Sistemas");
+	}
 
 	public Sistema getSystem() {
 		return (Sistema)LatidoFacade.getInstance().getEjb(Sistema.class.getName());

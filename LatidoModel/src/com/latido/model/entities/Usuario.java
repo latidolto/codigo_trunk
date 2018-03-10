@@ -16,7 +16,8 @@ import java.util.List;
 @NamedQueries ( {
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u") ,
 @NamedQuery(name="Usuario.findUser", query="SELECT u FROM Usuario u where u.clave = :p_clave and u.password = :p_pass"),
-@NamedQuery(name="Usuario.findUserByUsername", query="SELECT u FROM Usuario u where u.clave = :p_username ") 
+@NamedQuery(name="Usuario.findUserByUsername", query="SELECT u FROM Usuario u where u.clave = :p_username ") ,
+@NamedQuery(name="Usuario.findUserById", query="SELECT u FROM Usuario u where u.idUsuario = :p_idUsuario ") 
 } )
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;

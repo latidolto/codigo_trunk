@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Roles y usuarios</title>
+    </h:head>
+    <h:body>
+        <b:form>
+        		<b:panel id="formPanel" look="primary" title="Asignacion de Usuarios a Roles">
+        			<b:panelGrid columns="2">
+        				<b:panelGrid columns="1">
+        					<b:panelGrid columns="2" colSpans="4,8" >
+	        					<h:outputLabel>Sistema</h:outputLabel>
+							<b:selectOneMenu id="somSistema" span="200" value="#{rolUser.rolUserDAO.idSistema}" update="somRoles" >
+								<f:selectItem itemValue="0" itemLabel="Seleccione..."></f:selectItem>
+								<f:selectItems value="#{rolUser.sistemas}" var="sis" itemLabel="#{sis.nombre}" itemValue="#{sis.idSistema}"></f:selectItems>
+							</b:selectOneMenu>
+	        				</b:panelGrid>
+	        				<b:panelGrid columns="2" colSpans="4,8" >
+	        					<h:outputLabel>Roles</h:outputLabel>
+							<b:selectOneMenu id="somRoles" span="200" value="#{rolUser.rolUserDAO.idRol}" update="dtUsuarios">
+								<f:selectItem itemValue="0" itemLabel="Seleccione..."></f:selectItem>
+								<f:selectItems value="#{rolUser.roles}" var="rol" itemLabel="#{rol.nombre}" itemValue="#{rol.idRol}"></f:selectItems>
+							</b:selectOneMenu>
+	        				</b:panelGrid>
+        				</b:panelGrid>
+        				<b:panel title="Usuarios Asignados" look="secundary">
+        					<b:commandButton value="Agregar" size="sm" look="info" style="width: 100%;" icon-awesome="plus"
+        					                 onclick="$('.modalClass').modal('show')" type="button"></b:commandButton>
+        					<br/>
+        					<br/>
+        					<b:dataTable value="#{rolUser.usuRolList}" var="row" selectionMode="single" select="true"
+        						       	 ajax="true" id="dtUsuarios" striped="true" onselect="ajax:rolUser.onSelect( row, typeOfSelection, indexes);">
+        						<b:dataTableColumn label="Usuarios">
+        							<b:panelGrid columns="1">
+									<h:outputText value="#{row.usuario.nombre} #{row.usuario.apellidoPaterno} #{row.usuario.apellidoMaterno}" style="font-weight: bold;"/>
+									<h:outputText value="#{row.usuario.clave}"></h:outputText>
+								</b:panelGrid>
+        						</b:dataTableColumn>
+        						<b:dataTableColumn label="Eliminar">
+        							<b:commandButton icon-awesome="close" actionListener="#{rolUser.deleteAction}" size="sm" look="primary">
+        							</b:commandButton>
+        						</b:dataTableColumn>
+        					</b:dataTable>
+        				</b:panel>
+        			</b:panelGrid>
+        		</b:panel>
+        </b:form>
+        <b:modal id="amodal" title="Agregar Usuario" class="modalClass" >
+        		<b:form>
+        			<b:dataTable value="#{rolUser.usuariosDisp}" var="row" selectionMode="single" select="true"
+        						 ajax="true" id="dtUsuariosDes" striped="true" onselect="ajax:rolUser.onSelectUsuario(row, typeOfSelection, indexes);">
+        				<b:dataTableColumn label="Usuarios">
+        					<b:panelGrid columns="1">
+							<h:outputText value="#{row.nombre} #{row.apellidoPaterno} #{row.apellidoMaterno}" style="font-weight: bold;"/>
+							<h:outputText value="#{row.clave}"></h:outputText>
+						</b:panelGrid>
+        				</b:dataTableColumn>
+        			</b:dataTable>
+	        		<hr/>
+			   	<b:buttonGroup>
+			   		<b:commandButton value="Aceptar"  look="primary" icon-awesome="save"
+			   						 oncomplete="$('#amodal').modal('hide');" actionListener="#{rolUser.saveAction}"
+			   					     ajax="true"></b:commandButton>
+		    			<b:commandButton value="Cancelar" oncomplete="$('#amodal').modal('hide');" look="primary" icon-awesome="close"></b:commandButton>			
+			   	</b:buttonGroup>
+		   	</b:form>
+        </b:modal>
+    </h:body>
+</html>

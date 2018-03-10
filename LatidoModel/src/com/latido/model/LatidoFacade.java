@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import com.latido.model.entities.Menu;
 import com.latido.model.entities.Rol;
+import com.latido.model.entities.RolTarea;
 import com.latido.model.entities.Sistema;
 import com.latido.model.entities.Tarea;
 import com.latido.model.entities.UsuRol;
@@ -38,7 +40,8 @@ public class LatidoFacade extends LatidoFacadeUtil {
 								   new Rol(),
 								   new Sistema(),
 								   new Menu(),
-								   new Tarea()
+								   new Tarea(),
+								   new RolTarea()
 									});
 		}
 		return _demoPenolesFacade;
@@ -78,6 +81,19 @@ public class LatidoFacade extends LatidoFacadeUtil {
 			}
 		}
 		return user;
+	}
+	public boolean validateUserResource(Integer idsis,String nameRes,String usuCve) {
+		Boolean isValid = Boolean.FALSE;
+		String select = "Select * from vusuarioasignacion where clave = ? and tar_nombre = ? and idSistema = ?";
+		Query query = this.getEM().createNativeQuery(select);
+		query.setParameter(1, usuCve);
+		query.setParameter(2, nameRes);
+		query.setParameter(3, idsis);
+		List<Object[]> res = query.getResultList();
+		if(res != null)
+			if(res.size() > 0)
+				isValid = Boolean.TRUE;
+		return isValid;
 	}
 	/*******************************************************************************************************************************/
 	/***MENU SECTION****************************************************************************************************************/

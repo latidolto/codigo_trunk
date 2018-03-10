@@ -40,5 +40,15 @@
 		<managed-bean-class>com.latido.view.managedbean.infra.User</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>rolUser</managed-bean-name>
+		<managed-bean-class>com.latido.view.managedbean.security.RolUser</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>rolResource</managed-bean-name>
+		<managed-bean-class>com.latido.view.managedbean.security.RolResource</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 
 </faces-config>

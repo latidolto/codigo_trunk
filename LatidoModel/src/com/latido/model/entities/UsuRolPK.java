@@ -13,32 +13,32 @@ public class UsuRolPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(insertable=false, updatable=false)
-	private Long idSistema;
+	private Integer idSistema;
 
 	@Column(insertable=false, updatable=false)
-	private Long idUsuario;
+	private Integer idUsuario;
 
 	@Column(insertable=false, updatable=false)
-	private Long idRol;
+	private Integer idRol;
 
 	public UsuRolPK() {
 	}
-	public Long getIdSistema() {
+	public Integer getIdSistema() {
 		return this.idSistema;
 	}
-	public void setIdSistema(Long idSistema) {
+	public void setIdSistema(Integer idSistema) {
 		this.idSistema = idSistema;
 	}
-	public Long getIdUsuario() {
+	public Integer getIdUsuario() {
 		return this.idUsuario;
 	}
-	public void setIdUsuario(Long idUsuario) {
+	public void setIdUsuario(Integer idUsuario) {
 		this.idUsuario = idUsuario;
 	}
-	public Long getIdRol() {
+	public Integer getIdRol() {
 		return this.idRol;
 	}
-	public void setIdRol(Long idRol) {
+	public void setIdRol(Integer idRol) {
 		this.idRol = idRol;
 	}
 

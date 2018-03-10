@@ -32,7 +32,7 @@ public class LatidoSecurityManager {
 			if(user != null) {
 				HttpSession session  = getSession();
 				session.setAttribute(USERNAME, userName);
-				String[] roles = new String[] {};
+				String[] roles = new String[1024] ;
 				int index = 0;
 				if(user.getUsuRol() != null)
 					for(UsuRol ur : user.getUsuRol()) {
@@ -65,8 +65,8 @@ public class LatidoSecurityManager {
 		return (String) getSession().getAttribute(SYSTEM_NAME);
 	}
 	
-	public static Long getSystemKey() {
-		return (Long) getSession().getAttribute(SYSTEM_KEY);
+	public static Integer getSystemKey() {
+		return (Integer) getSession().getAttribute(SYSTEM_KEY);
 	}
 
 	public static void setSystemInSession(Sistema sis) {

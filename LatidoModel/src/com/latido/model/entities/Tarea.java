@@ -13,7 +13,9 @@ import java.util.Date;
 @Table(name="tarea")
 @NamedQueries( {
 @NamedQuery(name="Tarea.findAll", query="SELECT t FROM Tarea t"),
-@NamedQuery(name="Tarea.findTareaByMenu", query="SELECT t FROM Tarea t where t.idMenu = :p_idMenu and t.idSistema = :p_idSistema ") 
+@NamedQuery(name="Tarea.findTareaByMenu", query="SELECT t FROM Tarea t where t.idMenu = :p_idMenu and t.idSistema = :p_idSistema ") ,
+@NamedQuery(name="Tarea.findTareaById", query="SELECT t FROM Tarea t where t.idTarea = :p_idTarea ") 
+
 } )
 public class Tarea implements Serializable {
 	private static final long serialVersionUID = 1L;

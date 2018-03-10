@@ -11,7 +11,8 @@ import javax.persistence.*;
 @Entity
 @NamedQueries ({
 @NamedQuery(name="UsuRol.findAll", query="SELECT u FROM UsuRol u"),
-@NamedQuery(name="UsuRol.findByUserId", query="SELECT u FROM UsuRol u where u.id.idUsuario = :p_idUsuario")
+@NamedQuery(name="UsuRol.findByUserId", query="SELECT u FROM UsuRol u where u.id.idUsuario = :p_idUsuario"),
+@NamedQuery(name="UsuRol.findByRolAndSys", query="SELECT u FROM UsuRol u where u.id.idSistema = :p_idSistema and u.id.idRol = :p_idRol")
 })
 
 public class UsuRol implements Serializable {
@@ -21,6 +22,8 @@ public class UsuRol implements Serializable {
 	private UsuRolPK id;
 	@Transient
 	private Rol rol;
+	@Transient 
+	private Usuario usuario;
 	
 	public UsuRol() {
 	}
@@ -45,6 +48,20 @@ public class UsuRol implements Serializable {
 	 */
 	public void setRol(Rol rol) {
 		this.rol = rol;
+	}
+
+	/**
+	 * @return the usuario
+	 */
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	/**
+	 * @param usuario the usuario to set
+	 */
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

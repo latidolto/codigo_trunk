@@ -16,9 +16,14 @@ import com.latido.model.entities.Sistema;
 import com.latido.model.entities.Usuario;
 import com.latido.security.LatidoSecurityManager;
 import com.latido.view.dao.infra.UserDAO;
+import com.latido.view.managedbean.utils.CommonManagedBean;
 import com.latido.view.managedbean.utils.JsfUtils;
 
-public class User {
+public class User extends CommonManagedBean{
+	
+	public User() {
+		super("Catalogo de Usuarios");
+	}
 	
 	public List<Usuario> getUsers(){
 		return LatidoFacade.getInstance().getFindAllList(Usuario.class.getName());
