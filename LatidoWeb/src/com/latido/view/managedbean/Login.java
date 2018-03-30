@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.event.ActionEvent;
-import javax.faces.event.AjaxBehaviorEvent;
 
 import com.latido.model.LatidoFacade;
 import com.latido.model.entities.Usuario;

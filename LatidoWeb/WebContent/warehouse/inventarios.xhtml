@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<title>Inventarios</title>
+</h:head>
+<h:body>
+
+	<b:form id="formPrincipal" name="formId">
+
+		<center>
+			<h1>Inventarios</h1>
+		</center>
+
+		<hr />
+
+		<b:panel collapsible="true" title="Atributos">
+			<b:container fluid="true" id="fields">
+				<b:row>
+					<b:column span="2">
+						<h:outputLabel>id:</h:outputLabel>
+						<b:inputText value="#{inventarios.inventario.id_inventario}"
+							disabled="true" />
+					</b:column>
+					<b:column span="2">
+						<h:outputLabel>Nombre:</h:outputLabel>
+						<b:inputText value="#{inventarios.inventario.nombre}" />
+					</b:column>
+					<b:column span="4">
+						<h:outputLabel>Descripcion:</h:outputLabel>
+						<b:inputText value="#{inventarios.inventario.descripcion}" />
+					</b:column>
+					<b:column span="2">
+						<h:outputLabel>Almacen:</h:outputLabel>
+						<b:selectOneMenu value="#{inventarios.inventario.idAlmacen}">
+							<f:selectItem itemLabel="" itemValue=""></f:selectItem>
+							<f:selectItems value="#{almacenes.estado}" var="mul"
+								itemValue="#{mul.valor}" itemLabel="#{mul.descripcion}"></f:selectItems>
+						</b:selectOneMenu>
+					</b:column>
+				</b:row>
+			</b:container>
+		</b:panel>
+
+		<hr />
+
+		<b:panel>
+			<b:commandButton value="Guardar" icon-awesome="fa-plus"
+				look="success" actionListener="#{inventarios.registrar}"
+				style=" margin-left : 10px  ">
+			</b:commandButton>
+
+			<b:commandButton value="Limpiar" icon-awesome="fa-times"
+				look="primary" actionListener="#{inventarios.limpiar}"
+				style=" margin-left : 10px  ">
+			</b:commandButton>
+		</b:panel>
+
+		<hr />
+
+		<b:dataTable class="table" value="#{inventarios.inventarios}"
+			ajax="true" var="data" selectionMode="single"
+			onselect="ajax:inventarios.onSelect(data, typeOfSelection, indexes)"
+			select="true">
+			<b:dataTableColumn label="Id" value="#{data.id_inventario}" />
+			<b:dataTableColumn label="Nombre" value="#{data.nombre}" />
+			<b:dataTableColumn label="Estatus" value="#{data.estatus}" />
+			<b:dataTableColumn label="Descripcion" value="#{data.descripcion}" />
+		</b:dataTable>
+
+	</b:form>
+</h:body>
+</html>

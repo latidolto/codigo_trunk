@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<title>Articulos-Categorias</title>
+</h:head>
+<h:body>
+
+	<b:form id="formPrincipal" name="formId">
+
+		<center>
+			<h1>Articulos - Proveedores</h1>
+		</center>
+
+		<hr />
+
+		<b:panel title="Articulos Registrados" look="primary">
+			<b:dataTable class="table" value="#{articulos.articulos}" ajax="true"
+				page-length="10" page-length-menu="[10, 20, 50, 100]" var="data"
+				selectionMode="single"
+				onselect="ajax:articulos.onSelect(data, typeOfSelection, indexes)"
+				select="true">
+				<b:dataTableColumn label="Id" value="#{data.idArticulo}" />
+				<b:dataTableColumn label="Cantidad" value="#{data.cantidad}" />
+				<b:dataTableColumn label="Clave" value="#{data.clave}" />
+				<b:dataTableColumn label="Código" value="#{data.codigo}" />
+				<b:dataTableColumn label="Nombre" value="#{data.nombre}" />
+				<b:dataTableColumn label="Precio" value="#{data.precio}" />
+				<b:dataTableColumn label="Estatus" value="#{data.estatus}" />
+			</b:dataTable>
+		</b:panel>
+
+		<b:panel collapsible="false">
+			<b:container fluid="true" id="fields">
+				<b:row>
+					<b:column span="2">
+						<b:row>
+							<h:outputLabel>Nombre:</h:outputLabel>
+							<b:inputText field-size="sm" value="#{articulos.articulo.nombre}"
+								disabled="true" />
+						</b:row>
+						<b:row>
+							<h:outputLabel>Clave:</h:outputLabel>
+							<b:inputText field-size="sm" value="#{articulos.articulo.clave}"
+								disabled="true" />
+						</b:row>
+						<b:row>
+							<h:outputLabel>Categorias disponibles:</h:outputLabel>
+							<b:selectOneMenu field-size="sm" value="#{articulos.idCategoria}">
+								<f:selectItem itemLabel=""
+									itemValue=""></f:selectItem>
+								<f:selectItems value="#{articulos.categorias}" var="mul"
+									itemValue="#{mul.idCategoria}" itemLabel="#{mul.nombre}"></f:selectItems>
+							</b:selectOneMenu>
+						</b:row>
+					</b:column>
+
+					<b:column span="1" />
+
+					<b:column span="2">
+						<b:row>
+							<h:outputLabel>Código:</h:outputLabel>
+							<b:inputText field-size="sm" value="#{articulos.articulo.codigo}"
+								disabled="true" />
+						</b:row>
+						<b:row>
+							<h:outputLabel>Precio:</h:outputLabel>
+							<b:inputText field-size="sm" value="#{articulos.articulo.precio}"
+								disabled="true" />
+						</b:row>
+						<b:row>
+							<h:outputLabel>Agregar nuevo:</h:outputLabel>
+							<b:column>
+								<b:commandButton value="Agregar Categoria"
+									icon-awesome="fa-plus" span="12" size="sm" look="success"
+									actionListener="#{articulos.vincularCategoria}">
+								</b:commandButton>
+							</b:column>
+						</b:row>
+					</b:column>
+
+					<b:column span="1" />
+
+					<b:column span="6">
+						<b:panel title="Categorias registradas a este Articulo"
+							collapsible="false" look="primary">
+							<b:dataTable class="table" value="#{articulos.categoriasReg}"
+								ajax="true" var="data" select="true">
+								<b:dataTableColumn label="Nombre" value="#{data.nombre}" />
+								<b:dataTableColumn label="Eliminar">
+									<b:commandButton type="button" icon-awesome="fa-trash"></b:commandButton>
+								</b:dataTableColumn>
+							</b:dataTable>
+						</b:panel>
+					</b:column>
+				</b:row>
+
+			</b:container>
+		</b:panel>
+
+
+	</b:form>
+</h:body>
+</html>

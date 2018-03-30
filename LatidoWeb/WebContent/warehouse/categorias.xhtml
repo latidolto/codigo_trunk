@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<title>Categorías</title>
+</h:head>
+<h:body>
+
+	<b:form id="formId" name="formId">
+
+		<center>
+			<h1>Categorias</h1>
+		</center>
+
+		<hr />
+
+		<h3>Agregar nueva categoría</h3>
+
+		<b:container fluid="true" id="fields">
+			<b:row>
+				<b:column medium-screen="2">
+					<b:inputText label="Id:" value="#{categorias.categoria.idCategoria}" disabled="true" />
+				</b:column>
+				<b:column medium-screen="4">
+					<b:inputText label="Nombre:" value="#{categorias.categoria.nombre}" />
+				</b:column>
+			</b:row>
+		</b:container>
+
+		<b:commandButton value="Guardar" icon-awesome="fa-plus" look="success"
+			actionListener="#{categorias.registrar}"
+			style=" margin-left : 10px  ">
+		</b:commandButton>
+
+		<b:commandButton value="Eliminar Actividad" icon-awesome="fa-times"
+			look="primary" actionListener="#{categorias.eliminar}"
+			style=" margin-left : 10px  ">
+		</b:commandButton>
+
+		<b:commandButton value="Limpiar" icon-awesome="fa-times"
+			look="primary" actionListener="#{categorias.limpiar}"
+			style=" margin-left : 10px  ">
+		</b:commandButton>
+
+		<hr />
+
+		<b:dataTable class="table" value="#{categorias.categorias}"
+			ajax="true" var="cat" selectionMode="single"
+			onselect="ajax:categorias.onSelect(cat, typeOfSelection, indexes)"
+			select="true">
+			<b:dataTableColumn value="#{cat.idCategoria}" />
+			<b:dataTableColumn value="#{cat.nombre}" />
+			<b:dataTableColumn value="#{cat.usuCve}" />
+			<b:dataTableColumn value="#{cat.estatus}" />
+			<b:dataTableColumn value="#{cat.fecMod}" />
+		</b:dataTable>
+		
+	</b:form>
+</h:body>
+</html>
