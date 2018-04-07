@@ -8,10 +8,10 @@ import javax.persistence.*;
  * The persistent class for the vusuarioasignacion database table.
  * 
  */
-@Entity
-@NamedQuery(name="Vusuarioasignacion.findAll", query="SELECT v FROM Vusuarioasignacion v")
+//@Entity
+//@NamedQuery(name="Vusuarioasignacion.findAll", query="SELECT v FROM Vusuarioasignacion v")
 public class Vusuarioasignacion implements Serializable {
-	private static final long serialVersionUID = 1L;
+	/*private static final long serialVersionUID = 1L;
 
 	private String clave;
 
@@ -131,6 +131,6 @@ public class Vusuarioasignacion implements Serializable {
 
 	public void setTarNombre(String tarNombre) {
 		this.tarNombre = tarNombre;
-	}
+	}*/
 
 }

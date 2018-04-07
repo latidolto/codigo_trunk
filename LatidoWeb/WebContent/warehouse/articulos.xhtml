@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<title>Articulos</title>
+</h:head>
+<h:body>
+
+	<b:form id="formPrincipal" name="formId">
+
+		<center>
+			<h1>Articulos</h1>
+		</center>
+
+		<hr />
+
+		<b:panel collapsible="true" title="Atributos">
+			<b:container fluid="true" id="fields">
+				<b:row>
+					<b:column span="2">
+						<h:outputLabel>id:</h:outputLabel>
+						<b:inputText value="#{articulos.articulo.idArticulo}"
+							disabled="true" />
+					</b:column>
+					<b:column span="2">
+						<h:outputLabel>Cantidad:</h:outputLabel>
+						<b:inputText value="#{articulos.articulo.cantidad}" />
+					</b:column>
+					<b:column span="2">
+						<h:outputLabel>Clave:</h:outputLabel>
+						<b:inputText value="#{articulos.articulo.clave}" />
+					</b:column>
+					<b:column span="2">
+						<h:outputLabel>Codigo:</h:outputLabel>
+						<b:inputText value="#{articulos.articulo.codigo}" />
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column span="2">
+						<h:outputLabel>Nombre:</h:outputLabel>
+						<b:inputText value="#{articulos.articulo.nombre}" />
+					</b:column>
+					<b:column span="2">
+						<h:outputLabel>Precio:</h:outputLabel>
+						<b:inputText value="#{articulos.articulo.precio}" />
+					</b:column>
+					<b:column span="2">
+						<h:outputLabel>Estado:</h:outputLabel>
+						<b:selectOneMenu value="#{articulos.articulo.estatus}">
+							<f:selectItem itemLabel="" itemValue=""></f:selectItem>
+							<f:selectItems value="#{almacenes.estado}" var="mul"
+								itemValue="#{mul.valor}" itemLabel="#{mul.descripcion}"></f:selectItems>
+						</b:selectOneMenu>
+					</b:column>
+				</b:row>
+			</b:container>
+
+		</b:panel>
+
+		<hr />
+
+		<b:panel>
+			<b:commandButton value="Guardar" icon-awesome="fa-plus"
+				look="success" actionListener="#{articulos.registrar}"
+				style=" margin-left : 10px  ">
+			</b:commandButton>
+
+			<b:commandButton value="Limpiar" icon-awesome="fa-times"
+				look="primary" actionListener="#{articulos.limpiar}"
+				style=" margin-left : 10px  ">
+			</b:commandButton>
+		</b:panel>
+
+		<hr />
+
+		<b:dataTable class="table" value="#{articulos.articulos}" ajax="true"
+			var="data" selectionMode="single"
+			onselect="ajax:articulos.onSelect(data, typeOfSelection, indexes)"
+			select="true">
+			<b:dataTableColumn label="Id" value="#{data.idArticulo}" />
+			<b:dataTableColumn label="Cantidad" value="#{data.cantidad}" />
+			<b:dataTableColumn label="Clave" value="#{data.clave}" />
+			<b:dataTableColumn label="Código" value="#{data.codigo}" />
+			<b:dataTableColumn label="Nombre" value="#{data.nombre}" />
+			<b:dataTableColumn label="Precio" value="#{data.precio}" />
+			<b:dataTableColumn label="Estatus" value="#{data.estatus}" />
+		</b:dataTable>
+
+	</b:form>
+</h:body>
+</html>

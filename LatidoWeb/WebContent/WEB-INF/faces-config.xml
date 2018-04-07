@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config
-    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
-    version="2.2">
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
 	<application>
 		<resource-bundle>
 			<base-name>resources.resources</base-name>
@@ -48,6 +47,31 @@
 	<managed-bean>
 		<managed-bean-name>rolResource</managed-bean-name>
 		<managed-bean-class>com.latido.view.managedbean.security.RolResource</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>categorias</managed-bean-name>
+		<managed-bean-class>com.latido.view.managedbean.Categorias</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>proveedores</managed-bean-name>
+		<managed-bean-class>com.latido.view.managedbean.Proveedores</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>almacenes</managed-bean-name>
+		<managed-bean-class>com.latido.view.managedbean.Almacenes</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>articulos</managed-bean-name>
+		<managed-bean-class>com.latido.view.managedbean.Articulos</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>inventarios</managed-bean-name>
+		<managed-bean-class>com.latido.view.managedbean.Inventarios</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 
