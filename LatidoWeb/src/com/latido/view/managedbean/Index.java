@@ -26,7 +26,7 @@ public class Index extends CommonManagedBean{
 		if(LatidoSecurityManager.getSystemKey() != null) {
 			sisId = Integer.valueOf( LatidoSecurityManager.getSystemKey().toString() );
 		}
-		return LatidoFacade.getInstance().getMenu(false,sisId);
+		return getFacade().getMenu(true,sisId);
 	}
 	
 	public String getSystemName() {
@@ -52,13 +52,13 @@ public class Index extends CommonManagedBean{
 	}
 	
 	public List<Sistema> getSistemas(){
-		return LatidoFacade.getInstance().getFindAllList(Sistema.class.getName());
+		return getFacade().getFindAllList(Sistema.class.getName());
 	}
 	
 	public void selectSystem(ActionEvent ae) {
 		System.out.println("Metodo de seleccion de sistema");
 		Sistema sis = (Sistema) ae.getComponent().getAttributes().get("sistema");
-		LatidoFacade.getInstance().setEjb(Sistema.class.getName(), sis);
+		getFacade().setEjb(Sistema.class.getName(), sis);
 		LatidoSecurityManager.setSystemInSession(sis);
 		System.out.println("Sistema seleccionado:"+sis.getNombre());
 		JsfUtils.resfreshComponentById("mainForm");
@@ -66,16 +66,22 @@ public class Index extends CommonManagedBean{
 	
 	public void selectResource(ActionEvent ae) {
 		Tarea tar = (Tarea)ae.getComponent().getAttributes().get("tarea");
-		LatidoFacade.getInstance().setEjb(Tarea.class.getName() , tar);
+		getFacade().setEjb(Tarea.class.getName() , tar);
 		JsfUtils.resfreshComponentById("systemResource");
 	}
 	
 	public Tarea getTarea() {
-		return (Tarea)LatidoFacade.getInstance().getEjb(Tarea.class.getName());
+		return (Tarea)getFacade().getEjb(Tarea.class.getName());
 	}
 	
 	public void exit(ActionEvent ae) {
-		
+		LatidoSecurityManager.getSession().invalidate();
+		this.redirectView(LOGIN);
+	}
+	
+	public void exitSystem(ActionEvent ae) {
+		LatidoSecurityManager.exitSystem();
+		this.redirectView(INDEX);
 	}
 
 }

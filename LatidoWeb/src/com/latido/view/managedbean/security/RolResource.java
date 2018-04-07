@@ -27,26 +27,26 @@ public class RolResource extends CommonManagedBean{
 	}
 	
 	public List<Sistema> getSistemas(){
-		return LatidoFacade.getInstance().getFindAllList(Sistema.class.getName());
+		return getFacade().getFindAllList(Sistema.class.getName());
 	}
 	
 	public List<Rol> getRoles(){
 		Map params = new HashMap();
 		params.put("p_idSistema", getRolResourceDAO().getIdSistema());
-		return LatidoFacade.getInstance().getListFromParameters(Rol.class.getName(), "findBySys", params);
+		return getFacade().getListFromParameters(Rol.class.getName(), "findBySys", params);
 	}
 	
 	public List<RolTarea> getRolTareas(){
 		Map params = new HashMap();
 		params.put("p_idSistema", getRolResourceDAO().getIdSistema());
 		params.put("p_idRol", getRolResourceDAO().getIdRol());
-		List<RolTarea> lrt = LatidoFacade.getInstance().getListFromParameters(RolTarea.class.getName(), "findAllBySisRol", params);
+		List<RolTarea> lrt = getFacade().getListFromParameters(RolTarea.class.getName(), "findAllBySisRol", params);
 		if(lrt != null)
 			if(lrt.size() > 0)
 				for(RolTarea rt : lrt) {
 					Map pU = new HashMap();
 					pU.put("p_idTarea", rt.getId().getIdTarea());
-					List<Tarea> lt = LatidoFacade.getInstance().getListFromParameters(Tarea.class.getName(), "findTareaById", pU);
+					List<Tarea> lt = getFacade().getListFromParameters(Tarea.class.getName(), "findTareaById", pU);
 					if(lt != null)
 						if(lt.size() > 0)
 							rt.setTarea(lt.get(0));
@@ -55,12 +55,12 @@ public class RolResource extends CommonManagedBean{
 	}
 	
 	public void onSelect(RolTarea row, String typeOfSelection, String indexes) {
-		LatidoFacade.getInstance().setEjb(RolTarea.class.getName(), row );
+		getFacade().setEjb(RolTarea.class.getName(), row );
 		//JsfUtils.resfreshComponentById("formPanel");
 	}
 	
 	public void onSelectTarea(Tarea row, String typeOfSelection, String indexes) {
-		LatidoFacade.getInstance().setEjb(Tarea.class.getName(), row );
+		getFacade().setEjb(Tarea.class.getName(), row );
 		//JsfUtils.resfreshComponentById("formPanel");
 	}
 	
@@ -69,16 +69,16 @@ public class RolResource extends CommonManagedBean{
 	}
 	
 	public void saveAction(ActionEvent ae) {
-		RolTarea rt = (RolTarea)LatidoFacade.getInstance().getEjb(RolTarea.class.getName());
-		Tarea t = (Tarea)LatidoFacade.getInstance().getEjb(Tarea.class.getName());
+		RolTarea rt = (RolTarea)getFacade().getEjb(RolTarea.class.getName());
+		Tarea t = (Tarea)getFacade().getEjb(Tarea.class.getName());
 		RolTareaPK rtp = new RolTareaPK();
 		rtp.setIdMenu(t.getIdMenu());
 		rtp.setIdTarea(t.getIdTarea());
 		rtp.setIdSistema(getRolResourceDAO().getIdSistema());
 		rtp.setIdRol(getRolResourceDAO().getIdRol());
 		rt.setId(rtp);
-		LatidoFacade.getInstance().persistEjb(RolTarea.class.getName(), true);
-		LatidoFacade.getInstance().setEjb(RolTarea.class.getName(), new RolTarea() );
+		getFacade().persistEjb(RolTarea.class.getName(), true);
+		getFacade().setEjb(RolTarea.class.getName(), new RolTarea() );
 		
 		JsfUtils.sendMessageToView_INFO("Guardado Exitoso.");
 		JsfUtils.resfreshComponentById("dtTareas");
@@ -86,7 +86,7 @@ public class RolResource extends CommonManagedBean{
 	}
 	
 	public void deleteAction(ActionEvent ae) {
-		RolTarea rt = (RolTarea)LatidoFacade.getInstance().getEjb(RolTarea.class.getName());
+		RolTarea rt = (RolTarea)getFacade().getEjb(RolTarea.class.getName());
 		try {
 			RolResourceDAO.getInstance().deleteRolUsu(rt);
 		} catch (Exception e) {

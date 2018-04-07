@@ -17,35 +17,35 @@ public class Role extends CommonManagedBean{
 	}
 
 	public List<Rol> getRoles(){
-		return LatidoFacade.getInstance().getFindAllList(Rol.class.getName());
+		return getFacade().getFindAllList(Rol.class.getName());
 	}
 	
 	public Rol getRole() {
-		return (Rol)LatidoFacade.getInstance().getEjb(Rol.class.getName());
+		return (Rol)getFacade().getEjb(Rol.class.getName());
 	}
 	
 	public void onSelect(Rol row, String typeOfSelection, String indexes) {
-		LatidoFacade.getInstance().setEjb(Rol.class.getName(), row );
+		getFacade().setEjb(Rol.class.getName(), row );
 		JsfUtils.resfreshComponentById("formPanel");
 	}
 	
 	public void saveAction(ActionEvent ae) {
-		Rol r = (Rol)LatidoFacade.getInstance().getEjb(Rol.class.getName());
+		Rol r = (Rol)getFacade().getEjb(Rol.class.getName());
 		if (r.getIdRol() == 0) {
-			LatidoFacade.getInstance().persistEjb(Rol.class.getName());
+			getFacade().persistEjb(Rol.class.getName());
 		} else {
-			LatidoFacade.getInstance().mergeEjb(Rol.class.getName());
+			getFacade().mergeEjb(Rol.class.getName());
 		}
 		JsfUtils.sendMessageToView_INFO("Guardado Exitoso.");
 		JsfUtils.resfreshComponentById("formPanel");
 	}
 	
 	public void clearAction(ActionEvent ae) {
-		LatidoFacade.getInstance().setEjb(Rol.class.getName(), new Rol() );
+		getFacade().setEjb(Rol.class.getName(), new Rol() );
 		JsfUtils.resfreshComponentById("formPanel");
 	}
 	
 	public List<Sistema> getSistemas(){
-		return LatidoFacade.getInstance().getFindAllList(Sistema.class.getName());
+		return getFacade().getFindAllList(Sistema.class.getName());
 	}
 }

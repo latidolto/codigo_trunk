@@ -8,11 +8,11 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Sistema Latido</title>
-        <link rel="stylesheet" type="text/css" href="/css/latido.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/latido.css"/>
     </h:head>
-    <h:body>
+    <h:body >
     		<b:form id="mainForm">
-    			<b:navBar brand="#{index.systemName}">
+    			<b:navBar brand="#{index.systemName}" inverse="true">
 	    			<b:navbarLinks >
 	    				<c:forEach items="#{index.menu}" var="menu">
 	    					<b:dropMenu value="#{menu.etiqueta}">
@@ -46,14 +46,16 @@
 	    				<b:navLink value="#{index.currentDate}" id="currDate"></b:navLink>
 	    				<b:navLink value="#{index.userName}"></b:navLink>
 	    				<b:dropMenu icon-awesome="gear" value=" ">
-	    					<b:commandButton value="Salir del sistema" icon-awesome="eject" style="border : 0px;"></b:commandButton>
-	    					<b:commandButton value="Cerrar Sesión" icon-awesome="close" style="border : 0px;"></b:commandButton>
+	    					<b:commandButton value="Salir del sistema" icon-awesome="eject" style="border : 0px;"
+	    					                 actionListener="#{index.exitSystem}"></b:commandButton>
+	    					<b:commandButton value="Cerrar Sesión" icon-awesome="close" style="border : 0px;"
+	    				                     actionListener="#{index.exit}"></b:commandButton>
 	    				</b:dropMenu>
 	    			</b:navbarLinks>
 	    		</b:navBar>
 	    		
 	    		
-	    		<b:panel id="systemChoose" rendered="#{index.systemName != 'Latido' ? false : true}" showCollapseLink="false">
+	    		<b:panel id="systemChoose" rendered="#{index.systemName != 'Latido' ? false : true}" showCollapseLink="false" style="background-color: transparent;">
 	    			<b:panelGrid columns="3"  sytle=" align : left; halign: middle;">
 				  <c:forEach items="#{index.sistemas}" var="sis">
 				  	
@@ -78,7 +80,7 @@
 				  </c:forEach>
 				</b:panelGrid>
 	    		</b:panel>
-	    		<b:panel id="systemResource" rendered="#{index.systemName != 'Latido' ? true : false}" style="width :100%; height : 1024px; " showCollapseLink="false">
+	    		<b:panel id="systemResource" rendered="#{index.systemName != 'Latido' ? true : false}" style="width :100%; height : 1024px; background-color: transparent;" showCollapseLink="false">
 	    			<iframe src="#{index.tarea.url}" width="100%" height="1024px" style="border: 0px;"/>
 	    		</b:panel>
     		</b:form>

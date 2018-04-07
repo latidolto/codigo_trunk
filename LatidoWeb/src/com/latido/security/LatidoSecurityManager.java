@@ -28,7 +28,7 @@ public class LatidoSecurityManager {
 	 * */
 	public static void registerUserInSession(String userName) throws Exception{
 		if(userName != null) {
-			Usuario user = LatidoFacade.getInstance().getfullUserByUsername(userName);
+			Usuario user = LatidoFacade.getInstance(getSession().getId()).getfullUserByUsername(userName);
 			if(user != null) {
 				HttpSession session  = getSession();
 				session.setAttribute(USERNAME, userName);
@@ -75,5 +75,11 @@ public class LatidoSecurityManager {
 			session.setAttribute(SYSTEM_NAME, sis.getNombre());
 			session.setAttribute(SYSTEM_KEY, sis.getIdSistema());
 		}
+	}
+	
+	public static void exitSystem() {
+		HttpSession session = getSession();
+		session.setAttribute(SYSTEM_NAME, null);
+		session.setAttribute(SYSTEM_KEY, null);
 	}
 }

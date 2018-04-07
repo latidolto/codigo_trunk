@@ -26,20 +26,20 @@ public class User extends CommonManagedBean{
 	}
 	
 	public List<Usuario> getUsers(){
-		return LatidoFacade.getInstance().getFindAllList(Usuario.class.getName());
+		return getFacade().getFindAllList(Usuario.class.getName());
 	}
 	
 	public Usuario getUser() {
-		return (Usuario)LatidoFacade.getInstance().getEjb(Usuario.class.getName());
+		return (Usuario)getFacade().getEjb(Usuario.class.getName());
 	}
 	
 	public void onSelect(Usuario row, String typeOfSelection, String indexes) {
-		LatidoFacade.getInstance().setEjb(Usuario.class.getName(), row );
+		getFacade().setEjb(Usuario.class.getName(), row );
 		JsfUtils.resfreshComponentById("formPanel");
 	}
 	
 	public void saveAction(ActionEvent ae) {
-		Usuario usu = (Usuario)LatidoFacade.getInstance().getEjb(Usuario.class.getName());
+		Usuario usu = (Usuario)getFacade().getEjb(Usuario.class.getName());
 		
 		usu.setAvatar(UserDAO.getInstance().getBytes());
 		usu.setFecMod(new Date());
@@ -47,9 +47,9 @@ public class User extends CommonManagedBean{
 		
 		if (usu.getIdUsuario() == null || usu.getIdUsuario() == 0) {
 			usu.setPassword("NOTVALIDPASSWORD");
-			LatidoFacade.getInstance().persistEjb(Usuario.class.getName());
+			getFacade().persistEjb(Usuario.class.getName());
 		} else {
-			LatidoFacade.getInstance().mergeEjb(Usuario.class.getName());
+			getFacade().mergeEjb(Usuario.class.getName());
 		}
 		JsfUtils.sendMessageToView_INFO("Guardado Exitoso.");
 		JsfUtils.resfreshComponentById("formPanel");
@@ -57,7 +57,7 @@ public class User extends CommonManagedBean{
 	}
 	
 	public void clearAction(ActionEvent ae) {
-		LatidoFacade.getInstance().setEjb(Usuario.class.getName(), new Usuario() );
+		getFacade().setEjb(Usuario.class.getName(), new Usuario() );
 		JsfUtils.resfreshComponentById("formPanel");
 	}
 	
@@ -75,7 +75,7 @@ public class User extends CommonManagedBean{
 
 	
 	public List<Sistema> getSistemas(){
-		return LatidoFacade.getInstance().getFindAllList(Sistema.class.getName());
+		return getFacade().getFindAllList(Sistema.class.getName());
 	}
 	
 }

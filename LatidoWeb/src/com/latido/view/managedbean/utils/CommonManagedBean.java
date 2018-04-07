@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import com.latido.model.LatidoFacade;
 import com.latido.model.entities.Usuario;
@@ -68,6 +69,13 @@ public class CommonManagedBean {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public LatidoFacade getFacade() {
+		String keyMem = null;
+		HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+		keyMem = session.getId();
+		return LatidoFacade.getInstance(keyMem);
 	}
 	
 }

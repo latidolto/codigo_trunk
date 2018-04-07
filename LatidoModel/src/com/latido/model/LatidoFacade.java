@@ -19,9 +19,16 @@ import com.latido.model.entities.Usuario;
 public class LatidoFacade extends LatidoFacadeUtil {
 	private static LatidoFacade _demoPenolesFacade;
 	private List<Menu> menu;
+	private String keyMem;
 	
 	private LatidoFacade() {
 		super("LatidoModel");
+	}
+	
+	private LatidoFacade(String keyMem) {
+		super("LatidoModel");
+		System.out.println("New instance facade : "+keyMem);
+		this.keyMem = keyMem;
 	}
 	/**
 	 * Obtener instacia de <b>Facade</b> local con sus Entidades ya registradas
@@ -33,6 +40,51 @@ public class LatidoFacade extends LatidoFacadeUtil {
 	public static LatidoFacade getInstance() {
 		if(_demoPenolesFacade == null) {
 			_demoPenolesFacade = new LatidoFacade();
+			// Entidades
+			_demoPenolesFacade.registerEJB(
+					new Object[] { new Usuario(),
+								   new UsuRol(),
+								   new Rol(),
+								   new Sistema(),
+								   new Menu(),
+								   new Tarea(),
+								   new RolTarea()
+									});
+		}
+		return _demoPenolesFacade;
+	}
+	
+	/**
+	 * Obtener instacia de <b>Facade</b> local con sus Entidades ya registradas
+	 * <br/><br/>
+	 * Registro de las entidades a usar en la aplicacion e implementar sus metodos mas simples
+	 * si se requiere hacer queries o transacciones mas complejas usar metodos internos detro 
+	 * de esta clase implementados las entidades necesarias o queries directos
+	 * 
+	 * <b>version 1.0.0.1</b> 
+	 * 
+	 * Recibe como parametro la key de la sesion , esto para mejorar la visualizacion de los 
+	 * objetos y no choquen entre usuarios.
+	 * 
+	 * @author everardodominguez
+	 * */
+	public static LatidoFacade getInstance(String keyMem) {
+		Boolean isFirst = Boolean.FALSE;
+		if(_demoPenolesFacade == null) {
+			_demoPenolesFacade = new LatidoFacade(keyMem);
+			isFirst = Boolean.TRUE;
+		} else {
+			if(_demoPenolesFacade.getKeyMem() ==null) {
+				_demoPenolesFacade = new LatidoFacade(keyMem);
+				isFirst = Boolean.TRUE;
+			} else {
+				if( !_demoPenolesFacade.getKeyMem().equalsIgnoreCase(keyMem)) {
+						_demoPenolesFacade = new LatidoFacade(keyMem);
+						isFirst = Boolean.TRUE;
+				}
+			}
+		}	
+		if(isFirst) {
 			// Entidades
 			_demoPenolesFacade.registerEJB(
 					new Object[] { new Usuario(),
@@ -98,7 +150,7 @@ public class LatidoFacade extends LatidoFacadeUtil {
 	/*******************************************************************************************************************************/
 	/***MENU SECTION****************************************************************************************************************/
 	public List<Menu> getMenu(Boolean refresh, int idSistema){
-		if( ( menu == null || refresh ) && idSistema != 0 ) {
+		if(  menu == null || refresh  ) {
 			menu = new ArrayList<Menu>();
 			TypedQuery query = this.getEM().createNamedQuery("Menu.findMenuBySistem", Menu.class);
 			query.setParameter("p_idSistema", idSistema);
@@ -187,5 +239,17 @@ public class LatidoFacade extends LatidoFacadeUtil {
 		return menu;
 	}
 	/*******************************************************************************************************************************/
+	/**
+	 * @return the keyMem
+	 */
+	public String getKeyMem() {
+		return keyMem;
+	}
+	/**
+	 * @param keyMem the keyMem to set
+	 */
+	public void setKeyMem(String keyMem) {
+		this.keyMem = keyMem;
+	}
 	
 }

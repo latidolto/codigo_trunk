@@ -20,7 +20,7 @@ public class Login extends CommonManagedBean{
 	}
 	
 	public Usuario getUsuario() {
-		return (Usuario)LatidoFacade.getInstance().getEjb(Usuario.class.getName());
+		return (Usuario)getFacade().getEjb(Usuario.class.getName());
 	}
 	
 	
@@ -30,7 +30,7 @@ public class Login extends CommonManagedBean{
 		params.put("p_clave", usu.getClave());
 		String md5Pass = UtilsWeb.convertSimpleMD5(usu.getPassword());
 		params.put("p_pass", md5Pass);
-		List usuarios = LatidoFacade.getInstance().getListFromParameters(Usuario.class.getName(), "findUser", params);
+		List usuarios = getFacade().getListFromParameters(Usuario.class.getName(), "findUser", params);
 		if( usuarios != null) {
 			if( usuarios.size() > 0) {
 				try {
