@@ -27,12 +27,6 @@
 		<class>com.latido.model.entities.Salida</class>
 		<class>com.latido.model.views.ViewArticuloProveedor</class>
 		<class>com.latido.model.views.ViewArticuloCategoria</class>
-		<class>com.latido.model.entities.Actividad</class>
-		<class>com.latido.model.entities.Documentacion</class>
-		<class>com.latido.model.entities.Plan</class>
-		<class>com.latido.model.entities.Prospecto</class>
-		<class>com.latido.model.entities.RolPK</class>
-		<class>com.latido.model.entities.TareaPK</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>		
 		<properties>
 				

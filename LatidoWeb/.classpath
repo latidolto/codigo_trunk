@@ -15,8 +15,8 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/everardodominguez/eclipse-workspace/lib/BootsFaces-OSP-1.1.3-dist.jar"/>
-	<classpathentry kind="lib" path="/Users/everardodominguez/eclipse-workspace/lib/commons-io-2.6.jar"/>
-	<classpathentry kind="lib" path="/Users/everardodominguez/eclipse-workspace/lib/mysql-connector-java-5.1.37-bin.jar"/>
+	<classpathentry kind="lib" path="/Users/everardodominguez/git/codigo_trunk/librerias/BootsFaces-OSP-1.1.3-dist.jar"/>
+	<classpathentry kind="lib" path="/Users/everardodominguez/git/codigo_trunk/librerias/commons-io-2.6.jar"/>
+	<classpathentry kind="lib" path="/Users/everardodominguez/git/codigo_trunk/librerias/mysql-connector-java-5.1.37-bin.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
