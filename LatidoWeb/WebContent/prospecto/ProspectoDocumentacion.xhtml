@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Documentacion</title>
+</h:head>
+<h:form enctype="multipart/form-data">
+
+	<center>
+		<H1>DOCUMENTACIONES</H1>
+	</center>
+
+	<hr />
+
+	<b:panelGrid id="panel" columns="6"
+		sytle=" align : center; halign: middle;">
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="ID Documentacion:" disabled="true"
+				value="#{documentaciones.documentacion.idDocumentacion}"></b:inputText>
+		</b:panelGrid>
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="Nombre:"
+				value="#{documentaciones.documentacion.nombre}"></b:inputText>
+		</b:panelGrid>
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="MIME:"
+				value="#{documentaciones.documentacion.mime}"></b:inputText>
+		</b:panelGrid>
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<h:inputFile name="File" value="#{documentaciones.file}"></h:inputFile>
+			
+		</b:panelGrid>
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="Estatus:"
+				value="#{documentaciones.documentacion.estatus}"></b:inputText>
+		</b:panelGrid>
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="Prospecto:"
+				value="#{documentaciones.documentacion.prospecto_idProspecto}"></b:inputText>
+		</b:panelGrid>
+
+
+		<b:panelGrid columns="1">
+			<b:commandButton value="Guardar" icon-awesome="fa-plus"
+				look="success" actionListener="#{documentaciones.registrar}">
+			</b:commandButton>
+		</b:panelGrid>
+		<b:panelGrid columns="1">
+			<b:commandButton value="Eliminar" icon-awesome="remove" look="danger"
+				actionListener="#{documentaciones.eliminar}">
+			</b:commandButton>
+		</b:panelGrid>
+
+		<b:panelGrid columns="1">
+			<b:commandButton value="Limpiar" icon-awesome="eraser" look="primary"
+				actionListener="#{documentaciones.limpiar}">
+			</b:commandButton>
+		</b:panelGrid>
+	</b:panelGrid>
+
+	<br />
+
+	<div style="float: left; width: 65%">
+		<h3 align="center">documentaciones</h3>
+
+		<b:dataTable value="#{documentaciones.documentaciones}" pdf="true"
+			excel="true" var="doc" responsive="true" select="true" ajax="true"
+			onselect="ajax:documentaciones.onSelect(doc)">
+			<b:dataTableColumn value="#{doc.idDocumentacion}" />
+			<b:dataTableColumn value="#{doc.nombre}" />
+			<b:dataTableColumn value="#{doc.mime}" />
+			<b:dataTableColumn value="#{doc.archivo}" />
+			<b:dataTableColumn value="#{doc.estatus}" />
+			<b:dataTableColumn value="#{doc.prospecto_idProspecto}" />
+		</b:dataTable>
+	</div>
+
+
+
+	<b:growl id="growlMsg" globalOnly="true" placementFrom="bottom"
+		show-detail="true" show-summary="false" allowDismiss="true"
+		delay="2000" escape="true" />
+
+</h:form>
+</html>

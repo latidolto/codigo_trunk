@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Prospecto</title>
+    </h:head>
+   <h:form>
+
+ 	<center>
+ 		<H1>PROSPECTO</H1>
+ 	</center>
+ 	
+ 	<hr/>
+
+	<b:panelGrid id="panel" columns="6" sytle=" align : center; halign: middle;">
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="ID Prospecto:" disabled="true" value="#{prospectos.prospecto.idProspecto}"></b:inputText>
+		</b:panelGrid>
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="Nombre:" value="#{prospectos.prospecto.nombre}"></b:inputText>
+		</b:panelGrid>
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="Nombre Organizacional:" value="#{prospectos.prospecto.nombreOrganizacional}"></b:inputText>
+		</b:panelGrid>
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="Telefono #1:" value="#{prospectos.prospecto.telefono1}"></b:inputText>
+		</b:panelGrid>
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="Telefono #2:" value="#{prospectos.prospecto.telefono2}"></b:inputText>
+		</b:panelGrid>
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="Contacto:" value="#{prospectos.prospecto.contacto}"></b:inputText>
+		</b:panelGrid>
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="Estatus:" value="#{prospectos.prospecto.estatus}"></b:inputText>
+		</b:panelGrid>
+
+		</b:panelGrid>
+		
+		<b:buttonGroup>
+			<b:commandButton value="Guardar" icon-awesome="fa-plus"
+				look="success" actionListener="#{prospectos.registrar}">
+			</b:commandButton>
+
+			<b:commandButton value="Eliminar" icon-awesome="remove"
+				look="danger" actionListener="#{prospectos.eliminar}">
+			</b:commandButton>
+
+			<b:commandButton value="Limpiar" icon-awesome="eraser"
+				look="primary" actionListener="#{prospectos.limpiar}">
+			</b:commandButton>
+	
+	</b:buttonGroup>
+	
+	<br />
+	
+ 
+
+	<b:dataTable value="#{prospectos.prospectos}"
+			  pdf="true"
+			  excel="true"
+              var="pr"
+              responsive="true"
+              select="true"
+              ajax="true"
+              onselect="ajax:prospectos.onSelect(pr)">
+    <b:dataTableColumn value="#{pr.idProspecto}" />
+    <b:dataTableColumn value="#{pr.nombre}" />
+    <b:dataTableColumn value="#{pr.nombreOrganizacional}" />
+    <b:dataTableColumn value="#{pr.telefono1}" />
+    <b:dataTableColumn value="#{pr.telefono2}" />
+    <b:dataTableColumn value="#{pr.contacto}" />
+    <b:dataTableColumn value="#{pr.estatus}" />
+  </b:dataTable>
+ 
+  <b:growl id="growlMsg" globalOnly="true" placementFrom="bottom"
+			         show-detail="true" show-summary="false" allowDismiss="true"
+			         delay="2000" escape="true" />
+	
+</h:form>
+</html>

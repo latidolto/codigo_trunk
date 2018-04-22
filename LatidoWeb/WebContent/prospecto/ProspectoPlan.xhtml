@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Plan</title>
+    </h:head>
+    <h:form>
+        <center>
+ 		<H1>PLANES</H1>
+ 	</center>
+ 	
+ 	<hr/>
+
+	<b:panelGrid id="panel" columns="6" sytle=" align : center; halign: middle;">
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="ID Plan:" disabled="true" value="#{planes.plan.idPlan}"></b:inputText>
+		</b:panelGrid>
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="Nombre:" value="#{planes.plan.nombre}"></b:inputText>
+		</b:panelGrid>
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="Version:" value="#{planes.plan.version}"></b:inputText>
+		</b:panelGrid>	
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="Estatus:" value="#{planes.plan.estatus}"></b:inputText>
+		</b:panelGrid>	
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="Prospectos:" value="#{planes.plan.prospecto_idProspecto}"></b:inputText>
+		</b:panelGrid>
+
+		<br/>
+		
+		<b:panelGrid columns="1">
+			<b:commandButton value="Guardar" icon-awesome="fa-plus"
+				look="success" actionListener="#{planes.registrar}">
+			</b:commandButton>
+		</b:panelGrid>
+		<b:panelGrid columns="1">
+			<b:commandButton value="Eliminar" icon-awesome="remove"
+				look="danger" actionListener="#{planes.eliminar}">
+			</b:commandButton>
+		</b:panelGrid>
+		
+		<b:panelGrid columns="1">
+			<b:commandButton value="Limpiar" icon-awesome="eraser"
+				look="primary" actionListener="#{planes.limpiar}">
+			</b:commandButton>
+		</b:panelGrid>
+	</b:panelGrid>
+	
+	<br />
+	
+	<div style="float: left; width: 65%"> 
+	<h3 align="center">Planes </h3>
+
+	<b:dataTable value="#{planes.planes}"
+			  pdf="true"
+			  excel="true"
+              var="plan"
+              responsive="true"
+              select="true"
+              ajax="true"
+              onselect="ajax:planes.onSelect(plan)">
+    <b:dataTableColumn value="#{plan.idPlan}" />
+    <b:dataTableColumn value="#{plan.nombre}" />
+    <b:dataTableColumn value="#{plan.version}" />
+    <b:dataTableColumn value="#{plan.estatus}" />
+    <b:dataTableColumn value="#{plan.prospecto_idProspecto}" />
+  </b:dataTable>
+  </div>
+  
+
+  
+  
+	
+  
+  <b:growl id="growlMsg" globalOnly="true" placementFrom="bottom"
+			         show-detail="true" show-summary="false" allowDismiss="true"
+			         delay="2000" escape="true" />
+    </h:form>
+</html>

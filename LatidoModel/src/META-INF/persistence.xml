@@ -5,6 +5,9 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="LatidoModel"
 		transaction-type="RESOURCE_LOCAL">
+		<class>com.latido.model.entities.Actividad</class>
+		<class>com.latido.model.entities.Plan</class>
+		<class>com.latido.model.entities.Prospecto</class>
 		<class>com.latido.model.entities.Usuario</class>
 		<class>com.latido.model.entities.Rol</class>
 		<class>com.latido.model.entities.RolTarea</class>
@@ -27,13 +30,12 @@
 		<class>com.latido.model.entities.Salida</class>
 		<class>com.latido.model.views.ViewArticuloProveedor</class>
 		<class>com.latido.model.views.ViewArticuloCategoria</class>
-		<exclude-unlisted-classes>true</exclude-unlisted-classes>		
+		<class>com.latido.model.entities.Documentacion</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
-				
-				
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/latido"/>
- 			<property name="javax.persistence.jdbc.user" value="root"/>
-			
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/Latido"/>
+			<property name="javax.persistence.jdbc.user" value="root"/>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 		</properties>
 	</persistence-unit>
-</persistence>
+				</persistence>

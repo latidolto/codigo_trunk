@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Actividades</title>
+</h:head>
+<h:form>
+
+ 	<center>
+ 		<H1>ACTIVIDADES</H1>
+ 	</center>
+ 	
+ 	<hr/>
+
+	<b:panelGrid id="panel" columns="6" sytle=" align : center; halign: middle;">
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="ID Actividad:" disabled="true" value="#{actividades.actividad.idActividades}"></b:inputText>
+		</b:panelGrid>
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="Nombre:" value="#{actividades.actividad.nombre}"></b:inputText>
+		</b:panelGrid>
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:datepicker label="Fecha Inicio:" value="#{actividades.actividad.fechaInicio}"></b:datepicker>
+		</b:panelGrid>	
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:datepicker label="Fecha Fin:" value="#{actividades.actividad.fechaFin}"></b:datepicker>
+		</b:panelGrid>
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="Estatus:" value="#{actividades.actividad.estatus}"></b:inputText>
+		</b:panelGrid>	
+		<b:panelGrid columns="1" sytle=" align : left; halign: middle;">
+			<b:inputText label="Plan:" value="#{actividades.actividad.plan_idPlan}"></b:inputText>
+		</b:panelGrid>
+
+		
+		<b:panelGrid columns="1">
+			<b:commandButton value="Guardar" icon-awesome="fa-plus"
+				look="success" actionListener="#{actividades.registrar}">
+			</b:commandButton>
+		</b:panelGrid>
+		<b:panelGrid columns="1">
+			<b:commandButton value="Eliminar" icon-awesome="remove"
+				look="danger" actionListener="#{actividades.eliminar}">
+			</b:commandButton>
+		</b:panelGrid>
+		
+		<b:panelGrid columns="1">
+			<b:commandButton value="Limpiar" icon-awesome="eraser"
+				look="primary" actionListener="#{actividades.limpiar}">
+			</b:commandButton>
+		</b:panelGrid>
+	</b:panelGrid>
+	
+	<br />
+	
+	<div style="float: left; width: 65%"> 
+	<h3 align="center">Actividades </h3>
+
+	<b:dataTable value="#{actividades.actividades}"
+			  pdf="true"
+			  excel="true"
+              var="act"
+              responsive="true"
+              select="true"
+              ajax="true"
+              onselect="ajax:actividades.onSelect(act)">
+    <b:dataTableColumn value="#{act.idActividades}" />
+    <b:dataTableColumn value="#{act.nombre}" />
+    <b:dataTableColumn value="#{act.fechaInicio}" />
+    <b:dataTableColumn value="#{act.fechaFin}" />
+    <b:dataTableColumn value="#{act.estatus}" />
+    <b:dataTableColumn value="#{act.plan_idPlan}" />
+  </b:dataTable>
+  </div>
+  
+
+  
+  <div style="float: right; width: 25%"> 
+  <h3 align="center">Planes </h3>
+  <b:dataTable value="#{planes.planes}"
+              var="plan"
+              responsive="true"
+              select="false"
+              ajax="true">
+    <b:dataTableColumn value="#{plan.idPlan}" />
+    <b:dataTableColumn value="#{plan.nombre}" />
+  </b:dataTable>
+  </div>
+	
+  
+  <b:growl id="growlMsg" globalOnly="true" placementFrom="bottom"
+			         show-detail="true" show-summary="false" allowDismiss="true"
+			         delay="2000" escape="true" />
+	
+</h:form>
+</html>

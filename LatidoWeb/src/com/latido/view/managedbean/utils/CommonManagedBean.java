@@ -16,6 +16,15 @@ public class CommonManagedBean {
 	public static final String INDEX = "/faces/index.xhtml";
 	public static final String INDEX_RESOURCE = "Index";
 	public static final String FORBIDDEN = "/faces/security/forbidden.xhtml";
+	
+	public static final String ACTIVIDAD = "/faces/ProspectoActividad.xhtml";
+	public static final String ACTIVIDAD_RESOURCE = "ProspectoActividad";
+	public static final String PLAN = "/faces/ProspectoPlan.xhtml";
+	public static final String PLAN_RESOURCE = "ProspectoPlan";
+	public static final String DOCUMENTACION = "/faces/ProspectoDocumentacion.xhtml";
+	public static final String DOCUMENTACION_RESOURCE = "ProspectoDocumentacion";
+	public static final String PROSPECTO = "/faces/Prospecto.xhtml";
+	public static final String PROSPECTO_RESOURCE = "Prospecto";
 
 	public CommonManagedBean(String resourceName) {
 		System.out.println("NOMBRE :: "+resourceName);
