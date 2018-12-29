@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>BootsFaces Basic Page</title>
+    </h:head>
+    <h:body>
+        <b:form>
+        		
+    			<b:panel title="Registro de prospecto" id="panelForm">
+    				<b:buttonToolbar>
+	        			<b:commandButton value="Nuevo" iconAwesome="plus" look="primary" actionListener="#{registroProspecto.newAction}"></b:commandButton>
+	        			<b:commandButton value="Guardar" iconAwesome="save" ajax="true" look="primary" actionListener="#{registroProspecto.saveAction}"></b:commandButton>
+	        			<b:commandButton value="Borrar" iconAwesome="remove" ajax="true" look="primary" actionListener="#{registroProspecto.deleteAction}"></b:commandButton>
+	        			<b:commandButton value="Limpiar" iconAwesome="eraser" look="primary" actionListener="#{registroProspecto.clearAction}"></b:commandButton>
+	        		</b:buttonToolbar>
+	        		<hr/>
+	        		<b:panelGrid columns="3"  sytle=" align : left; halign: middle;">
+	        			<b:panelGrid columns="3">
+        					<h:outputLabel>No. de Integrante</h:outputLabel>
+	        				<b:inputText id="txtNoInt" value="#{registroProspecto.integrante.intId}" disabled="true"></b:inputText>
+	        				<b:commandButton value="Buscar" look="secundary" ajax="true" update="amodal" oncomplete="$('.modalClass').modal('show')" icon-awesome="search"></b:commandButton>
+        				</b:panelGrid>
+        				<b:panelGrid columns="1"></b:panelGrid>
+        				<b:panelGrid columns="1"></b:panelGrid>
+        				<b:panelGrid columns="2" colSpans="4,8">
+        					<h:outputLabel>Nombre</h:outputLabel>
+	        				<b:inputText id="txtNombre" value="#{registroProspecto.integrante.intNom}"></b:inputText>
+        				</b:panelGrid>
+        				<b:panelGrid columns="2" colSpans="4,8">
+        					<h:outputLabel>Apellido Paterno</h:outputLabel>
+	        				<b:inputText id="txtApePat" value="#{registroProspecto.integrante.intApePat}"></b:inputText>
+        				</b:panelGrid>
+        				<b:panelGrid columns="2" colSpans="4,8">
+        					<h:outputLabel>Apellido Materno</h:outputLabel>
+	        				<b:inputText id="txtApeMat" value="#{registroProspecto.integrante.intApeMat}" ></b:inputText>
+        				</b:panelGrid>
+        				<b:panelGrid columns="2" colSpans="4,8">
+        					<h:outputLabel>Fecha de nacimiento</h:outputLabel>
+	        				<b:dateTimePicker id="txtFecNac" process="@this" 
+	        								  value="#{registroProspecto.integrante.intFecNac}"
+	        								  ajax="true" show-time="false" format="DD/MM/YYYY">
+	        				</b:dateTimePicker>
+        				</b:panelGrid> 
+        				<b:panelGrid columns="2" colSpans="4,8" >
+        					<h:outputLabel>Lugar de Nacimiento</h:outputLabel>
+						<b:selectOneMenu id="somLugNac" span="200" value="#{registroProspecto.integrante.intCiudad}">
+							<f:selectItem itemLabel="Torreón Coah." itemValue="1"/>
+							<f:selectItem itemLabel="Gomez Palacio" itemValue="2"/>
+							<f:selectItem itemLabel="Lerdo" itemValue="3"/>
+							<f:selectItem itemLabel="Matamoros Coah." itemValue="4"/>
+						</b:selectOneMenu>
+        				</b:panelGrid>
+        				<b:panelGrid columns="2" colSpans="4,8" >
+        					<h:outputLabel>Lugar que ocupa en la familia</h:outputLabel>
+						<b:selectOneMenu id="somLugFam" span="200" value="#{registroProspecto.integrante.intLugFam}">
+							<f:selectItems value="#{registroProspecto.lugarOcupaFamilia}" var="te" itemValue="#{te.mulValor}" itemLabel="#{te.mulDescripcion}"/>
+						</b:selectOneMenu>
+        				</b:panelGrid>
+        				<b:panelGrid columns="2" colSpans="4,8" >
+        					<h:outputLabel>Estado Civil</h:outputLabel>
+						<b:selectOneMenu id="somEstCiv" span="200" value="#{registroProspecto.integrante.intEstCiv}">
+							<f:selectItems value="#{registroProspecto.estadosCivil}" var="te" itemValue="#{te.mulValor}" itemLabel="#{te.mulDescripcion}"/>
+						</b:selectOneMenu>
+        				</b:panelGrid>
+        				<b:panelGrid columns="2" colSpans="4,8">
+        					<h:outputLabel>RFC</h:outputLabel>
+	        				<b:inputText id="txtRFC" value="#{registroProspecto.integrante.intRfc}"></b:inputText>
+        				</b:panelGrid>
+        				<b:panelGrid columns="2" colSpans="4,8">
+        					<h:outputLabel>CURP</h:outputLabel>
+	        				<b:inputText id="txtCURP" value="#{registroProspecto.integrante.intCurp}"></b:inputText>
+        				</b:panelGrid>
+        				<b:panelGrid columns="2" colSpans="4,8">
+        					<h:outputLabel>Teléfono</h:outputLabel>
+	        				<b:inputText id="txtTel" value="#{registroProspecto.integrante.intTelefono}"></b:inputText>
+        				</b:panelGrid>
+        				<b:panelGrid columns="2" colSpans="4,8">
+        					<h:outputLabel>Celular Propio</h:outputLabel>
+	        				<b:inputText id="txtCelPro" value="#{registroProspecto.integrante.intTelCel}"></b:inputText>
+        				</b:panelGrid>
+        				<b:panelGrid columns="2" colSpans="4,8">
+        					<h:outputLabel>Celular Familiar</h:outputLabel>
+	        				<b:inputText id="txtCelFam" value="#{registroProspecto.integrante.intTelFam}"></b:inputText>
+        				</b:panelGrid>
+        				<b:panelGrid columns="2" colSpans="4,8" >
+        					<h:outputLabel>Escolaridad</h:outputLabel>
+						<b:selectOneMenu id="somEscolaridad" span="200" value="#{registroProspecto.integrante.intEscMax}">
+							<f:selectItems value="#{registroProspecto.escolaridades}" var="te" itemValue="#{te.mulValor}" itemLabel="#{te.mulDescripcion}"/>
+						</b:selectOneMenu>
+        				</b:panelGrid>
+        				<b:panelGrid columns="2" colSpans="4,8">
+        					<h:outputLabel>Diagnostico de su discapacidad</h:outputLabel>
+	        				<b:inputTextarea id="txtDiaDis" value="#{registroProspecto.integrante.intDiagnostico}"></b:inputTextarea>
+        				</b:panelGrid>
+        				<b:panelGrid columns="2" colSpans="4,8">
+        					<h:outputLabel>A que lo atribuye la familia</h:outputLabel>
+	        				<b:inputTextarea id="txtAtrFam" value="#{registroProspecto.integrante.intAtrFam}"></b:inputTextarea>
+        				</b:panelGrid>
+        				<b:panelGrid columns="2" colSpans="4,8">
+        					<h:outputLabel>Caracteristicas generales de su condición</h:outputLabel>
+	        				<b:inputTextarea id="txtCarGen" value="#{registroProspecto.integrante.intCarGenCon}"></b:inputTextarea>
+        				</b:panelGrid>
+	        		</b:panelGrid>
+    			</b:panel>
+        </b:form>
+        <b:modal id="amodal" title="Integrantes" class="modalClass" closable="false" >
+			<b:dataTable value="#{registroProspecto.integrantes}"
+		                 var="row"
+		                 select="true"
+		                 selectionMode="single"
+		                 onselect="ajax:registroProspecto.onSelect(row, typeOfSelection, indexes);">
+		        <b:dataTableColumn value="#{row.intId}" label="Id"/>
+		        <b:dataTableColumn value="#{row.intNom}" label="Nombre"/>
+		        <b:dataTableColumn value="#{row.intApePat}" label="Apellido Paterno"/>
+		        <b:dataTableColumn value="#{row.intApeMat}" label="Apoellido Materno"/>
+		    </b:dataTable>
+		    <f:facet name="footer">
+		    		<b:form>
+		    			<b:commandButton value="Cerrar" actionListener="#{registroProspecto.clickCloseModalEva}" oncomplete="$('#amodal').modal('hide');"></b:commandButton>
+		    		</b:form>
+		    </f:facet>
+		</b:modal>
+    </h:body>
+</html>

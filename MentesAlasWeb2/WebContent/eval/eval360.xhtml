@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Evaluacion 360</title>
+    </h:head>
+    
+    <h:body>
+    		
+    		<b:form>
+    			<b:messages></b:messages>
+    			<b:panel title="Evaluación 360" id="panelForm">
+    				
+	        		<b:buttonToolbar>
+	        			<b:commandButton value="Guardar" iconAwesome="save" ajax="true" actionListener="#{eval360Bean.saveAction}"></b:commandButton>
+	        			<b:commandButton value="Duplicar" iconAwesome="copy" ajax="true" actionListener="#{eval360Bean.duplicateAction}"></b:commandButton>
+	        			<b:commandButton value="Limpiar" iconAwesome="eraser"></b:commandButton>
+	        		</b:buttonToolbar>
+	        		<hr/>
+	        		<b:panelGrid columns="3"  sytle=" align : left; halign: middle;">
+	        			<b:panelGrid columns="3">
+        					<h:outputLabel>No. de Evaluación</h:outputLabel>
+	        				<b:inputText id="txtNoEval" value="#{eval360Bean.evaluacionDefinicion.evaluacionId}" disabled="true"></b:inputText>
+	        				<b:commandButton value="Buscar" ajax="true" update="amodal" oncomplete="$('.modalEvaluacionesClass').modal('show')" icon-awesome="search"></b:commandButton>
+        				</b:panelGrid>
+	        			<b:panelGrid columns="2" colSpans="4,8" >
+        					<h:outputLabel>Tipo de Evaluacion</h:outputLabel>
+						<b:selectOneMenu id="somTipEval" span="200" value="#{eval360Bean.evaluacionDefinicion.evaluacionTipo}">
+							<f:selectItems value="#{eval360Bean.tiposEvaluacion}" var="te" itemValue="#{te.mulValor}" itemLabel="#{te.mulDescripcion}"/>
+						</b:selectOneMenu>
+        				</b:panelGrid>
+        				<b:panelGrid columns="3">
+        					<h:outputLabel>No. de Version</h:outputLabel>
+        					<b:inputText id="txtNoVer" value="#{eval360Bean.evaluacionDefinicion.evaluacionVersion}" ></b:inputText>
+        				</b:panelGrid>
+        				<b:panelGrid columns="3">
+        					<h:outputLabel>Fecha de Creación</h:outputLabel>
+	        				<h:outputText id="txtFecCre" value="#{eval360Bean.evaluacionDefinicion.evaluacionFechaCreacion}" >
+	        					<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+	        				</h:outputText>
+        				</b:panelGrid>
+        				<b:panelGrid columns="3">
+        					<h:outputLabel>Periodo</h:outputLabel>
+	        				<b:inputText id="txtPeriodo" value="#{eval360Bean.evaluacionDefinicion.evaluacionPeriodo}"></b:inputText>
+        				</b:panelGrid>
+        				<b:panelGrid columns="2" colSpans="4,8">
+        					<h:outputLabel>Comentarios</h:outputLabel>
+	        				<h:outputText id="txtComent" value="#{eval360Bean.evaluacionDefinicion.comentarios}" ></h:outputText>
+        				</b:panelGrid>
+        			</b:panelGrid>
+        			<hr/>
+        			<b:tabView>
+        				<b:tab title="Preguntas">
+        					<hr/>
+        					<b:buttonToolbar>
+			        			<b:commandButton value="Agregar" iconAwesome="plus" ajax="true" actionListener="#{eval360Bean.addAction}"></b:commandButton>
+			        		</b:buttonToolbar>
+			        		<hr/>
+        					<b:dataTable value="#{eval360Bean.preguntas}"
+					                 var="pre"
+					                 select="true"
+					                 selectionMode="single">
+			        			<b:dataTableColumn label="Pregunta">
+			        				<b:inputText value="#{pre.evaluacionPregunta}" ajax="true" size="100"></b:inputText>
+			        			</b:dataTableColumn>
+			        			<b:dataTableColumn label="Tipo de Pregunta">
+			        				<b:panelGrid columns="3" colSpans="6,4,2">
+			        					<b:selectOneMenu value="#{pre.tipoPregunta}" ajax="true">
+				        					<f:selectItem itemValue="0" itemLabel="Bien, Regular o Malo"></f:selectItem>
+				        					<f:selectItem itemValue="1" itemLabel="Excelente ... Malo"></f:selectItem>
+				        					<f:selectItem itemValue="2" itemLabel="Si , No"></f:selectItem>
+				        					<f:selectItem itemValue="3" itemLabel="Si, No o No se"></f:selectItem>
+				        					<f:selectItem itemValue="4" itemLabel="Siempre ... Nunca"></f:selectItem>
+				        					<f:selectItem itemValue="5" itemLabel="Comentarios"></f:selectItem>
+				        				</b:selectOneMenu>
+				        				<h:outputLabel>Mas Comentarios</h:outputLabel>
+				        				<b:selectBooleanCheckbox value="#{pre.tieneComentarios}" ajax="true"></b:selectBooleanCheckbox>
+			        				</b:panelGrid>			        				
+			        			</b:dataTableColumn>
+			        			<b:dataTableColumn label=" ">
+				        			<b:buttonToolbar>
+					        			<b:commandButton value="Eliminar" iconAwesome="remove" ajax="true" actionListener="#{eval360Bean.removeAction}">
+					        				<f:attribute name="row" value="#{pre}"></f:attribute>
+					        			</b:commandButton>
+					        		</b:buttonToolbar>
+			        			</b:dataTableColumn>
+			        		</b:dataTable>
+        				</b:tab>
+        			</b:tabView>
+	        </b:panel>		
+    		</b:form>
+    		<b:modal id="amodal" title="Evaluaciones" class="modalEvaluacionesClass" closable="false" >
+			<b:dataTable value="#{eval360Bean.evaluaciones}"
+		                 var="eva"
+		                 select="true"
+		                 selectionMode="single"
+		                 onselect="ajax:eval360Bean.onSelect(eva, typeOfSelection, indexes);">
+		        <b:dataTableColumn value="#{eva.evaluacionId}" label="Id"/>
+		        <b:dataTableColumn >
+		        		<f:facet name="header">
+			          <h:outputText value="Tipo"/>
+			        </f:facet>
+			        <b:selectOneMenu id="somTipEvalGrid" span="200" value="#{eva.evaluacionTipo}" readonly="true" >
+						<f:selectItems value="#{eval360Bean.tiposEvaluacion}" var="te" itemValue="#{te.mulValor}" itemLabel="#{te.mulDescripcion}"/>
+					</b:selectOneMenu>
+		        </b:dataTableColumn>
+		        <b:dataTableColumn value="#{eva.evaluacionVersion}" label="Version"/>
+		    </b:dataTable>
+		    <f:facet name="footer">
+		    		<b:form>
+		    			<b:commandButton value="Cerrar" actionListener="#{eval360Bean.clickCloseModalEva}" oncomplete="$('#amodal').modal('hide');"></b:commandButton>
+		    		</b:form>
+		    </f:facet>
+		</b:modal>
+    </h:body>
+</html>

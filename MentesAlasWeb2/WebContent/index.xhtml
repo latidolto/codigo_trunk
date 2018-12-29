@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Mentes Con Alas 2</title>
+    </h:head>
+    <h:body>
+    		<b:form>
+    			
+    			<b:navBar brand="Mentes con alas" 
+	    				  brandHref="#" 
+	    				  brandImg="./images/menteslogo.png" 
+	    				  brandImgStyle=" width: 22px; heigth: 22px; padding-right: 5px;"
+	    				  class="navbar navbar-expand-lg navbar-light bg-light">
+	    			<b:navbarLinks >
+		    			<b:dropMenu value="Menú" >
+		    				<b:dropMenu value="Expediente General" >
+		    					<b:commandButton style="border : 0px;" value="Registro de Prospecto" ajax="true" actionListener="#{indexBean.menuAction}">
+		    						<f:attribute name="destiny" value="./expgen/registroProspecto.xhtml"></f:attribute>
+		    					</b:commandButton>
+		    				</b:dropMenu>
+		    				<b:dropMenu value="Evaluación" >
+		    					<b:commandButton style="border : 0px;" value="Evaluación 360" ajax="true" actionListener="#{indexBean.menuAction}">
+		    						<f:attribute name="destiny" value="./eval/eval360.xhtml"></f:attribute>
+		    					</b:commandButton>
+		    				</b:dropMenu>
+		    			</b:dropMenu>
+	    			</b:navbarLinks>
+	    			<b:navbarLinks pull="right">
+	    				<b:poll interval="60000" update="dateAndUserData" ajax="true"></b:poll>
+			         <b:navLink value="#{indexBean.dateAndUserData}" id="dateAndUserData"/>
+			         <b:dropMenu value="" icon-awesome="gear">
+	    					<b:commandButton style="border : 0px;" value="Cerrar Sesión" ajax="true" actionListener="#{indexBean.menuAction}">
+	    						<f:attribute name="destiny" value="./logout.xhtml"></f:attribute>
+	    					</b:commandButton>
+	    				</b:dropMenu>
+			     </b:navbarLinks>
+			</b:navBar>
+    		</b:form>
+        <b:container id="frameLocation" style="width :100%; height:800px;">
+        		<iframe src="#{indexBean.location}"  style="width :100%; height:800px; border: 0px;"></iframe>
+        </b:container>
+		
+    </h:body>
+</html>
