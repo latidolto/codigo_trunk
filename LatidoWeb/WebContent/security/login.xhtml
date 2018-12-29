@@ -9,24 +9,55 @@
         <link rel="stylesheet" type="text/css" href="../css/latido.css"/>
     </h:head>
     <h:body>
-        	<b:form>
-        		<b:panelGrid columns="3"  sytle=" align : center; halign: middle;">
+        	<b:form id="mainForm">
+        		<b:panelGrid columns="3"  sytle=" align : center; halign: middle; ">
         			<b:panelGrid columns="1"></b:panelGrid>
         			<b:panel title="Acceso" collapsible="false" look="primary">
 	        			<b:panelGrid columns="2"  sytle=" align : center; halign: middle;">
 	        				<b:image value="/images/lock.png" style=" width : 160px; heigth: 160px;"></b:image>
 	        				<b:panelGrid columns="1"  sytle=" align : left; halign: middle;">
-	        					<b:inputText label="Usuario:" value="#{login.usuario.clave}"></b:inputText>
-        						<b:inputSecret label="Contraseña:" value="#{login.usuario.password}"></b:inputSecret>
+	        					<b:inputText label="Correo:" value="#{login.usuario.clave}" required="true" autocomplete="true"></b:inputText>
+        						<b:inputSecret label="Contraseña:" value="#{login.usuario.password}" required="true" autocomplete="true"></b:inputSecret>
 	        				</b:panelGrid>
 	        			</b:panelGrid>
         				<hr/>
-        				<b:panelGrid columns="2"  sytle=" align : left; halign: middle;">
+        				<b:panelGrid columns="3"  sytle=" align : left; halign: middle;">
+	        				<b:navCommandLink value="Olvido su contraseña ?" onclick="$('.modalClass').modal()"  ></b:navCommandLink>
+	        				<b:button value="Registro" icon-awesome="user" look="primary" onclick="$('.modalClassReg').modal()" />
 	        				<b:commandButton value="Entrar" icon-awesome="sign-in" look="primary" actionListener="#{login.entrar}"/>
-	        				<b:navCommandLink value="Olvido su contraseña ?"></b:navCommandLink>
 	        			</b:panelGrid>
 	        		</b:panel>
         		</b:panelGrid>
+        		<b:growl newestOnTop="true" showDetail="true"></b:growl>
         </b:form>
+        <b:modal id="amodal" title="Recuperacion de contraseña" class="modalClass" >
+        		<b:form>
+        			<b:panelGrid columns="1"  sytle=" align : left; halign: middle;">
+    					<b:inputText label="Correo:" value="#{login.usuario.clave}" ></b:inputText>
+    					<hr/>
+    					<b:commandButton value="Enviar" icon-awesome="send" look="primary" actionListener="#{login.enviar}"/>
+    				</b:panelGrid>
+        		</b:form>
+        	</b:modal>
+        	<b:modal id="rmodal" title="Registro de Usuario / Prospecto" class="modalClassReg" size="modal-lg">
+        		<b:form>
+        			<b:tabView>
+        				<b:tab title="Usuario">
+        					<b:panelGrid columns="1"  sytle=" align : left; halign: middle;">
+		    					<b:inputText label="Correo:" value="#{login.usuario.clave}" ></b:inputText>
+		    					<hr/>
+		    					<b:commandButton value="Guardar" icon-awesome="save" look="primary" />
+		    				</b:panelGrid>
+        				</b:tab>
+        				<b:tab title="Prospecto">
+        					<b:panelGrid columns="1"  sytle=" align : left; halign: middle;">
+		    					<b:inputText label="Correo:" value="#{login.usuario.clave}" ></b:inputText>
+		    					<hr/>
+		    					<b:commandButton value="Guardar" icon-awesome="save" look="primary" />
+		    				</b:panelGrid>
+        				</b:tab>
+        			</b:tabView>
+        		</b:form>
+        	</b:modal>
     </h:body>
 </html>

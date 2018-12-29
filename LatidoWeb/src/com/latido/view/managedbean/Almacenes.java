@@ -53,7 +53,7 @@ public class Almacenes extends CommonManagedBean {
 
 	public void registrar(ActionEvent ae) {
 		Almacen almacen = getAlmacen();
-		if (almacen.getId() == null || almacen.getId().getIdAlmacen() == 0) {
+		if (almacen.getIdAlmacen() == 0) {
 			insertar(almacen);
 		} else {
 			actualizar(almacen);
@@ -64,7 +64,7 @@ public class Almacenes extends CommonManagedBean {
 	public void insertar(Almacen alamacen) {
 		alamacen.setFecMod(new Timestamp(new Date().getTime()));
 		alamacen.setUsuCve("JL101295");
-		alamacen.getId().setSistema_idSistema(1);
+		alamacen.setSistema_idSistema(1);
 		LatidoFacade.getInstance().setEjb(Almacen.class.getName(), alamacen);
 		LatidoFacade.getInstance().persistEjb(Almacen.class.getName());
 	}

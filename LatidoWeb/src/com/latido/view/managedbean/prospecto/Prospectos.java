@@ -16,7 +16,7 @@ import com.latido.view.managedbean.utils.JsfUtils;
 public class Prospectos extends CommonManagedBean {
 	
 	public Prospectos() {
-		super(CommonManagedBean.PROSPECTO_RESOURCE);
+		super("Prospecto");
 	}
 
 	public Prospecto getProspecto() {

@@ -14,8 +14,31 @@ import java.sql.Timestamp;
 public class Almacen implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private AlmacenPK id;
+	@Id
+	@Column(name="id_almacen")
+	private int idAlmacen;
+
+	public int getIdAlmacen() {
+		return idAlmacen;
+	}
+
+	public void setIdAlmacen(int idAlmacen) {
+		this.idAlmacen = idAlmacen;
+	}
+
+	public int getSistema_idSistema() {
+		return sistema_idSistema;
+	}
+
+	public void setSistema_idSistema(int sistema_idSistema) {
+		this.sistema_idSistema = sistema_idSistema;
+	}
+
+	@Column(name="id_sistema")
+	private int sistema_idSistema;
+	
+	/*@EmbeddedId
+	private AlmacenPK id;*/
 
 	private int estatus;
 
@@ -26,18 +49,10 @@ public class Almacen implements Serializable {
 	private String usuCve;
 
 	//bi-directional many-to-one association to Sistema
-	@ManyToOne
-	private Sistema sistema;
+	//@ManyToOne
+	//private Sistema sistema;
 
 	public Almacen() {
-	}
-
-	public AlmacenPK getId() {
-		return this.id;
-	}
-
-	public void setId(AlmacenPK id) {
-		this.id = id;
 	}
 
 	public int getEstatus() {
@@ -72,12 +87,12 @@ public class Almacen implements Serializable {
 		this.usuCve = usuCve;
 	}
 
-	public Sistema getSistema() {
+	/*public Sistema getSistema() {
 		return this.sistema;
 	}
 
 	public void setSistema(Sistema sistema) {
 		this.sistema = sistema;
-	}
+	}*/
 
 }

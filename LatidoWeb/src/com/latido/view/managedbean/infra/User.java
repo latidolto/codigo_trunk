@@ -15,9 +15,11 @@ import com.latido.model.LatidoFacade;
 import com.latido.model.entities.Sistema;
 import com.latido.model.entities.Usuario;
 import com.latido.security.LatidoSecurityManager;
+import com.latido.utils.EmailUtils;
 import com.latido.view.dao.infra.UserDAO;
 import com.latido.view.managedbean.utils.CommonManagedBean;
 import com.latido.view.managedbean.utils.JsfUtils;
+import com.latido.view.utils.UtilsWeb;
 
 public class User extends CommonManagedBean{
 	
@@ -46,14 +48,22 @@ public class User extends CommonManagedBean{
 		usu.setUsuCve(LatidoSecurityManager.getUserInLine() == null ? "anonymous" : LatidoSecurityManager.getUserInLine());
 		
 		if (usu.getIdUsuario() == null || usu.getIdUsuario() == 0) {
-			usu.setPassword("NOTVALIDPASSWORD");
+			String genPass = UtilsWeb.passwordGenerator();
+			usu.setPassword(UtilsWeb.convertSimpleMD5(genPass));
+			usu.setEstatus(2);
 			getFacade().persistEjb(Usuario.class.getName());
+			EmailUtils.sendSimpleEmail(usu.getClave(), 
+					  "Envio de Nueva Contraseña", 
+					  "Hemos generado una nueva contraseña que es la siguiente: <b>"+genPass+"</b> ; "
+					+ "una ves que haya accesado se le pedira cambiar su contraseña inmediatamente.");
+			JsfUtils.sendMessageToView_INFO("Se envio el correo correctamente con su nueva contraseña temporal.");
 		} else {
 			getFacade().mergeEjb(Usuario.class.getName());
 		}
 		JsfUtils.sendMessageToView_INFO("Guardado Exitoso.");
 		JsfUtils.resfreshComponentById("formPanel");
 		JsfUtils.resfreshComponentById("formDT");
+		JsfUtils.resfreshComponentById("mainForm");
 	}
 	
 	public void clearAction(ActionEvent ae) {

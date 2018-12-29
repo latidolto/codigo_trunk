@@ -3,7 +3,6 @@ package com.latido.model.views.DAO.prospecto;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.servlet.http.Part;
-import org.apache.commons.io.IOUtils;
 
 public class DocumentacionDAO {
 	private static DocumentacionDAO _documentacionDAO;
@@ -26,12 +25,6 @@ public class DocumentacionDAO {
 
 	public void setPart(Part part) {
 		if (part != null) {
-			try {
-				byte[] b = IOUtils.toByteArray((InputStream) part.getInputStream());
-				this.setBytes(b);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 		this.part = part;
 	}

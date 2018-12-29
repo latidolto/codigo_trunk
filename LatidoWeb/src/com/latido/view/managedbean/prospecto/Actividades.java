@@ -16,7 +16,7 @@ import com.latido.view.managedbean.utils.JsfUtils;
 public class Actividades extends CommonManagedBean {
 
 	public Actividades() {
-		super(CommonManagedBean.ACTIVIDAD_RESOURCE);
+		super("Actividad");
 	}
 
 	public Actividad getActividad() {

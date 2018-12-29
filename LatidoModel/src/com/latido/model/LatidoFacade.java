@@ -1,5 +1,7 @@
 package com.latido.model;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +31,7 @@ public class LatidoFacade extends LatidoFacadeUtil {
 	private static LatidoFacade _demoPenolesFacade;
 	private List<Menu> menu;
 	private String keyMem;
+	private Map cacheFacade;
 
 	private LatidoFacade() {
 		super("LatidoModel");
@@ -75,34 +78,35 @@ public class LatidoFacade extends LatidoFacadeUtil {
 	 * @author everardodominguez
 	 * */
 	public static LatidoFacade getInstance(String keyMem) {
+		LatidoFacade cachedDemoPenolesFacade = null;
 		Boolean isFirst = Boolean.FALSE;
 		if(_demoPenolesFacade == null) {
-			_demoPenolesFacade = new LatidoFacade(keyMem);
+			_demoPenolesFacade = new LatidoFacade();
+			_demoPenolesFacade.cacheFacade = new HashMap();
+			cachedDemoPenolesFacade = new LatidoFacade();
+			cachedDemoPenolesFacade.setKeyMem(keyMem);
+			_demoPenolesFacade.cacheFacade.put(keyMem,cachedDemoPenolesFacade); 
 			isFirst = Boolean.TRUE;
 		} else {
-			if(_demoPenolesFacade.getKeyMem() ==null) {
-				_demoPenolesFacade = new LatidoFacade(keyMem);
-				isFirst = Boolean.TRUE;
+			if(_demoPenolesFacade.cacheFacade.get(keyMem) != null) {
+				cachedDemoPenolesFacade = (LatidoFacade) _demoPenolesFacade.cacheFacade.get(keyMem);
+				isFirst = Boolean.FALSE;
 			} else {
-				if( !_demoPenolesFacade.getKeyMem().equalsIgnoreCase(keyMem)) {
-						_demoPenolesFacade = new LatidoFacade(keyMem);
-						isFirst = Boolean.TRUE;
-				}
+				cachedDemoPenolesFacade = new LatidoFacade();
+				cachedDemoPenolesFacade.setKeyMem(keyMem);
+				_demoPenolesFacade.cacheFacade.put(keyMem,cachedDemoPenolesFacade);
+				isFirst = Boolean.TRUE;
 			}
-		}	
-		if(isFirst) {
-			// Entidades
-			_demoPenolesFacade.registerEJB(
-					new Object[] { new Usuario(),
-								   new UsuRol(),
-								   new Rol(),
-								   new Sistema(),
-								   new Menu(),
-								   new Tarea(),
-								   new RolTarea()
-									});
 		}
-		return _demoPenolesFacade;
+		
+		if(isFirst) {
+			// Registramos las entities 
+			cachedDemoPenolesFacade.registerEJB(new Object[] { new Usuario(), new UsuRol(), new Rol(), new Sistema(),
+					new Menu(), new Tarea(), new RolTarea(), new Categoria(), new Proveedor(), new Multivaluada(),
+					new Almacen(), new AlmacenPK(), new Articulo(), new Articulocategoria(),
+					new ViewArticuloCategoria(), new Inventario() });
+		}
+		return cachedDemoPenolesFacade;
 	}
 	
 	/***SECURITY SECTION************************************************************************************************************/
@@ -190,7 +194,7 @@ public class LatidoFacade extends LatidoFacadeUtil {
 						lt3 = query.getResultList();
 						m3.setTareaChildren(lt3);
 					}
-					m2.setMenuChildren(lm1);
+					m2.setMenuChildren(lm2);
 					// TAREAS //
 					List<Tarea> lt2 = new ArrayList<Tarea>();
 					query = this.getEM().createNamedQuery("Tarea.findTareaByMenu", Tarea.class);

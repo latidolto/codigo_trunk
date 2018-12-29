@@ -9,7 +9,13 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Multivaluada.findAll", query="SELECT m FROM Multivaluada m")
+@Table(name="multivaluada")
+@NamedQueries({
+	@NamedQuery(name="Multivaluada.findAll", query="SELECT m FROM Multivaluada m"),
+	@NamedQuery(name="Multivaluada.findByClave", query="SELECT m FROM Multivaluada m where m.clave = :p_clave")
+})
+
+
 public class Multivaluada implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -16,7 +16,7 @@ import com.latido.view.managedbean.utils.JsfUtils;
 public class Planes extends CommonManagedBean {
 
 	public Planes() {
-		super(CommonManagedBean.PLAN_RESOURCE);
+		super("Planes");
 	}
 	
 	public Plan getPlan() {

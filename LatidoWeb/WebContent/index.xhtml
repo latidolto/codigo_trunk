@@ -21,21 +21,21 @@
 	    								<c:forEach items="#{sbmen.menuChildren}" var="sb2men">
 	    									<b:dropMenu value="#{sb2men.etiqueta}">
 		    									<c:forEach items="#{sb2men.tareaChildren}" var="tar">
-						    						<b:commandButton value="#{tar.nombre}" style="border : 0px;" actionListener="#{index.selectResource}">
+						    						<b:commandButton value="#{tar.nombre}" style="border : 0px; background-color : transparent;" actionListener="#{index.selectResource}">
 						    							<f:attribute value="#{tar}" name="tarea"></f:attribute>
 						    						</b:commandButton>
 						    					</c:forEach>	
 	    									</b:dropMenu>
 	    								</c:forEach>
 	    								<c:forEach items="#{sbmen.tareaChildren}" var="tar">
-				    						<b:commandButton value="#{tar.nombre}" style="border : 0px;" actionListener="#{index.selectResource}">
+				    						<b:commandButton value="#{tar.nombre}" style="border : 0px; background-color : transparent;" actionListener="#{index.selectResource}">
 				    							<f:attribute value="#{tar}" name="tarea"></f:attribute>
 				    						</b:commandButton>
 				    					</c:forEach>
 	    							</b:dropMenu>
 	    						</c:forEach>
 		    					<c:forEach items="#{menu.tareaChildren}" var="tar">
-		    						<b:commandButton value="#{tar.nombre}" style="border : 0px;" actionListener="#{index.selectResource}">
+		    						<b:commandButton value="#{tar.nombre}" style="border : 0px; background-color : transparent;" actionListener="#{index.selectResource}">
 		    							<f:attribute value="#{tar}" name="tarea"></f:attribute>
 		    						</b:commandButton>
 		    					</c:forEach>
@@ -46,9 +46,9 @@
 	    				<b:navLink value="#{index.currentDate}" id="currDate"></b:navLink>
 	    				<b:navLink value="#{index.userName}"></b:navLink>
 	    				<b:dropMenu icon-awesome="gear" value=" ">
-	    					<b:commandButton value="Salir del sistema" icon-awesome="eject" style="border : 0px;"
+	    					<b:commandButton value="Salir del sistema" icon-awesome="eject" style="border : 0px; background-color: transparent;"
 	    					                 actionListener="#{index.exitSystem}"></b:commandButton>
-	    					<b:commandButton value="Cerrar Sesión" icon-awesome="close" style="border : 0px;"
+	    					<b:commandButton value="Cerrar Sesión" icon-awesome="close" style="border : 0px; background-color: transparent;"
 	    				                     actionListener="#{index.exit}"></b:commandButton>
 	    				</b:dropMenu>
 	    			</b:navbarLinks>

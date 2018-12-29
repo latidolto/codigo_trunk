@@ -6,35 +6,36 @@
 	<persistence-unit name="LatidoModel"
 		transaction-type="RESOURCE_LOCAL">
 		<class>com.latido.model.entities.Actividad</class>
-		<class>com.latido.model.entities.Plan</class>
-		<class>com.latido.model.entities.Prospecto</class>
-		<class>com.latido.model.entities.Usuario</class>
-		<class>com.latido.model.entities.Rol</class>
-		<class>com.latido.model.entities.RolTarea</class>
-		<class>com.latido.model.entities.RolTareaPK</class>
-		<class>com.latido.model.entities.Sistema</class>
-		<class>com.latido.model.entities.Tarea</class>
-		<class>com.latido.model.entities.UsuRol</class>
-		<class>com.latido.model.entities.UsuRolPK</class>
-		<class>com.latido.model.entities.Menu</class>
 		<class>com.latido.model.entities.Almacen</class>
 		<class>com.latido.model.entities.AlmacenPK</class>
 		<class>com.latido.model.entities.Articulo</class>
 		<class>com.latido.model.entities.Articulocategoria</class>
 		<class>com.latido.model.entities.Articuloproveedor</class>
 		<class>com.latido.model.entities.Categoria</class>
+		<class>com.latido.model.entities.Documentacion</class>
 		<class>com.latido.model.entities.Entrada</class>
 		<class>com.latido.model.entities.Inventario</class>
+		<class>com.latido.model.entities.Menu</class>
 		<class>com.latido.model.entities.Multivaluada</class>
+		<class>com.latido.model.entities.Plan</class>
+		<class>com.latido.model.entities.Prospecto</class>
 		<class>com.latido.model.entities.Proveedor</class>
+		<class>com.latido.model.entities.Rol</class>
+		<class>com.latido.model.entities.RolTarea</class>
+		<class>com.latido.model.entities.RolTareaPK</class>
 		<class>com.latido.model.entities.Salida</class>
-		<class>com.latido.model.views.ViewArticuloProveedor</class>
+		<class>com.latido.model.entities.Sistema</class>
+		<class>com.latido.model.entities.Tarea</class>
+		<class>com.latido.model.entities.UsuRol</class>
+		<class>com.latido.model.entities.UsuRolPK</class>
+		<class>com.latido.model.entities.Usuario</class>
 		<class>com.latido.model.views.ViewArticuloCategoria</class>
-		<class>com.latido.model.entities.Documentacion</class>
+		<class>com.latido.model.views.ViewArticuloProveedor</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/Latido"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/latido"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
+			<property name="javax.persistence.jdbc.password" value="Immerstark88_"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 		</properties>
 	</persistence-unit>

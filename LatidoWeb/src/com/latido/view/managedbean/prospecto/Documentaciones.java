@@ -20,7 +20,7 @@ public class Documentaciones extends CommonManagedBean {
 	private Part file;
 
 	public Documentaciones() {
-		super(CommonManagedBean.DOCUMENTACION_RESOURCE);
+		super("Documentacion");
 	}
 
 	public Documentacion getDocumentacion() {

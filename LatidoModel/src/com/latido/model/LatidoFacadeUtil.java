@@ -15,6 +15,8 @@ import javax.persistence.Query;
 import javax.persistence.Table;
 import javax.persistence.TypedQuery;
 
+import com.latido.model.utils.Parameter;
+
 public class LatidoFacadeUtil extends LatidoEMUtil{
 	private Map mapEjb;
 	private Map mapListEjb;
@@ -77,12 +79,10 @@ public class LatidoFacadeUtil extends LatidoEMUtil{
 					mapEjb = new HashMap();
 				try {
 					System.out.println("registerEJB:"+cls.getClass().getName());
-					mapEjb.put(cls.getClass().getName(), cls.getClass().newInstance());
-				} catch (InstantiationException e) {
+					mapEjb.put(cls.getClass().getName(), cls);
+				} catch (Exception e) {
 					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				}
+				} 
 			}
 		}
 	}
@@ -150,6 +150,15 @@ public class LatidoFacadeUtil extends LatidoEMUtil{
 		}
 	}
 	
+	public void persistEjb(Object ejb){
+		if(ejb != null){
+			EntityTransaction trx = this.getEM().getTransaction();
+	        trx.begin();
+			this.getEM().persist(ejb);
+			trx.commit();
+		}
+	}
+	
 	public void mergeEjb(String className){
 		Object ejb = null;
 		if(mapEjb != null){
@@ -163,6 +172,15 @@ public class LatidoFacadeUtil extends LatidoEMUtil{
 				System.out.println("mergeEjb - EJB Not Registered...");
 			}
 			
+		}
+	}
+	
+	public void mergeEjb(Object ejb){
+		if(ejb != null){
+			EntityTransaction trx = this.getEM().getTransaction();
+	        trx.begin();
+			this.getEM().merge(ejb);
+			trx.commit();
 		}
 	}
 	
@@ -272,5 +290,46 @@ public class LatidoFacadeUtil extends LatidoEMUtil{
 		}
 		return newText;
 	}
+	
+	public List getListFromParameters(Class cls ,Parameter...parameters) {
+		List<Object> lo = null;
+		StringBuilder stb = new StringBuilder();
+		stb.append("Select c from ");
+		stb.append(cls.getSimpleName());
+		stb.append(" c ");
+		try {
+			if(parameters != null) {
+				Boolean isFirst = Boolean.TRUE;
+				for(Parameter param : parameters) {
+					if(isFirst) {
+						stb.append("where c.");
+						stb.append(param.getParamName());
+						stb.append(" = :p_");
+						stb.append(param.getParamName());
+					} else {
+						stb.append(" and c.");
+						stb.append(param.getParamName());
+						stb.append(" = :p_");
+						stb.append(param.getParamName());
+					}
+					isFirst = Boolean.FALSE;
+				}
+			}
+			EntityManager em = this.getEM();
+			Query q = em.createQuery(stb.toString(), cls);
+			em.getEntityManagerFactory().addNamedQuery("find"+cls.getSimpleName()+"Onfly", q);		
+			TypedQuery<Object> nq = em.createNamedQuery("find"+cls.getSimpleName()+"Onfly", cls);
+			if(parameters != null) {
+				for(Parameter param : parameters) {
+					nq.setParameter("p_" + param.getParamName(), param.getParamValue());
+				}
+			}
+			lo = nq.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lo;
+	}
+	
 	
 }
