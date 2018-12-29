@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Latido Email</title>
+        <style type="text/css">
+        		h1 {
+				font-family: Tahoma;
+				font-weight: bold;
+			}
+			h2 {
+				font-family: Tahoma;
+				font-weight: lighter;
+			}
+			h5 {
+				font-family: Tahoma;
+				font-weight: lighter;
+			}
+			.tableHeader{
+				background-color: #CCCCCC;
+				width: 100%;
+			}
+			.tableBody{
+				width: 100%;
+				border-color: black;
+				border: medium;
+				font-family: Tahoma;
+				font-weight: lighter;
+			}
+			.tableButtom{
+				background-color: #CCCCCC;
+				width: 100%;
+			}
+        </style>
+    </head>
+    <body>
+    		<table class="tableHeader">
+    			<tr>	
+    				<td>
+    					<h1>Sistema Latido</h1>
+    				</td>
+    			</tr>
+    			<tr>	
+    				<td>
+    					<h2>Usted acaba de recibir una notificación</h2>
+    				</td>
+    			</tr>
+    		</table>
+    		<table class="tableBody">
+    			<tr>	
+    				<td>
+    					$BODY_PART$
+    				</td>
+    			</tr>
+    		</table>
+    		<table class="tableButtom">
+    			<tr>	
+    				<td>
+    					<h5>Toda la información aqui mostrada es para uso dentro del sistema</h5>
+    				</td>
+    			</tr>
+    		</table>
+    </body>
+</html>
