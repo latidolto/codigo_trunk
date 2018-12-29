@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="LTO_Servicios" transaction-type="RESOURCE_LOCAL">
+
+		<class>lto.services.model.entities.Calendario</class>
+		<class>lto.services.model.entities.Cliente</class>
+		<class>lto.services.model.entities.DiaFestivo</class>
+		<class>lto.services.model.entities.DiaFestivoPK</class>
+		<class>lto.services.model.entities.DiaSemana</class>
+		<class>lto.services.model.entities.DiaSemanaPK</class>
+		<class>lto.services.model.entities.Galeria</class>
+		<class>lto.services.model.entities.GaleriaPK</class>
+		<class>lto.services.model.entities.Horario</class>
+		<class>lto.services.model.entities.Multivaluada</class>
+		<class>lto.services.model.entities.Persona</class>
+		<class>lto.services.model.entities.PersonaPK</class>
+		<class>lto.services.model.entities.Servicio</class>
+		<class>lto.services.model.entities.Contacto</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/lto_servicios"/>
+			<property name="javax.persistence.jdbc.user" value="root"/>
+			<property name="javax.persistence.jdbc.password" value="Immerstark88_"/>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+		</properties>
+	</persistence-unit>
+</persistence>
