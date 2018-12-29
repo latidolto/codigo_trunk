@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Catalogo de Servicios</title>
+    </h:head>
+    <h:body>
+    	<b:form id="mainForm">
+       		<b:panel id="formPanel" title="Servicios" look="primary">
+       			<b:panelGrid columns="4"  sytle=" align : left; halign: middle;">
+	        		<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel>Nombre</h:outputLabel>
+	      				<b:inputText id="txtNombre" value="#{servicesMB.servicio.nombre}"></b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel>Descripcion</h:outputLabel>
+	      				<b:inputText id="txtDescripcion" value="#{servicesMB.servicio.descripcion}"></b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel>Costo</h:outputLabel>
+	      				<b:inputText id="txtCosto" value="#{servicesMB.servicio.costo}"></b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel>Visibilidad</h:outputLabel>
+	     				<b:selectBooleanCheckbox valueChangeListener="#{servicesMB.valueChangeVisibilidad}" ></b:selectBooleanCheckbox>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8" >
+        					<h:outputLabel>Estatus</h:outputLabel>
+						<b:selectOneMenu id="somEstCiv" span="200" value="#{servicesMB.servicio.estatus}">
+							<f:selectItem itemLabel="Activo" itemValue="1"></f:selectItem>
+							<f:selectItem itemLabel="Inactivo" itemValue="0"></f:selectItem>
+						</b:selectOneMenu>
+        			</b:panelGrid>
+     			</b:panelGrid>
+     			<hr/>
+     			<b:buttonGroup>
+	       			<b:commandButton value="Guardar" icon-awesome="save" 
+	       							 look="primary" 
+	       							 actionListener="#{servicesMB.saveAction}"
+	       							 ajax="true"/>
+	       			<b:commandButton value="Limpiar" icon-awesome="eraser" 
+	       							 look="primary" 
+	       							 actionListener="#{servicesMB.clearAction}"
+	       							 ajax="true"/>
+	       		</b:buttonGroup>
+       		</b:panel>
+        	<b:dataTable value="#{servicesMB.servicios}"
+		                 var="row"
+		                 select="true"
+		                 selectionMode="single"
+		                 multiColumnSearch="true"
+		                 onselect="ajax:servicesMB.onSelect(row, typeOfSelection, indexes);">
+		        <b:dataTableColumn value="#{row.nombre}" label="Nombre"/>
+		        <b:dataTableColumn value="#{row.descripcion}" label="Descripcion"/>
+		        <b:dataTableColumn value="#{row.costo}" label="Costo" />
+		        <b:dataTableColumn value="#{row.costoVisible == 1 ? 'Visible' : 'No Visible'}" label="Visibilidad"/>
+		        <b:dataTableColumn value="#{row.estatus == 1 ? 'Activo' : 'Inactivo'}" label="Estatus"/>
+		    </b:dataTable>
+		    <b:growl id="growlMsg" globalOnly="true" placementFrom="bottom"
+			         show-detail="true" show-summary="false" allowDismiss="true"
+			         delay="4000" escape="true" />
+        </b:form>
+    </h:body>
+</html>
