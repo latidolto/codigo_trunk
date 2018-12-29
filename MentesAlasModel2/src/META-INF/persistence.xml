@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="MentesAlas2Model" transaction-type="RESOURCE_LOCAL">
+		<class>org.mentesalas.model.entities.Agenda</class>
+		<class>org.mentesalas.model.entities.AlternativasRehabilitacion</class>
+		<class>org.mentesalas.model.entities.Asistencia</class>
+		<class>org.mentesalas.model.entities.AtencionEspecializada</class>
+		<class>org.mentesalas.model.entities.AtencionMedica</class>
+		<class>org.mentesalas.model.entities.AtencionOdontologica</class>
+		<class>org.mentesalas.model.entities.AtencionOptometrica</class>
+		<class>org.mentesalas.model.entities.AtencionSeguimientoFamiliar</class>
+		<class>org.mentesalas.model.entities.Entrevista</class>
+		<class>org.mentesalas.model.entities.Evaluacion</class>
+		<class>org.mentesalas.model.entities.EvaluacionConsejero</class>
+		<class>org.mentesalas.model.entities.EvaluacionCoordinacionVoluntariado</class>
+		<class>org.mentesalas.model.entities.EvaluacionCoordinacione</class>
+		<class>org.mentesalas.model.entities.EvaluacionDefinicion</class>
+		<class>org.mentesalas.model.entities.EvaluacionDefinicionPregunta</class>
+		<class>org.mentesalas.model.entities.EvaluacionDefinicionPreguntaPK</class>
+		<class>org.mentesalas.model.entities.EvaluacionDireccionGeneral</class>
+		<class>org.mentesalas.model.entities.EvaluacionFamiliasMente</class>
+		<class>org.mentesalas.model.entities.EvaluacionIntegrantesMente</class>
+		<class>org.mentesalas.model.entities.EvaluacionPersonalOperativoAdministrativo</class>
+		<class>org.mentesalas.model.entities.EvaluacionProgramasIntegrante</class>
+		<class>org.mentesalas.model.entities.EvaluacionRespuesta</class>
+		<class>org.mentesalas.model.entities.EvaluacionRespuestasDetalle</class>
+		<class>org.mentesalas.model.entities.EvaluacionRespuestasDetallePK</class>
+		<class>org.mentesalas.model.entities.EvaluacionVoluntariado</class>
+		<class>org.mentesalas.model.entities.Familiar</class>
+		<class>org.mentesalas.model.entities.FichaMedica</class>
+		<class>org.mentesalas.model.entities.Fisioterapia</class>
+		<class>org.mentesalas.model.entities.Fonoaudiologia</class>
+		<class>org.mentesalas.model.entities.Integrante</class>
+		<class>org.mentesalas.model.entities.Medico</class>
+		<class>org.mentesalas.model.entities.Multivaluada</class>
+		<class>org.mentesalas.model.entities.NombreDeLaTabla</class>
+		<class>org.mentesalas.model.entities.Pregunta</class>
+		<class>org.mentesalas.model.entities.PreguntaRespuesta</class>
+		<class>org.mentesalas.model.entities.Programa</class>
+		<class>org.mentesalas.model.entities.ProgramaPregunta</class>
+		<class>org.mentesalas.model.entities.ProyectoRecaudacion</class>
+		<class>org.mentesalas.model.entities.Psicologia</class>
+		<class>org.mentesalas.model.entities.RegistroPrograma</class>
+		<class>org.mentesalas.model.entities.RoleFunction</class>
+		<class>org.mentesalas.model.entities.Role</class>
+		<class>org.mentesalas.model.entities.ServicioEnfermeria</class>
+		<class>org.mentesalas.model.entities.ServiciosLaboratorio</class>
+		<class>org.mentesalas.model.entities.Session</class>
+		<class>org.mentesalas.model.entities.Terapeuta</class>
+		<class>org.mentesalas.model.entities.TerapiaFisica</class>
+		<class>org.mentesalas.model.entities.TerapiaPsicologicaGrupal</class>
+		<class>org.mentesalas.model.entities.TerapiaPsicologicaIndividual</class>
+		<class>org.mentesalas.model.entities.UserRole</class>
+		<class>org.mentesalas.model.entities.User</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mentesalas_pru"/>
+			<property name="javax.persistence.jdbc.user" value="root"/>
+			<property name="javax.persistence.jdbc.password" value="meinhertz"/>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+		</properties>
+	</persistence-unit>
+</persistence>
