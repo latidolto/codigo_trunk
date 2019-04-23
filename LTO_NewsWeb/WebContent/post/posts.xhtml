@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Administracion de Posts para Latido News</title>
+    </h:head>
+    <h:body>
+    	<b:form id="mainForm">
+       		<b:panel id="formPanel" title="Nuevo Post" look="primary">
+       			<b:panelGrid columns="4"  sytle=" align : left; halign: middle;">
+	        		<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel>Encabezado</h:outputLabel>
+	      				<b:inputText id="txtNombre" value="#{postsMB.post.encabezado}"></b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel>Titulo</h:outputLabel>
+	      				<b:inputText id="txtCosto" value="#{postsMB.post.titulo}"></b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel>Descripcion</h:outputLabel>
+	      				<b:inputTextarea id="txtDescripcion" value="#{postsMB.post.descripcion}"></b:inputTextarea>
+	     			</b:panelGrid>
+     			</b:panelGrid>
+     			<hr/>
+     			<b:buttonGroup>
+	       			<b:commandButton value="Guardar" icon-awesome="save" 
+	       							 look="primary" 
+	       							 actionListener="#{postsMB.saveAction}"
+	       							 ajax="true"/>
+	       			<b:commandButton value="Limpiar" icon-awesome="eraser" 
+	       							 look="primary" 
+	       							 actionListener="#{postsMB.clearAction}"
+	       							 ajax="true"/>
+	       		</b:buttonGroup>
+       		</b:panel>
+        	<b:dataTable value="#{postsMB.posts}"
+		                 var="row"
+		                 select="true"
+		                 selectionMode="single"
+		                 multiColumnSearch="true"
+		                 onselect="ajax:postsMB.onSelect(row, typeOfSelection, indexes);">
+		        <b:dataTableColumn value="#{row.encabezado}" label="Encabezado"/>
+		        <b:dataTableColumn value="#{row.titulo}" label="titulo" />
+		        <b:dataTableColumn value="#{row.descripcion}" label="Descripcion"/>
+		    </b:dataTable>
+		    <b:growl id="growlMsg" globalOnly="true" placementFrom="bottom"
+			         show-detail="true" show-summary="false" allowDismiss="true"
+			         delay="4000" escape="true" />
+        </b:form>
+    </h:body>
+</html>
