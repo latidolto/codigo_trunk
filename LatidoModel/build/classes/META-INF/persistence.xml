@@ -33,10 +33,11 @@
 		<class>com.latido.model.views.ViewArticuloProveedor</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/latido"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/latido?serverTimezone=UTC"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
-			<property name="javax.persistence.jdbc.password" value="Immerstark88_"/>
+			<property name="javax.persistence.jdbc.password" value="meinhertz"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
 		</properties>
 	</persistence-unit>
 				</persistence>

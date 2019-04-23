@@ -19,7 +19,7 @@ import com.latido.view.managedbean.utils.JsfUtils;
 public class MenuConfig extends CommonManagedBean{
 	
 	public MenuConfig() {
-		super("Configuración de Menu");
+		super("Configuracion de Menu");
 	}
 
 	public List<Sistema> getSistemas(){

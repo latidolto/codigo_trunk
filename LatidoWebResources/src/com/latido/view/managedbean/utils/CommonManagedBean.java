@@ -79,9 +79,7 @@ public class CommonManagedBean {
 	}
 	
 	public LatidoFacade getFacade() {
-		String keyMem = null;
-		HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-		keyMem = session.getId();
+		String keyMem = getSessionKey();
 		return LatidoFacade.getInstance(keyMem);
 	}
 	

@@ -28,7 +28,7 @@ import com.latido.model.entities.Usuario;
 import com.latido.model.views.ViewArticuloCategoria;
 
 public class LatidoFacade extends LatidoFacadeUtil {
-	private static LatidoFacade _demoPenolesFacade;
+	private static LatidoFacade _latidoFacade;
 	private List<Menu> menu;
 	private String keyMem;
 	private Map cacheFacade;
@@ -52,15 +52,15 @@ public class LatidoFacade extends LatidoFacadeUtil {
 	 * queries directos
 	 */
 	public static LatidoFacade getInstance() {
-		if (_demoPenolesFacade == null) {
-			_demoPenolesFacade = new LatidoFacade();
+		if (_latidoFacade == null) {
+			_latidoFacade = new LatidoFacade();
 			// Entidades
-			_demoPenolesFacade.registerEJB(new Object[] { new Usuario(), new UsuRol(), new Rol(), new Sistema(),
+			_latidoFacade.registerEJB(new Object[] { new Usuario(), new UsuRol(), new Rol(), new Sistema(),
 					new Menu(), new Tarea(), new RolTarea(), new Categoria(), new Proveedor(), new Multivaluada(),
 					new Almacen(), new AlmacenPK(), new Articulo(), new Articulocategoria(),
 					new ViewArticuloCategoria(), new Inventario() });
 		}
-		return _demoPenolesFacade;
+		return _latidoFacade;
 	}
 	
 	/**
@@ -78,35 +78,35 @@ public class LatidoFacade extends LatidoFacadeUtil {
 	 * @author everardodominguez
 	 * */
 	public static LatidoFacade getInstance(String keyMem) {
-		LatidoFacade cachedDemoPenolesFacade = null;
+		LatidoFacade cachedFacade = null;
 		Boolean isFirst = Boolean.FALSE;
-		if(_demoPenolesFacade == null) {
-			_demoPenolesFacade = new LatidoFacade();
-			_demoPenolesFacade.cacheFacade = new HashMap();
-			cachedDemoPenolesFacade = new LatidoFacade();
-			cachedDemoPenolesFacade.setKeyMem(keyMem);
-			_demoPenolesFacade.cacheFacade.put(keyMem,cachedDemoPenolesFacade); 
+		if(_latidoFacade == null) {
+			_latidoFacade = new LatidoFacade();
+			_latidoFacade.cacheFacade = new HashMap();
+			cachedFacade = new LatidoFacade();
+			cachedFacade.setKeyMem(keyMem);
+			_latidoFacade.cacheFacade.put(keyMem,cachedFacade); 
 			isFirst = Boolean.TRUE;
 		} else {
-			if(_demoPenolesFacade.cacheFacade.get(keyMem) != null) {
-				cachedDemoPenolesFacade = (LatidoFacade) _demoPenolesFacade.cacheFacade.get(keyMem);
+			if(_latidoFacade.cacheFacade.get(keyMem) != null) {
+				cachedFacade = (LatidoFacade) _latidoFacade.cacheFacade.get(keyMem);
 				isFirst = Boolean.FALSE;
 			} else {
-				cachedDemoPenolesFacade = new LatidoFacade();
-				cachedDemoPenolesFacade.setKeyMem(keyMem);
-				_demoPenolesFacade.cacheFacade.put(keyMem,cachedDemoPenolesFacade);
+				cachedFacade = new LatidoFacade();
+				cachedFacade.setKeyMem(keyMem);
+				_latidoFacade.cacheFacade.put(keyMem,cachedFacade);
 				isFirst = Boolean.TRUE;
 			}
 		}
 		
 		if(isFirst) {
 			// Registramos las entities 
-			cachedDemoPenolesFacade.registerEJB(new Object[] { new Usuario(), new UsuRol(), new Rol(), new Sistema(),
+			cachedFacade.registerEJB(new Object[] { new Usuario(), new UsuRol(), new Rol(), new Sistema(),
 					new Menu(), new Tarea(), new RolTarea(), new Categoria(), new Proveedor(), new Multivaluada(),
 					new Almacen(), new AlmacenPK(), new Articulo(), new Articulocategoria(),
 					new ViewArticuloCategoria(), new Inventario() });
 		}
-		return cachedDemoPenolesFacade;
+		return cachedFacade;
 	}
 	
 	/***SECURITY SECTION************************************************************************************************************/

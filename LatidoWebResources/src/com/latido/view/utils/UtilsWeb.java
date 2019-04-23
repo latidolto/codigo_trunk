@@ -13,7 +13,6 @@ import org.jboss.resteasy.util.Hex;
 
 public class UtilsWeb {
 	public static void main(String args[]) {
-		System.out.println(UtilsWeb.convertSimpleMD5("meinhertz"));
 	}
 	
 	public static String convertSimpleMD5(String toConvert) {

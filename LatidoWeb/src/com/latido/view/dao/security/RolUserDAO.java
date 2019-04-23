@@ -11,7 +11,6 @@ import javax.persistence.Query;
 import com.latido.model.LatidoFacade;
 import com.latido.model.entities.UsuRol;
 import com.latido.model.entities.Usuario;
-import com.mysql.jdbc.PreparedStatement;
 
 public class RolUserDAO {
 	private static RolUserDAO _RolUserDAO;
