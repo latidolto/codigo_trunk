@@ -5,6 +5,9 @@ class Login extends React.Component {
 
   constructor() {
     super();
+
+    this.get = this.get.bind(this);
+
     this.state = {
       usuario: null
     };
@@ -46,21 +49,26 @@ class Login extends React.Component {
                 aria-label="Contraseña"
                 aria-describedby="basic-addon1" />
             </InputGroup>
-            <Button variant="primary" onClick='getUsuario' >Iniciar Sesión</Button>
+            <Button variant="primary" onClick={this.get} >Iniciar Sesión</Button>
           </Card.Body>
         </Card>
       </div>
     );
   }
 
-  getUsuario() {
-    fetch('http://jsonplaceholder.typicode.com/users')
-      .then(res => res.json())
-      .then((data) => {
-        this.setState({ contacts: data });
-        alert(this.state.data);
-      })
-      .catch(console.log)
+  get() {
+    fetch('http://jsonplaceholder.typicode.com/users', {
+      method: 'POST',
+      headers: new Headers({
+                 'Content-Type': 'application/x-www-form-urlencoded',
+        }),
+      body: "param1=value1&param2=value2"})
+    .then(res => res.json())
+    .then((data) => {
+      this.setState({ contacts: data });
+      alert(this.state.data);
+    })
+    .catch(console.log)
   }
 
   postValue() {
