@@ -18,5 +18,10 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Everardo/Documents/GitHub/codigo_trunk/librerias/gson-2.8.2.jar" sourcepath="C:/Users/Everardo/.m2/repository/com/google/code/gson/gson/2.8.2/gson-2.8.2-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
