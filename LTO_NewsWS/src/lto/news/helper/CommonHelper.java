@@ -11,12 +11,6 @@ import lto.news.entities.CommonEntity;
 
 public class CommonHelper {
 	
-	public static final String[] tables = {"autor",
-										   "categoria",
-										   "comentario",
-										   "contacto",
-										   "imagen"};
-	
 	public static List<CommonEntity> getEntity(CommonEntity entity ){
 		List<CommonEntity> entities = null; 
 		String query = "Select * from " + entity.getName() + " ";
