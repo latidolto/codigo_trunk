@@ -18,23 +18,25 @@ public class NoticiaHelper {
 		}
 		List<Object> rawNoticiaList = (new Noticia()).fillRowsFromQuery(query);
 		/**fill children rows*/
-		for (Object rawNoticia : rawNoticiaList) {
-			Noticia noticia = (Noticia) rawNoticia;
-			noticia.getCategorias();
-			noticia.getTags();
-			noticia.getImagenes();
-			noticia.getComentarios();
-			if (noticia.getComentarios() != null) {
-				List<Object> rawComentarioList = noticia.getComentarios();
-				for (Object rawComentario : rawComentarioList) {
-					Comentario comentario = (Comentario) rawComentario;
-					comentario.getOpiniones();
+		if(rawNoticiaList != null) {
+			for (Object rawNoticia : rawNoticiaList) {
+				Noticia noticia = (Noticia) rawNoticia;
+				noticia.getCategorias();
+				noticia.getTags();
+				noticia.getImagenes();
+				noticia.getComentarios();
+				if (noticia.getComentarios() != null) {
+					List<Object> rawComentarioList = noticia.getComentarios();
+					for (Object rawComentario : rawComentarioList) {
+						Comentario comentario = (Comentario) rawComentario;
+						comentario.getOpiniones();
+					}
 				}
+				if(lnot == null) {
+					lnot = new ArrayList<Noticia>();
+				}
+				lnot.add(noticia);
 			}
-			if(lnot == null) {
-				lnot = new ArrayList<Noticia>();
-			}
-			lnot.add(noticia);
 		}
 		return lnot;
 	}

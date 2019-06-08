@@ -26,12 +26,12 @@ public class News {
 		String remoteURL = servletRequest.getRemoteHost() +
 				   servletRequest.getRemotePort() +
 				   servletRequest.getRemoteUser() ;
-		if(!BasicValidation.validateCall(remoteURL)) {
+		/*if(!BasicValidation.validateCall(remoteURL)) {
 			return Response
 		 	      .status(400)
 		 	      .entity("Ha excedido el numero de llamadas desde su host..")
 		 	      .build();
-		}
+		}*/
 		Noticia noticia = (Noticia) JSONUtils.JSONToJava(Noticia.class, strNoticia);
 		List<Noticia> lnot = NoticiaHelper.getFullNews(noticia);
 		String jsonParsed = JSONUtils.javaCollectionToJSON(lnot);

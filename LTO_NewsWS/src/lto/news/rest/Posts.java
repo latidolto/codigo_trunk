@@ -35,6 +35,8 @@ public class Posts {
 		}
 		Post p = new Post();
 		List<Object> lpost = p.getAll();
+		String jsonParsed = "";
+		if(lpost != null) {
 		for(Object obj : lpost) {
 			List<Object> lpi = ((Post)obj).getImagenes();
 			if(lpi != null) {
@@ -43,7 +45,8 @@ public class Posts {
 				}
 			}
 		}
-		String jsonParsed = JSONUtils.javaCollectionToJSON(lpost);
+		jsonParsed = JSONUtils.javaCollectionToJSON(lpost);
+		}
         return Response
         	      .status(200)
         	      .header("Access-Control-Allow-Origin", "*")
