@@ -13,6 +13,11 @@ import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
 import javax.json.stream.JsonGenerator;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import lto.news.entities.User;
+
 public class JSONUtils {
 	
 	public static String javaToJSON(Object object) {
@@ -75,5 +80,10 @@ public class JSONUtils {
 			strJson += "] }";
 		}
 		return strJson;
+	}
+
+	public static Object JSONToJava(Class cls, String json) {
+		Gson gson = new GsonBuilder().create();
+		return gson.fromJson(json, cls);
 	}
 }
