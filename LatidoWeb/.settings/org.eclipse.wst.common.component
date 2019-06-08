@@ -5,9 +5,6 @@
         <dependent-module archiveName="LatidoModel.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/LatidoModel/LatidoModel">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="LatidoWebResources.war" deploy-path="/WEB-INF/lib" handle="module:/resource/LatidoWebResources/LatidoWebResources">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <property name="context-root" value="LatidoWeb"/>
         <property name="java-output-path" value="/LatidoWeb/build/classes"/>
     </wb-module>
