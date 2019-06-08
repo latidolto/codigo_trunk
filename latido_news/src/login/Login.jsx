@@ -1,10 +1,13 @@
 import React from 'react';
 import { Card, Button, InputGroup, FormControl } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route} from 'react-router-dom';
 
 class Login extends React.Component {
 
   constructor() {
     super();
+    this.renderRedirect = this.renderRedirect.bind(this);
     this.state = {
       usuario: null
     };
@@ -21,6 +24,8 @@ class Login extends React.Component {
       .catch(console.log)
   }
   */
+
+  
 
   render() {
     return (
@@ -46,11 +51,20 @@ class Login extends React.Component {
                 aria-label="Contraseña"
                 aria-describedby="basic-addon1" />
             </InputGroup>
-            <Button variant="primary" onClick='getUsuario' >Iniciar Sesión</Button>
+
+            
+            
+            <Button variant="primary" onClick={this.renderRedirect} >Redirect</Button>
+
           </Card.Body>
         </Card>
       </div>
     );
+  }
+
+  renderRedirect = () => {
+    alert("Entre")
+      return <Redirect to='/login' />
   }
 
   getUsuario() {
