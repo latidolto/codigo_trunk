@@ -4,7 +4,7 @@ class New extends Component {
 
     render() {
         return (
-            <h1>Componente de Noticia: {this.props.titulo }</h1>
+            <h1>Componente de Noticia: {this.props.mNew.notContenido }</h1>
         );
     }
 
