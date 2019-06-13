@@ -38,7 +38,7 @@ class NewsService extends Component {
         return (
             <div>
                 {
-                    this.state.news.map(mNew => <New key={mNew.notId} titulo={mNew.notTitulo} />)
+                    this.state.news.map(mNew => <New key={mNew.notId} titulo={mNew} />)
                 }
             </div>
         );

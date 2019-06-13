@@ -4,7 +4,6 @@ import NewsService from './news/NewsService';
 
 
 function App() {
-
   
   return (
     <div className="App">

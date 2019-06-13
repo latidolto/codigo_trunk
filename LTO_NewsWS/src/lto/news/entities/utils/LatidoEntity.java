@@ -71,7 +71,7 @@ public class LatidoEntity {
 						continue;
 					}
 					for(int i = 1 ; i <= columnCount ; i++) {
-						if (field.getName().trim().equalsIgnoreCase(rsmd.getColumnName(i).trim())) {
+						if (field.getName().trim().equalsIgnoreCase(rsmd.getColumnName(i).trim().replace("_", ""))) {
 							if( field.getType().isInstance(new java.sql.Date(0) ) ) {
 								field.set(row, rs.getDate(i));
 							} else {

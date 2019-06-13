@@ -77,7 +77,7 @@ public class Noticia extends LatidoEntity implements Serializable{
 		if(this.notId != null && this.imagenes == null) {
 			String query = "Select * from noticia_imagen nim " +
 						   " join imagen img on img.img_id = nim.img_id " +
-						   "Where img.not_id = '" + this.notId + "'";
+						   "Where nim.not_id = '" + this.notId + "'";
 			this.imagenes = (new Imagen()).fillRowsFromQuery(query);
 		}
 		return imagenes;
@@ -100,7 +100,7 @@ public class Noticia extends LatidoEntity implements Serializable{
 	public List<Object> getComentarios() {
 		if(this.notId != null && this.comentarios == null) {
 			String query = "Select * from comentario com " +
-						   "Where com.not_id = '" + this.notId + "'";
+						   "Where com.com_noticia = '" + this.notId + "'";
 			this.comentarios = (new Comentario()).fillRowsFromQuery(query);
 		}
 		return comentarios;
