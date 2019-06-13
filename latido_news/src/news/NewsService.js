@@ -11,7 +11,7 @@ class NewsService extends Component {
     }
 
     componentWillMount() {
-        fetch('http://192.168.1.100:8080/LTO_NewsWS/rest/News')
+        fetch('http://localhost:8080/LTO_NewsWS/rest/News')
             .then(response => response.json())
             .then(news => {
                 news.List.forEach(mNew => {
