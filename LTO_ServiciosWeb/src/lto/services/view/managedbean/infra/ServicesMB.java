@@ -31,7 +31,7 @@ public class ServicesMB extends CommonManagedBean {
 	}
 	
 	public List<Servicio> getServicios(){
-		return getController().getServicesByParams();
+		return getController().getServicesByParams(); 
 	}
 	/**
 	 * Events on the page to handle main action on the button bar or the grid for a common catalog
