@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="LTO_ActManager" transaction-type="RESOURCE_LOCAL">
+		<class>lto.actmanager.model.entities.Actividad</class>
+		<class>lto.actmanager.model.entities.ActividadPK</class>
+		<class>lto.actmanager.model.entities.Actividadbitacora</class>
+		<class>lto.actmanager.model.entities.ActividadbitacoraPK</class>
+		<class>lto.actmanager.model.entities.Actividadpersona</class>
+		<class>lto.actmanager.model.entities.ActividadpersonaPK</class>
+		<class>lto.actmanager.model.entities.Agenda</class>
+		<class>lto.actmanager.model.entities.Area</class>
+		<class>lto.actmanager.model.entities.AreaPK</class>
+		<class>lto.actmanager.model.entities.Compania</class>
+		<class>lto.actmanager.model.entities.Estatus</class>
+		<class>lto.actmanager.model.entities.EstatusPK</class>
+		<class>lto.actmanager.model.entities.Persona</class>
+		<class>lto.actmanager.model.entities.PersonaPK</class>
+		<class>lto.actmanager.model.entities.Personaatencion</class>
+		<class>lto.actmanager.model.entities.PersonaatencionPK</class>
+		<class>lto.actmanager.model.entities.Proyecto</class>
+		<class>lto.actmanager.model.entities.ProyectoPK</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/lto_actmanager?serverTimezone=UTC"/>
+			<property name="javax.persistence.jdbc.user" value="root"/>
+			<property name="javax.persistence.jdbc.password" value="meinhertz"/>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+		</properties>
+	</persistence-unit>
+</persistence>
