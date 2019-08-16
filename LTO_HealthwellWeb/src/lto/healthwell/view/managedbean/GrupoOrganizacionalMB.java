@@ -10,6 +10,7 @@ import com.latido.view.managedbean.utils.JsfUtils;
 
 import lto.healthwell.dispatcher.LtoHealthwellDispatcher;
 import lto.healthwell.model.controllers.GrupoOrganizacionalController;
+import lto.healthwell.model.entities.AvisoPrivacidad;
 import lto.healthwell.model.entities.GrupoOrganizacional;
 import lto.healthwell.view.managedbean.util.FileUploader;
 
@@ -36,7 +37,7 @@ public class GrupoOrganizacionalMB extends CommonManagedBean{
 	}
 	
 	public List<GrupoOrganizacional> getGrupoOrganizacionales() {
-		return this.getController().getGrupoOrganizacionalByParams(false);
+		return this.getController().getGrupoOrganizacionalByParams(false, false, true);
 	}
 
 	public Part getFile() {
@@ -49,6 +50,13 @@ public class GrupoOrganizacionalMB extends CommonManagedBean{
 	
 	public boolean getGrupoOrgContentEnabled() {
 		return (boolean) this.getController().getVariable(GRUORG_CONTENT_ENABLE);
+	}
+	
+	public List<AvisoPrivacidad> getAvisosPrivacidad(){
+		if(this.getGrupoOrganizacional() != null) {
+			return this.getGrupoOrganizacional().getAvisoPrivacidadChildren();
+		}
+		return null;
 	}
 	
 	/*EVENTOS EN LA PANTALLA*/

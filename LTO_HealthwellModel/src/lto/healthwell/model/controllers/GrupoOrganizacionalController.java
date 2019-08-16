@@ -84,6 +84,31 @@ public class GrupoOrganizacionalController extends LtoController{
 		return pk;
 	}
 	
+	public List<GrupoOrganizacional> getGrupoOrganizacionalByParams(Boolean domicilios, Boolean areas, Boolean avisos,  Parameter... params){
+		List<GrupoOrganizacional> lgo = this.getLtoHealthwellFacade().getListFromParameters(GrupoOrganizacional.class, params);
+		if(lgo != null) {
+			if (areas) {
+				for(GrupoOrganizacional go : lgo) {
+					Parameter[] param = new Parameter[] { new Parameter("idgo", go.getIdgo()) };
+					List<Area> lare = this.getLtoHealthwellFacade().getListFromParameters(Area.class, param);
+				}
+			}
+			if(avisos) {
+				for(GrupoOrganizacional go : lgo) {
+					Parameter[] param = new Parameter[] { new Parameter("idgo", go.getIdgo()) };
+					List<AvisoPrivacidad> lap = this.getLtoHealthwellFacade().getListFromParameters(AvisoPrivacidad.class, param);
+				}
+			}	
+			if(domicilios) {
+				for(GrupoOrganizacional go : lgo) {
+					Parameter[] param = new Parameter[] { new Parameter("idgo", go.getIdgo()) };
+					List<GoDomicilio> lgod = this.getLtoHealthwellFacade().getListFromParameters(GoDomicilio.class, param);
+				}
+			}
+		}
+		return lgo;
+	}
+	
 	public List<GrupoOrganizacional> getGrupoOrganizacionalByParams(Boolean fetchChildren, Parameter... params){
 		List<GrupoOrganizacional> lgo = this.getLtoHealthwellFacade().getListFromParameters(GrupoOrganizacional.class, params);
 		if(fetchChildren && lgo != null) { 
