@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"> 
+
+<h:head>
+	<title>Configuración de Grupos Organizacionales</title>
+	<link rel="stylesheet" href="../css/healthwell.css" />
+	
+</h:head>
+<h:body styleClass="common-body">
+	<b:form id="mainForm" enctype="multipart/form-data">
+   		<b:panel id="formPanel" title="Grupos Organizacionales" look="primary">
+   			<b:panelGrid columns="2"  sytle=" align : left; halign: middle;">
+   				<b:panelGrid columns="1"  sytle=" align : left; halign: middle;">
+	   				<b:commandButton value="Agregar Grupo" icon-awesome="plus" 
+	       							 look="primary" 
+	       							 size="sm"
+	       							 type="button"
+	       							 actionListener="#{GrupoOrganizacionalMB.agregarGrupo}"
+	       							 ajax="true"/>
+	       			<br/>
+		   			<b:dataTable var="row" value="#{GrupoOrganizacionalMB.grupoOrganizacionales}"
+		   						 id="dtGrupos">
+		   				<b:dataTableColumn label="Lista de Grupos">
+		   					<b:panelGrid columns="2" colSpans="10,2">
+		   						<b:panelGrid columns="2" colSpans="2,10" sytle=" align : left; halign: middle;">
+		   							<b:image value="#{row.logoString}" style="width: 32px; height: 32px;"></b:image>
+		   							<h:outputText styleClass="enfasis-text" value="#{row.nombre}"></h:outputText>
+		   						</b:panelGrid>
+		   						<b:buttonGroup>
+		   						    <b:commandButton value="Seleccionar" icon-awesome="check" 
+		       							 look="primary" 
+		       							 size="sm"
+		       							 type="button" 
+		       							 actionListener="#{GrupoOrganizacionalMB.seleccionarParaEditarGrupo}"
+		       							 ajax="true">
+		       							<f:attribute name="rowGrupo" value="#{row}"></f:attribute>
+		       						</b:commandButton>
+	       						</b:buttonGroup>
+		   					</b:panelGrid>
+		   				</b:dataTableColumn>
+		   				<f:facet name="header">
+		   					
+		   				</f:facet>
+		   			</b:dataTable>
+	   			</b:panelGrid>
+	   			<b:panelGrid columns="1"  sytle=" align : left; halign: middle;" id="panelGruOrg" contentDisabled="#{!GrupoOrganizacionalMB.grupoOrgContentEnabled}">
+	   				<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel styleClass="common-label">* Nombre</h:outputLabel>
+	      				<b:inputText id="txtNombre" value="#{GrupoOrganizacionalMB.grupoOrganizacional.nombre}" fieldSize="sm" >
+		      				<f:facet name="prepend">
+						      <b:icon name="pencil" />
+						    </f:facet>
+	      				</b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel styleClass="common-label">Descripcion</h:outputLabel>
+	      				<b:inputTextarea id="txtDescripcion" value="#{GrupoOrganizacionalMB.grupoOrganizacional.descripcion}" fieldSize="sm">
+	      					<f:facet name="prepend">
+						      <b:icon name="list" />
+						    </f:facet>
+	      				</b:inputTextarea>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel styleClass="common-label">* RFC</h:outputLabel>
+	      				<b:inputText id="txtRFC" value="#{GrupoOrganizacionalMB.grupoOrganizacional.rfc}" fieldSize="sm" >
+	      					<f:facet name="prepend">
+						      <b:icon name="minus" />
+						    </f:facet>
+	      				</b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel styleClass="common-label">Logo</h:outputLabel>
+	     				<h:inputFile id="ifLogo" value="#{GrupoOrganizacionalMB.file}" />
+	     				<a/>
+	     				<b:image value="#{GrupoOrganizacionalMB.grupoOrganizacional.logoString}" style="width: 64px; height: 64px;"></b:image>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8" >
+	       				<h:outputLabel styleClass="common-label">Estatus</h:outputLabel>
+						<b:selectOneMenu id="somEstCiv" span="200" value="#{GrupoOrganizacionalMB.grupoOrganizacional.estatus}" fieldSize="sm">
+							<f:facet name="prepend">
+						      <b:icon name="flag" />
+						    </f:facet>
+							<f:selectItem itemLabel="Activo" itemValue="1"></f:selectItem>
+							<f:selectItem itemLabel="Inactivo" itemValue="0"></f:selectItem>
+						</b:selectOneMenu>
+	       			</b:panelGrid>
+	       			<h:outputText value=" (*) Valores requeridos" />
+	       			<br/>
+	       			<b:buttonGroup>
+		       			<b:commandButton value="Guardar" icon-awesome="save" 
+	       							 look="primary" 
+	       							 size="sm"
+	       							 actionListener="#{GrupoOrganizacionalMB.guardarGrupo}"
+	       							 ajax="true"/>
+	       				<b:commandButton value="Cancelar" icon-awesome="reply" 
+	       							 look="primary" 
+	       							 size="sm"
+	       							 type="button"
+	       							 actionListener="#{GrupoOrganizacionalMB.cancelarEditarGrupo}"
+	       							 ajax="true"/>
+       				</b:buttonGroup>
+	   			</b:panelGrid>
+   			</b:panelGrid>
+   		</b:panel>
+   		<b:panelGrid id="panelAvisoPrivacidad" columns="3" colSpans="3,4,5">
+   			<b:well>
+   				<h:outputLabel styleClass="common-label" value="Grupo Seleccionado:" />
+   				<br/>
+   				<h:outputText styleClass="enfasis-text" value="#{GrupoOrganizacionalMB.grupoOrganizacional.nombre}" />
+   			</b:well>
+   			<b:panel look="defualt" title="Aviso de Privacidad" collapsible="false">
+   				
+   			</b:panel>
+   			<b:panel look="defualt" collapsible="false" contentDisabled="#{!GrupoOrganizacionalMB.grupoOrgContentEnabled}">
+   				<b:panelGrid columns="2" colSpans="4,8">
+     				<h:outputLabel styleClass="common-label">* Contenido</h:outputLabel>
+      				<b:inputTextarea id="txtContenido" fieldSize="sm">
+      					<f:facet name="prepend">
+					      <b:icon name="list" />
+					    </f:facet>
+      				</b:inputTextarea>
+     			</b:panelGrid>
+     			<b:panelGrid columns="2" colSpans="4,8">
+     				<h:outputLabel styleClass="common-label">Archivo</h:outputLabel>
+     				<h:inputFile id="ifArchivo"  />
+     			</b:panelGrid>
+     			<br/>
+     			<h:outputText value=" (*) Valores requeridos" />
+       			<hr/>
+       			<b:panelGrid columns="2" colSpans="2,10" >
+       				<b:panelGrid columns="1" styleClass="panel-icon-align">
+	       				<img src="../images/warning.png" height="32" width="32"/>
+	       			</b:panelGrid>
+	       			<b:panelGrid columns="1" styleClass="panel-text-align">
+	       				<h:outputText value="Atencion, al guardar un aviso de privacidad reemplazara el existente" />
+	       			</b:panelGrid>
+       			</b:panelGrid>
+       			<hr/>
+       			<b:buttonGroup>
+	       			<b:commandButton value="Guardar" icon-awesome="save" 
+       							 look="primary" 
+       							 size="sm"
+       							 ajax="true"/>
+       				<b:commandButton value="Cancelar" icon-awesome="reply" 
+       							 look="primary" 
+       							 size="sm"
+       							 type="button"
+       							 ajax="true"/>
+      			</b:buttonGroup>
+   			</b:panel>
+   		</b:panelGrid>
+   		<b:growl id="growlMsg" globalOnly="true" placementFrom="bottom"
+			         show-detail="true" show-summary="false" allowDismiss="true"
+			         delay="4000" escape="true" />
+   	</b:form>
+</h:body>
+</html>

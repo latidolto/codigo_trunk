@@ -11,7 +11,6 @@ import javax.servlet.http.Part;
 
 import com.latido.model.LatidoFacade;
 import com.latido.model.entities.Documentacion;
-import com.latido.model.views.DAO.prospecto.DocumentacionDAO;
 import com.latido.view.managedbean.utils.CommonManagedBean;
 import com.latido.view.managedbean.utils.JsfUtils;
 
@@ -54,7 +53,7 @@ public class Documentaciones extends CommonManagedBean {
 			FacesContext.getCurrentInstance().addMessage(null, fm);
 		} else {
 			doc.setUsuCve("ADMIN");
-			doc.setArchivo(DocumentacionDAO.getInstance().getBytes());
+			//doc.setArchivo(DocumentacionDAO.getInstance().getBytes());
 			doc.setFecMod(new Date());
 			doc.setProspecto_idProspecto(1);
 
@@ -90,11 +89,12 @@ public class Documentaciones extends CommonManagedBean {
 	}
 	
 	public Part getFile() {
-		return DocumentacionDAO.getInstance().getPart();
+		return null;
+		//return DocumentacionDAO.getInstance().getPart();
 	}
 
 	public void setFile(Part file) {
-		DocumentacionDAO.getInstance().setPart(file);
+		//DocumentacionDAO.getInstance().setPart(file);
 	}
 
 }

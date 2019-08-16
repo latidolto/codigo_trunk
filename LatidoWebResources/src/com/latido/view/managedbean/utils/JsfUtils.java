@@ -39,7 +39,7 @@ public class JsfUtils {
 	
 	public static void sendMessageToView_ERROR(String msg) {
 		FacesMessage fm = new FacesMessage();
-		fm.setSeverity(FacesMessage.SEVERITY_ERROR);
+		fm.setSeverity(FacesMessage.SEVERITY_FATAL);
 		fm.setSummary("");
 		fm.setDetail(msg);
 		FacesContext.getCurrentInstance().addMessage(null, fm);
