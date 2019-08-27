@@ -9,7 +9,6 @@
 <h:head>
 	<title>Configuración de Grupos Organizacionales</title>
 	<link rel="stylesheet" href="../css/healthwell.css" />
-	
 </h:head>
 <h:body styleClass="common-body">
 	<b:form id="mainForm" enctype="multipart/form-data">
@@ -101,7 +100,7 @@
 	       							 look="primary" 
 	       							 size="sm"
 	       							 type="button"
-	       							 actionListener="#{GrupoOrganizacionalMB.cancelarEditarGrupo}"
+	       							 actionListener="#{GrupoOrganizacionalMB.cancelarEditar}"
 	       							 ajax="true"/>
        				</b:buttonGroup>
 	   			</b:panelGrid>
@@ -110,28 +109,38 @@
    		<b:panelGrid id="panelAvisoPrivacidad" columns="3" colSpans="3,4,5">
    			<b:well>
    				<h:outputLabel styleClass="common-label" value="Grupo Seleccionado:" />
-   				<br/>
+   				<hr/>
    				<h:outputText styleClass="enfasis-text" value="#{GrupoOrganizacionalMB.grupoOrganizacional.nombre}" />
+   				<hr/>
+   				<b:image value="#{GrupoOrganizacionalMB.grupoOrganizacional.logoString}" style="max-height: 256px; max-width: 256px;"></b:image>
    			</b:well>
    			<b:panel look="defualt" title="Aviso de Privacidad" collapsible="false">
    				<b:panelGrid columns="1">
 	   				<c:forEach items="#{GrupoOrganizacionalMB.avisosPrivacidad}" var="item">
-	   					<b:panelGrid columns="3" colSpans="4,4,4">
-	   						<b:inputTextarea id="txtContenidoList" fieldSize="sm" rows="3" maxlength="100">
-		      					<f:facet name="prepend">
-							      <b:icon name="list" />
-							    </f:facet>
-		      				</b:inputTextarea>
-		      				<h:link value="#{item.archivo}" type="application/PDF" title="aviso_privacidad.pdf"/>
-		      				<h:outputText value="#{item.estatus == 1 ? 'Activo' : 'Inactivo'}" />
-	   					</b:panelGrid>		
+	   					<b:well>
+		   					<b:panelGrid columns="4" colSpans="2,4,4,2" >
+		   						<h:outputText value="#{item.idap}" >
+		   						</h:outputText>
+		   						<h:outputText value="#{item.contenidoCortado}">
+			      				</h:outputText>
+			      				<b:commandButton actionListener="#{GrupoOrganizacionalMB.descargarAvisoPrivacidad}"
+			      								 look="info"
+			      								 icon="file"
+			      								 rendered="#{item.archivo != null}"
+												 value="aviso_privacidad.pdf">
+									<f:attribute value="#{item}" name="archivo"></f:attribute>
+			      				</b:commandButton>
+			      				
+			      				<h:outputText value="#{item.estatus == 1 ? 'Activo' : 'Inactivo'}" />
+		   					</b:panelGrid>
+	   					</b:well>		
 	   				</c:forEach>
    				</b:panelGrid>
    			</b:panel>
-   			<b:panel look="defualt" collapsible="false" contentDisabled="#{!GrupoOrganizacionalMB.grupoOrgContentEnabled}">
+   			<b:panel title="Nuevo Aviso de Privacidad" look="primary" collapsible="false" contentDisabled="#{!GrupoOrganizacionalMB.grupoOrgContentEnabled}">
    				<b:panelGrid columns="2" colSpans="4,8">
      				<h:outputLabel styleClass="common-label">* Contenido</h:outputLabel>
-      				<b:inputTextarea id="txtContenido" fieldSize="sm">
+      				<b:inputTextarea id="txtContenido" fieldSize="sm" value="#{GrupoOrganizacionalMB.avisoPrivacidad.contenido}">
       					<f:facet name="prepend">
 					      <b:icon name="list" />
 					    </f:facet>
@@ -139,7 +148,7 @@
      			</b:panelGrid>
      			<b:panelGrid columns="2" colSpans="4,8">
      				<h:outputLabel styleClass="common-label">Archivo</h:outputLabel>
-     				<h:inputFile id="ifArchivo" accept="application/pdf"/> <!-- TODO Hacer que funcione el guardado de aviso de privacidad -->
+     				<h:inputFile id="ifArchivo" accept="application/pdf" value="#{GrupoOrganizacionalMB.fileArch}"/> <!-- TODO Hacer que funcione el guardado de aviso de privacidad -->
      			</b:panelGrid>
      			<br/>
      			<h:outputText value=" (*) Valores requeridos" />
@@ -157,11 +166,13 @@
 	       			<b:commandButton value="Guardar" icon-awesome="save" 
        							 look="primary" 
        							 size="sm"
+       							 actionListener="#{GrupoOrganizacionalMB.guardarAvisoPrivacidad}"
        							 ajax="true"/>
        				<b:commandButton value="Cancelar" icon-awesome="reply" 
        							 look="primary" 
        							 size="sm"
        							 type="button"
+       							 actionListener="#{GrupoOrganizacionalMB.cancelarEditar}"
        							 ajax="true"/>
       			</b:buttonGroup>
    			</b:panel>

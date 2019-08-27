@@ -2,13 +2,10 @@
     <wb-module deploy-name="LTO_HealthwellWeb">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <dependent-module archiveName="LatidoWebResources.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/Everardo/Documents/GitHub/codigo_trunk/librerias/LatidoWebResources.jar">
+        <dependent-module archiveName="LTO_HealthwellModel.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/LTO_HealthwellModel/LTO_HealthwellModel">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="LatidoModel.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/LatidoModel/LatidoModel">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="LTO_HealthwellModel.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/LTO_HealthwellModel/LTO_HealthwellModel">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="context-root" value="LTO_HealthwellWeb"/>

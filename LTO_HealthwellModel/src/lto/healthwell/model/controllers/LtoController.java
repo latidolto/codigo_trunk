@@ -3,6 +3,10 @@ package lto.healthwell.model.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.Query;
+
+import com.latido.model.utils.Parameter;
+
 import lto.healthwell.model.LtoHealthwellFacade;
 
 public class LtoController {
@@ -40,6 +44,35 @@ public class LtoController {
 			return null;
 		}
 			
+	}
+	
+	public long getNextPK(String table, String column, Parameter...params) {
+		Long pk = null;
+		String query = "Select max("+column+") from "+table;
+		if(params != null) {
+			String append = "";
+			Boolean isFirst = Boolean.TRUE;
+			for(Parameter p : params) {
+				if(isFirst) {
+					append += " where "+p.getParamName()+" = "+p.getParamValue();
+				} else {
+					append += " and "+p.getParamName()+" = "+p.getParamValue();
+				}
+				isFirst = Boolean.FALSE;
+			}
+			query += append;
+		}
+		try {
+			Query q = this.getLtoHealthwellFacade().getEM().createNativeQuery(query);
+			pk = Long.valueOf( ((Integer)q.getSingleResult()).toString() );
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if(pk == null)
+				pk = 0L;
+			pk = pk + 1L;
+		}
+		return pk;
 	}
 	
 }

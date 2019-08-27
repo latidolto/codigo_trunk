@@ -6,6 +6,7 @@ package com.latido.model.utils;
  * 
  * */
 public class Parameter {
+	//TODO mejorar clase inluyendo el operador logico y el tipo de dato a comparar
 	private String paramName;
 	private Object paramValue;
 	

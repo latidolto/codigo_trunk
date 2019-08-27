@@ -26,6 +26,8 @@ public class AvisoPrivacidad implements Serializable {
 	private Date fec_mod; 
 	private String usu_cve;
 	@Transient
+	private String contenidoCortado;
+	@Transient
 	private static final long serialVersionUID = 1L;
 
 	public AvisoPrivacidad() {
@@ -128,6 +130,19 @@ public class AvisoPrivacidad implements Serializable {
 	 */
 	public void setUsu_cve(String usu_cve) {
 		this.usu_cve = usu_cve;
+	}
+
+	public String getContenidoCortado() {
+		if(this.getContenido() != null && this.getContenido().length() > 225) {
+			contenidoCortado = this.getContenido().substring(0, 225) + "...";
+		} else {
+			contenidoCortado = this.getContenido();
+		}
+		return contenidoCortado;
+	}
+
+	public void setContenidoCortado(String contenidoCortado) {
+		this.contenidoCortado = contenidoCortado;
 	}
    
 }

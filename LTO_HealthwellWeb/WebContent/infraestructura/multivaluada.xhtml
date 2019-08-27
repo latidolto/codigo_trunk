@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"> 
+
+<h:head>
+	<title>Catalogo de Multivaluadas</title>
+	<link rel="stylesheet" href="../css/healthwell.css" />
+</h:head>
+<h:body styleClass="common-body" id="mainBody">
+	<b:form id="mainForm">
+   		<b:panel id="formPanel" title="Multivaluadas" look="primary">
+   			<b:panelGrid columns="1" >
+   				<b:buttonGroup id="mainBttnGrp">
+   					<b:commandButton value="Agregar" icon-awesome="plus" 
+	       							 look="primary" 
+	       							 size="sm"
+	       							 type="button"
+	       							 disabled="#{multivaluadaMB.multivaluada.idmultivaluada != 0}"
+	       							 onclick="$('.modalClass').modal('show')"/>
+	       			<b:commandButton value="Editar" icon-awesome="pencil" 
+	       							 look="primary" 
+	       							 size="sm"
+	       							 type="button"
+	       							 disabled="#{multivaluadaMB.multivaluada.idmultivaluada == 0}"
+	       							 onclick="$('.modalClass').modal('show')"/>
+	       			<b:commandButton value="Limpiar" icon-awesome="eraser" 
+	       							 look="primary"
+	       							 size="sm"
+	       							 actionListener="#{multivaluadaMB.resetUI}"
+	       							 oncomplete="window.href = window.href">
+	       			</b:commandButton>
+   				</b:buttonGroup>
+   				<hr/>
+   				<b:dataTable value="#{multivaluadaMB.multivaluadas}" var="row" id="dtMultivaluada" 
+   							 select="true" 
+   							 selectionMode="single"
+   							 ajax="true"
+   							 multiColumnSearch="true"
+   							 striped="true" 
+   							 onselect="ajax:multivaluadaMB.onSelectMultivaluada(row, typeOfSelection, indexes);"
+   							 ondeselect="ajax:multivaluadaMB.onDeselectMultivaluada();"
+   							 update="amodal"
+   							 excel="true"
+   							 pdf="true">
+   					<b:dataTableColumn label="Clave" value="#{row.clave}"></b:dataTableColumn>
+   					<b:dataTableColumn label="Valor" value="#{row.valor}"></b:dataTableColumn>
+   					<b:dataTableColumn label="Descripcion" value="#{row.descripcion}"></b:dataTableColumn>
+   					<b:dataTableColumn label="Tabla" value="#{row.tabla}"></b:dataTableColumn>
+   					<b:dataTableColumn label="Columna" value="#{row.columna}"></b:dataTableColumn>
+   					<b:dataTableColumn label="Fecha Modificacion" value="#{row.fec_mod}"></b:dataTableColumn>
+   					<b:dataTableColumn label="Usuario Modificacion" value="#{row.usu_cve}"></b:dataTableColumn>
+   				</b:dataTable>
+   			</b:panelGrid>
+   		</b:panel>
+   		<b:growl id="growlMsg" globalOnly="true" placementFrom="bottom"
+			         show-detail="true" show-summary="false" allowDismiss="true"
+			         delay="4000" escape="true" />
+   	</b:form>
+   	<b:modal id="amodal" title="#{multivaluadaMB.multivaluada.idmultivaluada == 0 ? 'Creacion' : 'Edicion'} de Multivaluada" class="modalClass" size="modal-lg">
+		<b:form id="formModal">
+			<b:panelGrid columns="1">
+				<b:panelGrid columns="2" colSpans="6,6">
+					<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel styleClass="common-label">* Valor</h:outputLabel>
+	      				<b:inputText id="txtValor" value="#{multivaluadaMB.multivaluada.valor}" fieldSize="sm" >
+		      				<f:facet name="prepend">
+						      <b:icon name="pencil" />
+						    </f:facet>
+	      				</b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel styleClass="common-label">* Descripcion</h:outputLabel>
+	      				<b:inputText id="txtDescripcion" value="#{multivaluadaMB.multivaluada.descripcion}" fieldSize="sm" >
+		      				<f:facet name="prepend">
+						      <b:icon name="pencil" />
+						    </f:facet>
+	      				</b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel styleClass="common-label">* Clave</h:outputLabel>
+	      				<b:inputText id="txtClave" value="#{multivaluadaMB.multivaluada.clave}" fieldSize="sm" >
+		      				<f:facet name="prepend">
+						      <b:icon name="pencil" />
+						    </f:facet>
+	      				</b:inputText>
+	     			</b:panelGrid>
+	     			<a/>
+	     			<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel styleClass="common-label">Tabla</h:outputLabel>
+	     				<b:selectOneMenu value="#{multivaluadaMB.multivaluada.tabla}" update="somColumnas">
+	     					<f:selectItem itemValue="0" itemLabel="Seleccione..."></f:selectItem>
+							<f:selectItems value="#{multivaluadaMB.tablas}" var="tab" itemLabel="#{tab}" itemValue="#{tab}"></f:selectItems>
+	     				</b:selectOneMenu>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel styleClass="common-label">Columna</h:outputLabel>
+	     				<b:selectOneMenu value="#{multivaluadaMB.multivaluada.columna}" id="somColumnas">
+	     					<f:selectItem itemValue="0" itemLabel="Seleccione..."></f:selectItem>
+							<f:selectItems value="#{multivaluadaMB.columnas}" var="col" itemLabel="#{col}" itemValue="#{col}"></f:selectItems>
+	     				</b:selectOneMenu>
+	     			</b:panelGrid>
+				</b:panelGrid>
+				<br/>
+	     			<h:outputText value=" (*) Valores requeridos" />
+	     			<hr/>
+	     			<b:buttonGroup>
+	   					<b:commandButton value="Guardar" icon-awesome="save" 
+		       							 look="primary" 
+		       							 size="sm"
+		       							 ajax="true"
+		       							 update="mainForm"
+		       							 actionListener="#{multivaluadaMB.guardarMultivaluada}"
+		       							 oncomplete="$('.modalClass').modal('hide');window.href = window.href;"/>
+		       			<b:commandButton value="Cancelar" icon-awesome="close" 
+		       							 look="primary" 
+		       							 size="sm"
+		       							 ajax="true"
+		       							 update="mainForm"
+		       							 actionListener="#{multivaluadaMB.cancelarGuardarMultivaluada}"
+		       							 oncomplete="window.href = window.href"/>
+	   				</b:buttonGroup>
+			</b:panelGrid>
+		</b:form>
+    </b:modal>
+</h:body>
+</html>

@@ -5,10 +5,14 @@ import java.util.Map;
 
 import lto.healthwell.model.controllers.GrupoOrganizacionalController;
 import lto.healthwell.model.controllers.LtoController;
+import lto.healthwell.model.controllers.MultivaluadaController;
+import lto.healthwell.model.controllers.UsuarioPermisoController;
 
 public class LtoHealthwellDispatcher {
 	public static Map<Integer,Object> cachedController;
 	public static final int GO_CONTROLLER = 0;
+	public static final int MV_CONTROLLER = 1;
+	public static final int UP_CONTROLLER = 2;
 	
 	/**
 	 * Metodo para regresar el controlador adecuado segun la necesidad.
@@ -41,6 +45,10 @@ public class LtoHealthwellDispatcher {
 		Object ctrl = null;
 		if(GO_CONTROLLER ==  controller)
 			ctrl = new GrupoOrganizacionalController(keyMem);
+		if(MV_CONTROLLER ==  controller)
+			ctrl = new MultivaluadaController(keyMem);
+		if(UP_CONTROLLER ==  controller)
+			ctrl = new UsuarioPermisoController(keyMem);
 		
 		return ctrl;
 	}

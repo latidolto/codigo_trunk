@@ -91,18 +91,21 @@ public class GrupoOrganizacionalController extends LtoController{
 				for(GrupoOrganizacional go : lgo) {
 					Parameter[] param = new Parameter[] { new Parameter("idgo", go.getIdgo()) };
 					List<Area> lare = this.getLtoHealthwellFacade().getListFromParameters(Area.class, param);
+					go.setAreaChildren(lare);
 				}
 			}
 			if(avisos) {
 				for(GrupoOrganizacional go : lgo) {
 					Parameter[] param = new Parameter[] { new Parameter("idgo", go.getIdgo()) };
 					List<AvisoPrivacidad> lap = this.getLtoHealthwellFacade().getListFromParameters(AvisoPrivacidad.class, param);
+					go.setAvisoPrivacidadChildren(lap);
 				}
 			}	
 			if(domicilios) {
 				for(GrupoOrganizacional go : lgo) {
 					Parameter[] param = new Parameter[] { new Parameter("idgo", go.getIdgo()) };
 					List<GoDomicilio> lgod = this.getLtoHealthwellFacade().getListFromParameters(GoDomicilio.class, param);
+					go.setGoDomicilioChildren(lgod);
 				}
 			}
 		}
@@ -125,6 +128,64 @@ public class GrupoOrganizacionalController extends LtoController{
 			}
 		}
 		return lgo;
+	}
+	
+	public AvisoPrivacidad getCurrentAvisoPrivacidad() {
+		return (AvisoPrivacidad) this.getLtoHealthwellFacade().getEjb(AvisoPrivacidad.class.getName());
+	}
+	
+	public String guardarAvisoPrivacidad(AvisoPrivacidad ap) {
+		String result = "success";
+		if(ap != null && this.getCurrentGrupoOrganizacional() != null) {
+			boolean isRequiredAttributes = Boolean.TRUE;
+			if(ap.getContenido() == null || ap.getContenido().trim().equalsIgnoreCase("")) {
+				result = "No es posible guardar un Aviso de Privacidad sin su Contenido, favor de verificar";
+				isRequiredAttributes = Boolean.FALSE;
+			}
+			if(isRequiredAttributes) {
+				ap.setFec_mod(new Date(System.currentTimeMillis()));
+				ap.setUsu_cve(LatidoSecurityManager.getUserInLine() == null ? "anonymous" : LatidoSecurityManager.getUserInLine());
+				if(ap.getIdap() != 0L) {
+					//Update
+					this.getLtoHealthwellFacade().mergeEjb(ap);
+				} else {
+					Long idgo = this.getCurrentGrupoOrganizacional().getIdgo();
+					//Inactivar todos los avisos posteriores
+					Parameter[] param = new Parameter[] { new Parameter("idgo", idgo) };
+					List<AvisoPrivacidad> lap = this.getLtoHealthwellFacade().getListFromParameters(AvisoPrivacidad.class, param);
+					for(AvisoPrivacidad apI : lap) {
+						apI.setEstatus(0);
+						apI.setFec_mod(new Date(System.currentTimeMillis()));
+						apI.setUsu_cve(LatidoSecurityManager.getUserInLine() == null ? "anonymous" : LatidoSecurityManager.getUserInLine());
+						this.getLtoHealthwellFacade().mergeEjb(apI);
+					}
+					//Insert
+					ap.setIdgo(idgo);
+					ap.setIdap(this.getNextPKAvisoPrivacidad());
+					ap.setEstatus(1);
+					this.getLtoHealthwellFacade().persistEjb(ap);
+				}
+			}
+		} else {
+			result = "[ERROR_INTERNO] No se puede guardar una entidad nula o el grupo es nulo, favor de verificar";
+		}
+		return result;
+	}
+	
+	private long getNextPKAvisoPrivacidad() {
+		Long pk = null;
+		String query = "Select max(idap) from aviso_privacidad";
+		try {
+			Query q = this.getLtoHealthwellFacade().getEM().createNativeQuery(query);
+			pk = Long.valueOf( ((Integer)q.getSingleResult()).toString() );
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if(pk == null)
+				pk = 0L;
+			pk = pk + 1L;
+		}
+		return pk;
 	}
 	/*******************************************************************************/
 

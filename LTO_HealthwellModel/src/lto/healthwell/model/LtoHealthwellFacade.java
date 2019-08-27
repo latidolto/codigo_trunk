@@ -9,6 +9,8 @@ import lto.healthwell.model.entities.Area;
 import lto.healthwell.model.entities.AvisoPrivacidad;
 import lto.healthwell.model.entities.GoDomicilio;
 import lto.healthwell.model.entities.GrupoOrganizacional;
+import lto.healthwell.model.entities.Multivaluada;
+import lto.healthwell.model.entities.UsuarioPermiso;
 
 public class LtoHealthwellFacade extends LatidoFacadeUtil{
 	private static LtoHealthwellFacade ltoHealthwell;
@@ -66,7 +68,9 @@ public class LtoHealthwellFacade extends LatidoFacadeUtil{
 			cachedHealthwellFacade.registerEJB(new Object[] { new GrupoOrganizacional(),
 															  new GoDomicilio(), 
 															  new AvisoPrivacidad(),
-															  new Area()
+															  new Area(),
+															  new Multivaluada(),
+															  new UsuarioPermiso()
 															});
 		}
 		return cachedHealthwellFacade;
@@ -79,4 +83,5 @@ public class LtoHealthwellFacade extends LatidoFacadeUtil{
 	public void setKeyMem(String keyMem) {
 		this.keyMem = keyMem;
 	}
+	
 }
