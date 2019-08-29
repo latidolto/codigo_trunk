@@ -15,4 +15,9 @@
 		<managed-bean-class>lto.healthwell.view.managedbean.MultivaluadaMB</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>usuarioPermisoMB</managed-bean-name>
+		<managed-bean-class>lto.healthwell.view.managedbean.UsuarioPermisoMB</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
 </faces-config>

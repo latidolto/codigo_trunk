@@ -1,6 +1,7 @@
 package lto.healthwell.model.controllers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Query;
@@ -8,6 +9,7 @@ import javax.persistence.Query;
 import com.latido.model.utils.Parameter;
 
 import lto.healthwell.model.LtoHealthwellFacade;
+import lto.healthwell.model.entities.Multivaluada;
 
 public class LtoController {
 	private LtoHealthwellFacade lhf;
@@ -73,6 +75,32 @@ public class LtoController {
 			pk = pk + 1L;
 		}
 		return pk;
+	}
+	
+	public List<Multivaluada> getMultivaluada(String clave, String tabla, String columna){
+		Parameter[] params = null;
+		if(clave != null) {
+			if(tabla != null && columna != null) {
+				params = new Parameter[] { 
+					new Parameter("clave", clave),
+					new Parameter("tabla", tabla),
+					new Parameter("columna", columna)
+				};	
+			} else {
+				params = new Parameter[] { 
+					new Parameter("clave", clave)
+				};	
+			}
+		} 
+		if(tabla != null && columna != null) {
+			params = new Parameter[] { 
+				new Parameter("tabla", tabla),
+				new Parameter("columna", columna)
+			};	
+		}else {
+			return null;
+		}
+		return this.getLtoHealthwellFacade().getListFromParameters(Multivaluada.class, params);
 	}
 	
 }
