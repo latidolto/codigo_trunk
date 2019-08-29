@@ -15,11 +15,12 @@ import javax.persistence.Query;
 import javax.persistence.Table;
 import javax.persistence.TypedQuery;
 
+import com.latido.model.utils.LatidoManagedList;
 import com.latido.model.utils.Parameter;
 
 public class LatidoFacadeUtil extends LatidoEMUtil{
 	private Map mapEjb;
-	private Map mapListEjb;
+	private Map<String, LatidoManagedList> mapManagedList = new HashMap<String, LatidoManagedList>();
 
 	public LatidoFacadeUtil(String persistenceUnitName) {
 		super(persistenceUnitName);
@@ -230,51 +231,6 @@ public class LatidoFacadeUtil extends LatidoEMUtil{
 			
 	}
 	
-	public void registerEjbList(String className,List list){
-		if(mapListEjb == null)
-			mapListEjb = new HashMap();
-		mapListEjb.put(className, list);
-	}
-	
-	public List getRegisteredList(String className){
-		List lo = null;
-		if(mapListEjb != null)
-			lo = (List) mapListEjb.get(className);
-		return lo;
-	}
-	
-	public List getFindAllList(String className){
-		List lo = null;
-		if(mapEjb != null){
-			Object ejb = mapEjb.get(className);
-			EntityManager em = this.getEM();
-			//System.out.println(em);
-			//System.out.println(ejb);
-			TypedQuery query = em.createNamedQuery(ejb.getClass().getSimpleName()+".findAll", ejb.getClass());
-			lo = query.getResultList();
-		}
-		return lo;
-	}
-	
-	public List getListFromParameters(String className,String queryName,Map params){
-		List lo = null;
-		if(mapEjb != null){
-			Object ejb = mapEjb.get(className);
-			System.out.println(ejb);
-			EntityManager em = this.getEM();
-			TypedQuery query = em.createNamedQuery(ejb.getClass().getSimpleName()+"."+queryName, ejb.getClass());
-			if(params != null){
-				Iterator it = params.keySet().iterator();
-				while(it.hasNext()){
-				  String key = (String)it.next();
-				  query.setParameter(key, params.get(key));
-				}
-			}
-			lo = query.getResultList();
-		}
-		return lo;
-	}
-	
 	public String camelToUnderScore(String text){
 		String newText = "";
 		if(text!= null){
@@ -291,7 +247,119 @@ public class LatidoFacadeUtil extends LatidoEMUtil{
 		return newText;
 	}
 	
-	public List getListFromParameters(Class cls ,Parameter...parameters) {
+	private void registerManagedList(String name, LatidoManagedList list){
+		mapManagedList.put(name, list);
+	}
+	
+	private LatidoManagedList getRegisteredManagedList(String name){
+		return mapManagedList.get(name);
+	}
+	
+	@Deprecated
+	public void registerEjbList(String className, List list){
+		//nothing
+	}
+	
+	@Deprecated
+	public List getRegisteredList(String className) {
+		return null;
+	}
+	
+	@Deprecated
+	public List getFindAllList(String className){
+		List lo = null;
+		if(mapEjb != null){
+			Object ejb = mapEjb.get(className);
+			EntityManager em = this.getEM();
+			//System.out.println(em);
+			//System.out.println(ejb);
+			TypedQuery query = em.createNamedQuery(ejb.getClass().getSimpleName()+".findAll", ejb.getClass());
+			lo = query.getResultList();
+		}
+		return lo;
+	}
+	/**
+	 * Metodo para la obtencion de una lista que puede que este en cache o crearla, 
+	 * si el tipo es EAGER entonces siempre se obtiene la lista de nueva cuenta.
+	 * 
+	 * @param cls (Clase de la entity en juego)
+	 * @param queryName (Nombre de el query en JPQL existente en el entity)
+	 * @param isEagerType (Activo si se requiere una lista nueva)
+	 * @param params (Parametros de la consulta)
+	 * */
+	public List getListFromParameters(Class cls, String queryName, Boolean isEagerType, Parameter...params) {
+		List resultList = null;
+		Map prms = null;
+		if(params != null) {
+			prms = new HashMap();
+			for(Parameter prm : params) {
+				prms.put(prm.getParamName(), prm.getParamValue());
+			}
+		}
+		if(isEagerType) {
+			resultList = this.getListFromParameters(cls.getName(), queryName, prms);
+			if(resultList != null)
+				this.registerManagedList(queryName, new LatidoManagedList(queryName, cls, resultList));
+		} else {
+			LatidoManagedList lml = mapManagedList.get(queryName);
+			if(lml != null) {
+				resultList = lml.getList();
+			} else {
+				resultList = this.getListFromParameters(cls.getName(), queryName, prms);
+				if(resultList != null)
+					this.registerManagedList(queryName, new LatidoManagedList(queryName, cls, resultList));
+			}
+		}
+		return resultList;
+	}
+	
+	public List getListFromParameters(String className,String queryName,Map params){
+		List lo = null;
+		if(mapEjb != null){
+			Object ejb = mapEjb.get(className);
+			//System.out.println(ejb);
+			EntityManager em = this.getEM();
+			TypedQuery query = em.createNamedQuery(ejb.getClass().getSimpleName()+"."+queryName, ejb.getClass());
+			if(params != null){
+				Iterator it = params.keySet().iterator();
+				while(it.hasNext()){
+				  String key = (String)it.next();
+				  query.setParameter(key, params.get(key));
+				}
+			}
+			lo = query.getResultList();
+		}
+		return lo;
+	}
+	/**
+	 * Metodo para la obtencion de una lista que puede que este en cache o crearla, 
+	 * si el tipo es EAGER entonces siempre se obtiene la lista de nueva cuenta.
+	 * 
+	 * @param cls (Clase de la entity en juego)
+	 * @param isEagerType (Activo si se requiere una lista nueva)
+	 * @param params (Parametros de la consulta)
+	 * */
+	public List getListFromParameters(Class cls, Boolean isEagerType, Parameter...params) {
+		String queryName = "find"+cls.getSimpleName()+"Onfly";
+		List resultList = null;
+		if(isEagerType) {
+			resultList = this.getListFromParameters(cls, params);
+			if(resultList != null)
+				this.registerManagedList(queryName, new LatidoManagedList(queryName, cls, resultList));
+		} else {
+			LatidoManagedList lml = mapManagedList.get(queryName);
+			if(lml != null) {
+				resultList = lml.getList();
+			} else {
+				resultList = this.getListFromParameters(cls, params);
+				if(resultList != null)
+					this.registerManagedList(queryName, new LatidoManagedList(queryName, cls, resultList));
+			}
+		}
+		return resultList;
+	}
+	
+	public List getListFromParameters(Class cls, Parameter...parameters) {
 		List<Object> lo = null;
 		StringBuilder stb = new StringBuilder();
 		stb.append("Select c from ");
