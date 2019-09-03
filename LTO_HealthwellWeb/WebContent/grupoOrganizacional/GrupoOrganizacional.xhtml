@@ -15,13 +15,6 @@
    		<b:panel id="formPanel" title="Grupos Organizacionales" look="primary">
    			<b:panelGrid columns="2"  sytle=" align : left; halign: middle;">
    				<b:panelGrid columns="1"  sytle=" align : left; halign: middle;">
-	   				<b:commandButton value="Agregar Grupo" icon-awesome="plus" 
-	       							 look="primary" 
-	       							 size="sm"
-	       							 type="button"
-	       							 actionListener="#{GrupoOrganizacionalMB.agregarGrupo}"
-	       							 ajax="true"/>
-	       			<br/>
 		   			<b:dataTable var="row" value="#{GrupoOrganizacionalMB.grupoOrganizacionales}"
 		   						 id="dtGrupos">
 		   				<b:dataTableColumn label="Lista de Grupos">

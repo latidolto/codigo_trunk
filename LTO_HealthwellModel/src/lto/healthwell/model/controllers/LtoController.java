@@ -7,13 +7,16 @@ import java.util.Map;
 import javax.persistence.Query;
 
 import com.latido.model.utils.Parameter;
+import com.latido.security.LatidoSecurityManager;
 
 import lto.healthwell.model.LtoHealthwellFacade;
 import lto.healthwell.model.entities.Multivaluada;
+import lto.healthwell.model.entities.UsuarioPermiso;
 
 public class LtoController {
 	private LtoHealthwellFacade lhf;
 	private String keyMem;
+	private Long grupoOrganizacionalForUser;
 	
 	private Map<String, Object> variables;
 
@@ -21,6 +24,7 @@ public class LtoController {
 		LtoHealthwellFacade facade = LtoHealthwellFacade.getInstance(keyMem);
 		this.lhf = facade;
 		this.keyMem = keyMem;
+		this.grupoOrganizacionalForUser = this.getGrupoOrganizacionalByUsuario(LatidoSecurityManager.getUserInLine());
 	}
 	
 	public LtoHealthwellFacade getLtoHealthwellFacade() {
@@ -30,7 +34,6 @@ public class LtoController {
 	public String getKeyMem() {
 		return this.keyMem;
 	}
-	/**Metodos genericos para el controlador*/
 
 	public void setNewValueVariable(String name, Object value) {
 		if(this.variables == null) {
@@ -46,6 +49,55 @@ public class LtoController {
 			return null;
 		}
 			
+	}
+	
+	public String getUserLevelAccess(String process) {
+		String userLevel = "";
+		String user = LatidoSecurityManager.getUserInLine() == null ? "anonymous" : LatidoSecurityManager.getUserInLine();
+		Parameter[] params = new Parameter[] {
+			new Parameter("usu_clave", user),
+			new Parameter("proceso", process),
+			new Parameter("estatus", 1)
+		};
+		List<UsuarioPermiso> lup = this.getLtoHealthwellFacade().getListFromParameters(UsuarioPermiso.class, params);
+		if( lup != null && !lup.isEmpty() ) {
+			Long currentDate = System.currentTimeMillis();
+			for(UsuarioPermiso up : lup) {
+				if(up.getD_fecha_inicio().getTime() < currentDate && up.getD_fecha_fin() != null && up.getD_fecha_fin().getTime() > currentDate) {
+					userLevel += up.isB_permiso_creacion() 		? "C" : "";
+					userLevel += up.isB_permiso_lectura() 		? "R" : "";
+					userLevel += up.isB_permiso_actualizacion() ? "U" : "";
+					userLevel += up.isB_permiso_borrado() 		? "D" : "";
+				} else {
+					if(up.getD_fecha_inicio().getTime() < currentDate && up.getD_fecha_fin() == null ) {
+						userLevel += up.isB_permiso_creacion() 		? "C" : "";
+						userLevel += up.isB_permiso_lectura() 		? "R" : "";
+						userLevel += up.isB_permiso_actualizacion() ? "U" : "";
+						userLevel += up.isB_permiso_borrado() 		? "D" : "";
+					}
+				}
+				
+			}
+		}
+		return userLevel;
+	}
+	
+	private Long getGrupoOrganizacionalByUsuario(String usuCve) {
+		Long go = null;
+		String query = "Select distinct go.idgo" + 
+						"	from persona per" + 
+						"	join persona_rol pro on pro.idpersona = per.idpersona" + 
+						"   join rol rol on rol.idrol = pro.rol_idrol and rol.idarea = pro.rol_idarea and rol.idgo = pro.rol_idgo" + 
+						"   join grupo_organizacional go on go.idgo = rol.idgo and go.estatus = 1 " + 
+						"Where per.correo like ?";
+		try {
+			Query q = this.getLtoHealthwellFacade().getEM().createNativeQuery(query);
+			q.setParameter(1, usuCve);
+			go = (Long)q.getSingleResult();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return go;
 	}
 	
 	public long getNextPK(String table, String column, Parameter...params) {
@@ -101,6 +153,14 @@ public class LtoController {
 			return null;
 		}
 		return this.getLtoHealthwellFacade().getListFromParameters(Multivaluada.class, params);
+	}
+
+	public Long getGrupoOrganizacionalForUser() {
+		return grupoOrganizacionalForUser;
+	}
+
+	public void setGrupoOrganizacionalForUser(Long grupoOrganizacionalForUser) {
+		this.grupoOrganizacionalForUser = grupoOrganizacionalForUser;
 	}
 	
 }

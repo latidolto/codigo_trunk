@@ -25,7 +25,17 @@ public class UsuarioPermisoController extends LtoController {
 	}
 
 	public List<UsuarioPermiso> getFilteredUsuarioPermiso(Boolean isEagerType, Parameter...params){
-		return this.getLtoHealthwellFacade().getListFromParameters(UsuarioPermiso.class, isEagerType, params);
+		// Agregar el permiso de solo un grupo por usuario
+		Long GOUsuario = this.getGrupoOrganizacionalForUser();
+		if(GOUsuario == null) {
+			return null;
+		}
+		if(params == null) {
+			params = new Parameter[] {};
+		}
+		params[params.length] = new Parameter("p_idgo", GOUsuario); // Siempre verificar que tenga este parametro la consulta
+		
+		return this.getLtoHealthwellFacade().getListFromParameters(UsuarioPermiso.class, "findByGO", isEagerType, params);
 	}
 	
 	public String guardarUsuarioPermiso(UsuarioPermiso up) {

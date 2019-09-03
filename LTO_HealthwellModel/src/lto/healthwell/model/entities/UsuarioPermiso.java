@@ -13,7 +13,12 @@ import javax.persistence.Transient;
 @Entity
 @Table(name="usuario_permiso")
 @NamedQueries({
-	@NamedQuery(name = "UsuarioPermiso.findAll", query = "Select o from UsuarioPermiso o")
+	@NamedQuery(name = "UsuarioPermiso.findAll", query = "Select o from UsuarioPermiso o"),
+	@NamedQuery(name = "UsuarioPermiso.findByGO", query = "Select o from UsuarioPermiso o "
+														+ " join Persona per on per.correo = o.usu_clave "
+														+ " join PersonaRol prr on prr.idpersona = per.idpersona "
+														+ " join Rol rol on rol.idrol = prr.idpersona_rol "
+														+ "Where rol.idgo = :p_idgo ")
 })
 public class UsuarioPermiso implements Serializable{
 	private static final long serialVersionUID = 1L;

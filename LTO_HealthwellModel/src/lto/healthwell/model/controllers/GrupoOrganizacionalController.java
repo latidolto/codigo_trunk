@@ -23,9 +23,15 @@ import lto.healthwell.model.entities.GrupoOrganizacional;
  *
  * */
 public class GrupoOrganizacionalController extends LtoController{
+	private static final String PROCESS = "GO";
 
 	public GrupoOrganizacionalController(String keyMem) {
 		super(keyMem);
+	}
+	
+	private Boolean validateUserLevel(String action) {
+		String userLevelProcess = this.getUserLevelAccess(PROCESS);
+		return userLevelProcess.contains(action);
 	}
 	
 	/*Logica de negocios para los objetos relacionados con el Grupo Organizacional*/
@@ -54,9 +60,13 @@ public class GrupoOrganizacionalController extends LtoController{
 				go.setUsu_cve(LatidoSecurityManager.getUserInLine() == null ? "anonymous" : LatidoSecurityManager.getUserInLine());
 				if(go.getIdgo() != 0L) {
 					//Update
+					if(!validateUserLevel("U"))
+						return "[ERROR] Su usuario no tiene permisos para actualizar un Grupo Organizacional.";
 					this.getLtoHealthwellFacade().mergeEjb(go);
 				} else {
 					//Insert
+					if(!validateUserLevel("C"))
+						return "[ERROR] Su usuario no tiene permisos para crear un Grupo Organizacional.";
 					go.setIdgo(this.getNextPKGrupo());
 					go.setEstatus(1);
 					this.getLtoHealthwellFacade().persistEjb(go);
@@ -85,6 +95,19 @@ public class GrupoOrganizacionalController extends LtoController{
 	}
 	
 	public List<GrupoOrganizacional> getGrupoOrganizacionalByParams(Boolean domicilios, Boolean areas, Boolean avisos,  Parameter... params){
+		if(!validateUserLevel("R"))
+			return null;
+		
+		// Agregar el permiso de solo un grupo por usuario
+		Long GOUsuario = this.getGrupoOrganizacionalForUser();
+		if(GOUsuario == null) {
+			return null;
+		}
+		if(params == null) {
+			params = new Parameter[] {};
+		}
+		params[params.length] = new Parameter("idgo", GOUsuario); // Siempre verificar que tenga este parametro la consulta
+		
 		List<GrupoOrganizacional> lgo = this.getLtoHealthwellFacade().getListFromParameters(GrupoOrganizacional.class, params);
 		if(lgo != null) {
 			if (areas) {
@@ -113,6 +136,8 @@ public class GrupoOrganizacionalController extends LtoController{
 	}
 	
 	public List<GrupoOrganizacional> getGrupoOrganizacionalByParams(Boolean fetchChildren, Parameter... params){
+		if(!validateUserLevel("R"))
+			return null;
 		List<GrupoOrganizacional> lgo = this.getLtoHealthwellFacade().getListFromParameters(GrupoOrganizacional.class, params);
 		if(fetchChildren && lgo != null) { 
 			for(GrupoOrganizacional go : lgo) {
@@ -147,8 +172,12 @@ public class GrupoOrganizacionalController extends LtoController{
 				ap.setUsu_cve(LatidoSecurityManager.getUserInLine() == null ? "anonymous" : LatidoSecurityManager.getUserInLine());
 				if(ap.getIdap() != 0L) {
 					//Update
+					if(!validateUserLevel("U"))
+						return "[ERROR] Su usuario no tiene permisos para actualizar un Grupo Organizacional.";
 					this.getLtoHealthwellFacade().mergeEjb(ap);
 				} else {
+					if(!validateUserLevel("C"))
+						return "[ERROR] Su usuario no tiene permisos para crear un Grupo Organizacional.";
 					Long idgo = this.getCurrentGrupoOrganizacional().getIdgo();
 					//Inactivar todos los avisos posteriores
 					Parameter[] param = new Parameter[] { new Parameter("idgo", idgo) };
