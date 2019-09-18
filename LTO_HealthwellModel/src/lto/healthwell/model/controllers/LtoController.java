@@ -10,6 +10,7 @@ import com.latido.model.utils.Parameter;
 import com.latido.security.LatidoSecurityManager;
 
 import lto.healthwell.model.LtoHealthwellFacade;
+import lto.healthwell.model.entities.GrupoOrganizacional;
 import lto.healthwell.model.entities.Multivaluada;
 import lto.healthwell.model.entities.UsuarioPermiso;
 
@@ -17,14 +18,16 @@ public class LtoController {
 	private LtoHealthwellFacade lhf;
 	private String keyMem;
 	private Long grupoOrganizacionalForUser;
+	private GrupoOrganizacional grupoOrganizacional;
+	public static final String IV_FIRSTLOAD = "INTVAR_FIRSTLOAD";
 	
-	private Map<String, Object> variables;
-
 	protected LtoController (String keyMem) {
 		LtoHealthwellFacade facade = LtoHealthwellFacade.getInstance(keyMem);
 		this.lhf = facade;
 		this.keyMem = keyMem;
 		this.grupoOrganizacionalForUser = this.getGrupoOrganizacionalByUsuario(LatidoSecurityManager.getUserInLine());
+		this.grupoOrganizacional = this.getGrupoOrganizacional(this.grupoOrganizacionalForUser);
+		this.setNewValueVariable(IV_FIRSTLOAD, 1);
 	}
 	
 	public LtoHealthwellFacade getLtoHealthwellFacade() {
@@ -36,19 +39,11 @@ public class LtoController {
 	}
 
 	public void setNewValueVariable(String name, Object value) {
-		if(this.variables == null) {
-			this.variables = new HashMap<String,Object>();
-		}
-		this.variables.put(name, value);
+		this.getLtoHealthwellFacade().setNewValueVariable(name, value);
 	}
 	
 	public Object getVariable(String name) {
-		if (name != null && this.variables != null) {
-			return this.variables.get(name);
-		} else {
-			return null;
-		}
-			
+		return this.getLtoHealthwellFacade().getVariable(name);
 	}
 	
 	public String getUserLevelAccess(String process) {
@@ -93,10 +88,19 @@ public class LtoController {
 		try {
 			Query q = this.getLtoHealthwellFacade().getEM().createNativeQuery(query);
 			q.setParameter(1, usuCve);
-			go = (Long)q.getSingleResult();
+			go = Long.valueOf((Integer)q.getSingleResult());
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+		return go;
+	}
+	
+	private GrupoOrganizacional getGrupoOrganizacional(Long idgo) {
+		GrupoOrganizacional go = null;
+		Parameter[] parameters = new Parameter[] { new Parameter("idgo", idgo) };
+		List<GrupoOrganizacional> lgo = this.getLtoHealthwellFacade().getListFromParameters(GrupoOrganizacional.class, parameters);
+		if(lgo != null && lgo.size() > 0)
+			go = lgo.get(0);
 		return go;
 	}
 	
@@ -161,6 +165,14 @@ public class LtoController {
 
 	public void setGrupoOrganizacionalForUser(Long grupoOrganizacionalForUser) {
 		this.grupoOrganizacionalForUser = grupoOrganizacionalForUser;
+	}
+
+	public GrupoOrganizacional getGrupoOrganizacional() {
+		return grupoOrganizacional;
+	}
+
+	public void setGrupoOrganizacional(GrupoOrganizacional grupoOrganizacional) {
+		this.grupoOrganizacional = grupoOrganizacional;
 	}
 	
 }

@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"> 
+
+<h:head>
+	<title>Areas Organizacionales</title>
+	<link rel="stylesheet" href="../css/healthwell.css" />
+</h:head>
+<h:body styleClass="common-body" id="mainBody">
+	<b:form id="mainForm">
+   		<b:panel id="formPanel" look="primary" disabled="true">
+   			<b:panelGrid columns="2" style="text-align: left;">
+   				<h:outputText value="Areas Organizacionales" styleClass="enfasis-text"></h:outputText>
+	   			<b:panelGrid columns="2" col-spans="11,1" style="text-align: right;">	
+	   				<h:outputText value="#{areaMB.controller.grupoOrganizacional.nombre}" styleClass="enfasis-text"></h:outputText>
+	   				<b:image value="#{areaMB.controller.grupoOrganizacional.logoString}" style="width: 32px; height: 32px;"></b:image>
+	   			</b:panelGrid>
+   			</b:panelGrid>
+   			<hr/>
+   			<b:panelGrid columns="2">
+   				<b:well>
+	   				<b:commandButton value="Agregar Area General" icon-awesome="plus" 
+	       							 look="primary" 
+	       							 size="sm"
+	       							 type="button"
+	       							 ajax="true"
+	       							 actionListener="#{areaMB.asignarArea}"
+	       							 update="formModal"
+	       							 oncomplete="$('.modalClass').modal('show')"/>
+	       			<hr/>
+	   				<c:forEach items="#{areaMB.areas(null)}" var="row">
+	   					<b:panelGrid columns="2" colSpans="8,4" styleClass="common-panelgrid">	
+	   						<h:outputText value="> #{row.nombre}" styleClass="#{row.estatus == 1 ? 'grid-tree-text' : 'grid-tree-text-inactive'}"></h:outputText>
+	   						<b:buttonToolbar>
+		   						<b:commandButton value="" icon-awesome="plus" 
+			       							 look="success" 
+			       							 size="sm"
+			       							 type="button"
+			       							 ajax="true"
+			       							 actionListener="#{areaMB.asignarArea}"
+			       							 update="formModal"
+			       							 oncomplete="$('.modalClass').modal('show')">
+			       					<f:attribute name="areaRow" value="#{row}"></f:attribute>
+			       				</b:commandButton>
+			       				<b:commandButton value="" icon-awesome="pencil" 
+			       							 look="info" 
+			       							 size="sm"
+			       							 type="button"
+			       							 ajax="true"
+			       							 actionListener="#{areaMB.editarArea}"
+			       							 update="formModal"
+			       							 oncomplete="$('.modalClass').modal('show')">
+			       					<f:attribute name="areaRow" value="#{row}"></f:attribute>
+			       				</b:commandButton>
+			       				<b:commandButton value="" icon-awesome="check" 
+			       							 look="default" 
+			       							 size="sm"
+			       							 type="button"
+			       							 ajax="true"
+			       							 actionListener="#{areaMB.editarArea}"
+			       							 update="panelPersonas">
+			       					<f:attribute name="areaRow" value="#{row}"></f:attribute>
+			       				</b:commandButton>
+		       				</b:buttonToolbar>
+		       				<c:forEach items="#{areaMB.personas(row)}" var="per">
+		       					<b:panelGrid columns="2" colSpans="1,11">
+		       						<a/>
+		       						<h:outputText value="  #{per.nombre} #{per.apellido_paterno} #{per.apellido_materno}" styleClass="grid-tree-text"></h:outputText>
+		       					</b:panelGrid>
+		       					<a/>
+		       				</c:forEach>
+		       				<c:forEach items="#{areaMB.areas(row)}" var="row2">
+			   						<h:outputText value=">> #{row2.nombre}" styleClass="grid-tree-text"></h:outputText>
+			   						<b:buttonToolbar>
+				   						<b:commandButton value="" icon-awesome="plus" 
+					       							 look="success" 
+					       							 size="sm"
+					       							 type="button"
+					       							 ajax="true"
+					       							 actionListener="#{areaMB.asignarArea}"
+					       							 update="formModal"
+					       							 oncomplete="$('.modalClass').modal('show')">
+					       					<f:attribute name="areaRow" value="#{row2}"></f:attribute>
+					       				</b:commandButton>
+					       				<b:commandButton value="" icon-awesome="pencil" 
+					       							 look="info" 
+					       							 size="sm"
+					       							 type="button"
+					       							 ajax="true"
+					       							 actionListener="#{areaMB.editarArea}"
+					       							 update="formModal"
+					       							 oncomplete="$('.modalClass').modal('show')">
+					       					<f:attribute name="areaRow" value="#{row2}"></f:attribute>
+					       				</b:commandButton>
+					       				<b:commandButton value="" icon-awesome="check" 
+					       							 look="default" 
+					       							 size="sm"
+					       							 type="button"
+					       							 ajax="true"
+					       							 actionListener="#{areaMB.editarArea}"
+					       							 update="panelPersonas">
+					       					<f:attribute name="areaRow" value="#{row2}"></f:attribute>
+					       				</b:commandButton>
+				       				</b:buttonToolbar>
+					   				<c:forEach items="#{areaMB.personas(row2)}" var="per">
+				       					<b:panelGrid columns="2" colSpans="1,11">
+				       						<a/>
+				       						<h:outputText value="  #{per.nombre} #{per.apellido_paterno} #{per.apellido_materno}" styleClass="grid-tree-text"></h:outputText>
+				       					</b:panelGrid>
+				       					<a/>
+				       				</c:forEach>
+				       				<c:forEach items="#{areaMB.areas(row2)}" var="row3">
+					   						<h:outputText value=">>> #{row3.nombre}" styleClass="grid-tree-text"></h:outputText>
+					   						<b:buttonToolbar>
+						   						<b:commandButton value="" icon-awesome="plus" 
+							       							 look="success" 
+							       							 size="sm"
+							       							 type="button"
+							       							 ajax="true"
+							       							 actionListener="#{areaMB.asignarArea}"
+							       							 update="formModal"
+							       							 oncomplete="$('.modalClass').modal('show')">
+							       					<f:attribute name="areaRow" value="#{row3}"></f:attribute>
+							       				</b:commandButton>
+							       				<b:commandButton value="" icon-awesome="pencil" 
+							       							 look="info" 
+							       							 size="sm"
+							       							 type="button"
+							       							 ajax="true"
+							       							 actionListener="#{areaMB.editarArea}"
+							       							 update="formModal"
+							       							 oncomplete="$('.modalClass').modal('show')">
+							       					<f:attribute name="areaRow" value="#{row3}"></f:attribute>
+							       				</b:commandButton>
+							       				<b:commandButton value="" icon-awesome="check" 
+							       							 look="default" 
+							       							 size="sm"
+							       							 type="button"
+							       							 ajax="true"
+							       							 actionListener="#{areaMB.editarArea}"
+							       							 update="panelPersonas">
+							       					<f:attribute name="areaRow" value="#{row3}"></f:attribute>
+							       				</b:commandButton>
+						       				</b:buttonToolbar>
+							   				<c:forEach items="#{areaMB.personas(row3)}" var="per">
+						       					<b:panelGrid columns="2" colSpans="1,11">
+						       						<a/>
+						       						<h:outputText value="  #{per.nombre} #{per.apellido_paterno} #{per.apellido_materno}" styleClass="grid-tree-text"></h:outputText>
+						       					</b:panelGrid>
+						       					<a/>
+						       				</c:forEach>
+						       				<c:forEach items="#{areaMB.areas(row3)}" var="row4">
+							   						<h:outputText value=">>>> #{row4.nombre}" styleClass="grid-tree-text"></h:outputText>
+							   						<b:buttonToolbar>
+								   						<b:commandButton value="" icon-awesome="plus" 
+									       							 look="success" 
+									       							 size="sm"
+									       							 type="button"
+																	 disabled="true">
+									       					<f:attribute name="areaRow" value="#{row4}"></f:attribute>
+									       				</b:commandButton>
+									       				<b:commandButton value="" icon-awesome="pencil" 
+									       							 look="info" 
+									       							 size="sm"
+									       							 type="button"
+									       							 ajax="true"
+									       							 actionListener="#{areaMB.editarArea}"
+									       							 update="formModal"
+									       							 oncomplete="$('.modalClass').modal('show')">
+									       					<f:attribute name="areaRow" value="#{row4}"></f:attribute>
+									       				</b:commandButton>
+									       				<b:commandButton value="" icon-awesome="check" 
+									       							 look="default" 
+									       							 size="sm"
+									       							 type="button"
+									       							 ajax="true"
+									       							 actionListener="#{areaMB.editarArea}"
+									       							 update="panelPersonas">
+									       					<f:attribute name="areaRow" value="#{row4}"></f:attribute>
+									       				</b:commandButton>
+								       				</b:buttonToolbar>
+								       				<c:forEach items="#{areaMB.personas(row4)}" var="per">
+								       					<b:panelGrid columns="2" colSpans="1,11">
+								       						<a/>
+								       						<h:outputText value="  #{per.nombre} #{per.apellido_paterno} #{per.apellido_materno}" styleClass="grid-tree-text"></h:outputText>
+								       					</b:panelGrid>
+								       					<a/>
+								       				</c:forEach>
+							   				</c:forEach>
+					   				</c:forEach>
+			   				</c:forEach>
+	   					</b:panelGrid>
+	   				</c:forEach>
+	   			</b:well>
+	   			<b:panelGrid columns="1" id="panelPersonas" >
+	   				<h:outputText value="Area Seleccionada : #{areaMB.area.nombre}" styleClass="enfasis-text"></h:outputText>
+	   				<h:outputText value="Agregado de Personas" styleClass="commontitle-text"></h:outputText>
+	   				<hr/>
+	   				<b:panelGrid columns="1" styleClass="common-paneldatatable">
+	   					<b:buttonToolbar>
+	   						<b:commandButton value="Agregar Persona" icon-awesome="plus" 
+			       							 look="success" 
+			       							 size="sm"
+			       							 type="button"
+			       							 ajax="true"
+			       							 update="pmodal"
+			       							 actionListener="#{areaMB.agregarPersona}"
+			       							 oncomplete="$('.pmodalClass').modal('show')">
+			       			</b:commandButton>
+			       		</b:buttonToolbar>
+			       		<br/>
+		   				<b:dataTable selectionMode="single" striped="true" value="#{areaMB.personasIn}" var="per">
+		   					<b:dataTableColumn label="Nombre" value="#{per.nombre}"></b:dataTableColumn>
+		   					<b:dataTableColumn label="Apellido Paterno" value="#{per.apellido_paterno}"></b:dataTableColumn>
+		   					<b:dataTableColumn label="Apellido Materno" value="#{per.apellido_materno}"></b:dataTableColumn>
+		   					<b:dataTableColumn label="Correo" value="#{per.correo}"></b:dataTableColumn>
+		   				</b:dataTable>
+	   				</b:panelGrid>
+	   			</b:panelGrid>
+   			</b:panelGrid>
+   			
+   		</b:panel>
+   		<b:growl id="growlMsg" globalOnly="true" placementFrom="bottom"
+			         show-detail="true" show-summary="false" allowDismiss="true"
+			         delay="4000" escape="true" />
+   	</b:form>
+   	<b:modal id="pmodal" title="Agregar Persona a la Area : #{areaMB.area.nombre}" class="pmodalClass" size="modal-lg">
+   		<b:form id="formPModal" > 
+   			<b:dataTable selectionMode="single" 
+   			             striped="true" 
+   			             value="#{areaMB.personasNotIn}" 
+   			             var="per" 
+   			             select="true"
+   			             onselect="ajax:areaMB.onSelectPersona(per, typeOfSelection, indexes);">
+   				<b:dataTableColumn label="Nombre" value="#{per.nombre}"></b:dataTableColumn>
+				<b:dataTableColumn label="Apellido Paterno" value="#{per.apellido_paterno}"></b:dataTableColumn>
+				<b:dataTableColumn label="Apellido Materno" value="#{per.apellido_materno}"></b:dataTableColumn>
+				<b:dataTableColumn label="Correo" value="#{per.correo}"></b:dataTableColumn>
+   			</b:dataTable>
+   			<hr/>
+   			<b:buttonToolbar>
+				<b:commandButton value="Guardar Persona" icon-awesome="save" 
+      							 look="primary" 
+      							 size="sm"
+      							 type="button"
+      							 update="mainForm"
+      							 ajax="true"
+								 actionListener="#{areaMB.guardarAreaPersona}"
+								 oncomplete="$('.pmodalClass').modal('hide')">
+      			</b:commandButton>
+      		</b:buttonToolbar>
+   		</b:form>
+   	</b:modal>
+   	<b:modal id="amodal" title="#{areaMB.area.idarea == 0 ? 'Creacion' : ( areaMB.modoEdicion ? 'Edicion' : 'Creacion' )} de Area" class="modalClass" size="modal-lg">
+		<b:form id="formModal" enctype="multipart/form-data">
+			<b:panelGrid columns="1">
+				<b:panelGrid columns="2" colSpans="6,6">
+					<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel styleClass="common-label">* Nombre</h:outputLabel>
+	      				<b:inputText id="txtNombre" value="#{areaMB.area.nombre}" fieldSize="sm" >
+		      				<f:facet name="prepend">
+						      <b:icon name="pencil" />
+						    </f:facet>
+	      				</b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel styleClass="common-label">Descripcion</h:outputLabel>
+	      				<b:inputText id="txtDescripcion" value="#{areaMB.area.descripcion}" fieldSize="sm" >
+		      				<f:facet name="prepend">
+						      <b:icon name="pencil" />
+						    </f:facet>
+	      				</b:inputText>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8">
+	     				<h:outputLabel styleClass="common-label">Logo</h:outputLabel>
+	     				<h:inputFile id="ifLogo" value="#{areaMB.file}"/>
+	     				<a/>
+	     			</b:panelGrid>
+	     			<b:panelGrid columns="2" colSpans="4,8" >
+	       				<h:outputLabel styleClass="common-label">Estatus</h:outputLabel>
+						<b:selectOneMenu id="somEstCiv" span="200" value="#{areaMB.area.estatus}" fieldSize="sm">
+							<f:facet name="prepend">
+						      <b:icon name="flag" />
+						    </f:facet>
+							<f:selectItem itemLabel="Activo" itemValue="1"></f:selectItem>
+							<f:selectItem itemLabel="Inactivo" itemValue="0"></f:selectItem>
+						</b:selectOneMenu>
+	       			</b:panelGrid>
+	     		</b:panelGrid>
+	     		<br/>
+     			<h:outputText value=" (*) Valores requeridos" />
+     			<hr/>
+     			<b:buttonGroup>
+   					<b:commandButton value="Guardar" icon-awesome="save" 
+	       							 look="primary" 
+	       							 size="sm"
+	       							 ajax="true"
+	       							 update="mainForm"
+	       							 actionListener="#{areaMB.guardarArea}"
+	       							 oncomplete="$('.modalClass').modal('hide');window.href = window.href;"/>
+	       			<b:commandButton value="Cancelar" icon-awesome="close" 
+	       							 look="primary" 
+	       							 size="sm"
+	       							 ajax="true"
+	       							 update="mainForm"
+	       							 oncomplete="window.href = window.href"/>
+   				</b:buttonGroup>
+	     	</b:panelGrid>
+		</b:form>
+	</b:modal>
+</h:body>
+</html>

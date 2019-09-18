@@ -3,6 +3,8 @@ package lto.healthwell.model.entities;
 import java.io.Serializable;
 import java.lang.String;
 import java.sql.Date;
+import java.util.List;
+
 import javax.persistence.*;
 
 /**
@@ -27,6 +29,7 @@ public class Persona implements Serializable {
 	private String rfc;
 	private Date fec_mod;
 	private String usu_cve;
+	
 	private static final long serialVersionUID = 1L;
 
 	public Persona() {

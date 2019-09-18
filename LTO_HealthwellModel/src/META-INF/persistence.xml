@@ -13,6 +13,7 @@
 		<class>lto.healthwell.model.entities.PersonaRolPK</class>
 		<class>lto.healthwell.model.entities.Rol</class>
 		<class>lto.healthwell.model.entities.RolPK</class>
+		<class>lto.healthwell.model.entities.AreaPersona</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/lto_healthwell?serverTimezone=UTC"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>

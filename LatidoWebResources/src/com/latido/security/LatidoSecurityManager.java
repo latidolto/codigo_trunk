@@ -50,7 +50,11 @@ public class LatidoSecurityManager {
 	}
 	
 	public static String getUserInLine() {
-		return (String) getSession().getAttribute(USERNAME);
+		String user = "anonymous";
+		if(getSession().getAttribute(USERNAME) != null) {
+			user = (String) getSession().getAttribute(USERNAME);
+		}
+		return user;
 	}
 	
 	public static String[] getUserRoles() {

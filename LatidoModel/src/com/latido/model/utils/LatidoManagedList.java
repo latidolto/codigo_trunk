@@ -1,6 +1,7 @@
 package com.latido.model.utils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LatidoManagedList implements Serializable{
@@ -15,7 +16,8 @@ public class LatidoManagedList implements Serializable{
 	public LatidoManagedList(String name, Class className, List list) {
 		this.name = name;
 		this.className = className;
-		this.list = list;
+		this.list = new ArrayList();
+		this.list.addAll(list);
 	}
 	
 	public String getName() {

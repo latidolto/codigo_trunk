@@ -31,7 +31,7 @@ public class UsuarioPermisoController extends LtoController {
 			return null;
 		}
 		if(params == null) {
-			params = new Parameter[] {};
+			params = new Parameter[1];
 		}
 		params[params.length] = new Parameter("p_idgo", GOUsuario); // Siempre verificar que tenga este parametro la consulta
 		

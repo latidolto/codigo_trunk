@@ -3,6 +3,7 @@ package lto.healthwell.dispatcher;
 import java.util.HashMap;
 import java.util.Map;
 
+import lto.healthwell.model.controllers.AreaController;
 import lto.healthwell.model.controllers.GrupoOrganizacionalController;
 import lto.healthwell.model.controllers.LtoController;
 import lto.healthwell.model.controllers.MultivaluadaController;
@@ -13,6 +14,7 @@ public class LtoHealthwellDispatcher {
 	public static final int GO_CONTROLLER = 0;
 	public static final int MV_CONTROLLER = 1;
 	public static final int UP_CONTROLLER = 2;
+	public static final int AR_CONTROLLER = 3;
 	
 	/**
 	 * Metodo para regresar el controlador adecuado segun la necesidad.
@@ -49,6 +51,8 @@ public class LtoHealthwellDispatcher {
 			ctrl = new MultivaluadaController(keyMem);
 		if(UP_CONTROLLER ==  controller)
 			ctrl = new UsuarioPermisoController(keyMem);
+		if(AR_CONTROLLER ==  controller)
+			ctrl = new AreaController(keyMem);
 		
 		return ctrl;
 	}

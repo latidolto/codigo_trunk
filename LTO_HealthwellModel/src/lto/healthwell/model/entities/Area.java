@@ -2,6 +2,7 @@ package lto.healthwell.model.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -13,20 +14,22 @@ import javax.persistence.*;
 @Table(name="area")
 @NamedQueries({
 	@NamedQuery(name="Area.findAll", query="SELECT o FROM Area o"),
-	@NamedQuery(name="Area.findById", query="SELECT o FROM Area o where o.idarea = :p_idarea"),
-	@NamedQuery(name="Area.findByGo", query="SELECT o FROM Area o where o.idgo = :p_idgo")
+	@NamedQuery(name="Area.findChildrens", query="SELECT o FROM Area o where o.idarea_padre = :p_idarea_padre"),
+	@NamedQuery(name="Area.findParents", query="SELECT o FROM Area o where o.idarea_padre is null and o.idgo = :p_idgo")
 })
 public class Area implements Serializable {
 	private long idgo; 
 	@Id
 	private long idarea; 
-	private long idarea_padre; 
+	private Long idarea_padre; 
 	private String nombre;
 	private String descripcion; 
 	private byte[] logo;
 	private int estatus; 
 	private Date fec_mod; 
 	private String usu_cve;
+	@Transient
+	private List<Area> children;
 	@Transient
 	private static final long serialVersionUID = 1L;
 
@@ -51,7 +54,7 @@ public class Area implements Serializable {
 	/**
 	 * @return the idarea_padre
 	 */
-	public long getIdarea_padre() {
+	public Long getIdarea_padre() {
 		return idarea_padre;
 	}
 
@@ -114,7 +117,7 @@ public class Area implements Serializable {
 	/**
 	 * @param idarea_padre the idarea_padre to set
 	 */
-	public void setIdarea_padre(long idarea_padre) {
+	public void setIdarea_padre(Long idarea_padre) {
 		this.idarea_padre = idarea_padre;
 	}
 
@@ -158,6 +161,14 @@ public class Area implements Serializable {
 	 */
 	public void setUsu_cve(String usu_cve) {
 		this.usu_cve = usu_cve;
+	}
+
+	public List<Area> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Area> children) {
+		this.children = children;
 	}
    
 }

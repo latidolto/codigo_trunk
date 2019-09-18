@@ -21,6 +21,7 @@ import com.latido.model.utils.Parameter;
 public class LatidoFacadeUtil extends LatidoEMUtil{
 	private Map mapEjb;
 	private Map<String, LatidoManagedList> mapManagedList = new HashMap<String, LatidoManagedList>();
+	private Map<String, Object> variables;
 
 	public LatidoFacadeUtil(String persistenceUnitName) {
 		super(persistenceUnitName);
@@ -344,7 +345,7 @@ public class LatidoFacadeUtil extends LatidoEMUtil{
 		List resultList = null;
 		if(isEagerType) {
 			resultList = this.getListFromParameters(cls, params);
-			if(resultList != null)
+			if(resultList != null && resultList.size() > 0)
 				this.registerManagedList(queryName, new LatidoManagedList(queryName, cls, resultList));
 		} else {
 			LatidoManagedList lml = mapManagedList.get(queryName);
@@ -399,5 +400,19 @@ public class LatidoFacadeUtil extends LatidoEMUtil{
 		return lo;
 	}
 	
+	public void setNewValueVariable(String name, Object value) {
+		if(this.variables == null) {
+			this.variables = new HashMap<String,Object>();
+		}
+		this.variables.put(name, value);
+	}
 	
+	public Object getVariable(String name) {
+		if (name != null && this.variables != null) {
+			return this.variables.get(name);
+		} else {
+			return null;
+		}
+			
+	}
 }

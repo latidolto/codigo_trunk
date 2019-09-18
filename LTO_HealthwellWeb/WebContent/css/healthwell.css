@@ -13,6 +13,24 @@
 	font-size: 18pt;
 	color: #003366;
 }
+.commontitle-text {
+	font-family: sans-serif;
+	font-size: 12pt;
+	color: #003344;
+}
+.grid-tree-text{
+	font-family: sans-serif;
+	font-size: 10pt;
+	font-weight: bold;
+	color: #003366;
+}
+.grid-tree-text-inactive{
+	font-family: sans-serif;
+	font-size: 10pt;
+	font-weight: bold;
+	text-decoration: line-through;
+	color: #003344;
+}
 .panel-icon-align {
 	text-align: right;
 	vertical-align: middle;
@@ -28,4 +46,18 @@
   	width: 50px; 
   	overflow: hidden;
   	text-overflow: ellipsis; 
+}
+.common-panelgrid{
+	border-radius: 5px;
+    border: 1px solid #00698C;
+    padding: 20px;
+	background-image: url("panelback.png");
+	background-size: contain;
+}
+.common-paneldatatable{
+	border-radius: 5px;
+    border: 1px solid #00698C;
+    padding: 20px;
+	background-image: url("paneldatatable.png");
+	background-size: contain;
 }
